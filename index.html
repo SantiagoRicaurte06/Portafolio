@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portafolio Personal - Santiago Alexis Ricaurte</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">SA</div>
+            <div class="logo">
+                <img src="assets/foto_perfil.jpeg" alt="Santiago Alexis Ricaurte" class="logo-img">
+            </div>
             <h1>Santiago Alexis Ricaurte</h1>
             <p class="subtitle">Técnico en Sistemas | Desarrollador en Formación</p>
         </div>
@@ -33,7 +35,7 @@
             <div class="about-content">
                 <div class="about-image">
                     <div class="profile-placeholder">
-                        <i class="fas fa-user-circle"></i>
+                        <img src="assets/foto_perfil.jpeg" alt="Santiago Alexis Ricaurte" class="profile-img">
                     </div>
                 </div>
                 <div class="about-text">
@@ -141,21 +143,42 @@
                     <ul>
                         <li>
                             <span class="icon-circle"></span>
-                            Viajar por el mundo y conocer nuevas culturas
+                            Viajar por el mundo y conocer nuevas culturas.
                         </li>
                         <li>
                             <span class="icon-circle"></span>
-                            Aprender nuevos idiomas con fluidez
+                            Aprender nuevos idiomas con fluidez.
                         </li>
                         <li>
                             <span class="icon-circle"></span>
-                            Crecer profesional como desarrollador full-stack
+                            Crecer profesional como desarrollador full-stack.
                         </li>
                         <li>
                             <span class="icon-circle"></span>
-                            Crear proyectos que impacten en la sociedad
+                            Crear proyectos que impacten en la sociedad.
                         </li>
                     </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="video" class="fade-in video-section">
+            <div class="section-header">
+                <h2>Video</h2>
+                <div class="accent-line"></div>
+            </div>
+            <div class="video-content">
+                <div class="video-wrapper">
+                        <a class="video-thumb-link" href="https://youtu.be/dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">
+                            <div class="video-thumb" style="background-image: url('https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');" role="img" aria-label="Miniatura del video">
+                                <div class="play-button" aria-hidden="true">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="video-fallback" style="margin-top:12px; text-align:center; color:var(--text-secondary)">
+                            Si el reproductor no carga, <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">ver el video en YouTube</a>.
+                        </div>
                 </div>
             </div>
         </section>

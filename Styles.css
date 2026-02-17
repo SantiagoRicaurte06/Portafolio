@@ -1,140 +1,546 @@
-/* Reset y estilos generales */
+/* ==================== RESET Y ESTILOS GENERALES ==================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
+:root {
+    --primary-dark: #0f1419;
+    --secondary-dark: #1a1f2e;
+    --accent-dark: #2d3748;
+    --accent-light: #374151;
+    --accent-cyan: #00d4ff;
+    --accent-purple: #a78bfa;
+    --accent-orange: #ff6b35;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b8c6;
+    --border-color: #3a4556;
 }
 
-/* Header */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--primary-dark);
+    overflow-x: hidden;
+}
+
+/* ==================== ANIMACIONES ==================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.7s ease-out forwards;
+}
+
+/* ==================== HEADER ==================== */
 header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 2rem 0;
+    background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 50%, #1a1f2e 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+    color: var(--text-primary);
+    padding: 1rem 0 0.8rem;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-bottom: 2px solid var(--accent-cyan);
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+    z-index: 1000;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+    animation: glow 2s ease-in-out infinite;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.2rem;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
 }
 
-header p {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    font-weight: 300;
 }
 
-/* Navegación */
+/* ==================== NAVEGACIÓN ==================== */
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
     flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 nav ul li a {
-    color: white;
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 2px solid transparent;
+    font-weight: 500;
 }
 
 nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 212, 255, 0.1);
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    transform: translateY(-2px);
 }
 
-/* Secciones */
+/* ==================== MAIN ==================== */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ==================== SECCIONES ==================== */
 section {
-    max-width: 900px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 4rem auto;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--accent-dark) 100%);
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+section:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 20px 50px rgba(0, 212, 255, 0.15);
+}
+
+/* ==================== ENCABEZADOS DE SECCIÓN ==================== */
+.section-header {
+    margin-bottom: 2.5rem;
 }
 
 section h2 {
-    color: #667eea;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 3px solid #667eea;
-    padding-bottom: 0.5rem;
+    color: var(--accent-cyan);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.accent-line {
+    height: 3px;
+    width: 80px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 2px;
 }
 
 section h3 {
-    color: #764ba2;
+    color: var(--accent-purple);
     font-size: 1.5rem;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
+    font-weight: 600;
 }
 
-/* Sección Sobre Mí */
-#sobre-mi img {
-    display: block;
-    margin: 1rem auto;
+/* ==================== SECCIÓN SOBRE MÍ ==================== */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-image {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-placeholder {
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
-    border: 5px solid #667eea;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+    animation: glow 2s ease-in-out infinite;
 }
 
-#sobre-mi p {
+.about-text p {
     text-align: justify;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
 }
 
-/* Listas */
-ul {
-    list-style-position: inside;
-    margin-left: 1rem;
+/* ==================== SECCIÓN CONOCIMIENTOS ==================== */
+.knowledge-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
-li {
-    margin-bottom: 0.8rem;
+.knowledge-box {
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(167, 139, 250, 0.05));
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.knowledge-box:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+}
+
+.knowledge-box h3 {
+    color: var(--accent-cyan);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.education ul li,
+.languages ul li {
+    list-style: none;
+    margin-bottom: 1.2rem;
+    padding-left: 0;
+    color: var(--text-secondary);
+}
+
+.education ul li strong,
+.languages ul li strong {
+    color: var(--accent-purple);
+}
+
+.bullet {
+    color: var(--accent-cyan);
+    margin-right: 0.8rem;
+    font-weight: bold;
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-name {
+    color: var(--accent-purple);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.skill-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+/* ==================== SECCIÓN HOBBIES E INTERESES ==================== */
+.interests-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.interest-box {
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 107, 53, 0.05));
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.interest-box:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+}
+
+.interest-box h3 {
+    color: var(--accent-cyan);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.interest-box ul {
+    list-style: none;
+}
+
+.interest-box ul li {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon-circle {
+    font-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.hobbies {
+    border-left: 4px solid var(--accent-purple);
+}
+
+.dreams {
+    border-left: 4px solid var(--accent-orange);
+}
+
+/* ==================== SECCIÓN CONTACTO ==================== */
+.contact-section {
+    text-align: center;
+    padding: 4rem 3rem;
+}
+
+.contact-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    color: var(--primary-dark);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
     font-size: 1rem;
-    padding-left: 0.5rem;
 }
 
-/* Footer */
+.contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+}
+
+/* ==================== FOOTER ==================== */
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #0a0d12;
+    color: var(--text-secondary);
     text-align: center;
     padding: 2rem 0;
-    margin-top: 3rem;
+    margin-top: 4rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 footer p {
     margin: 0.5rem 0;
 }
 
-/* Responsive */
+footer p:first-child {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+    section {
+        padding: 2rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    section h2 {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
+    header {
+        padding: 2rem 0 1.5rem;
+    }
+
     header h1 {
         font-size: 2rem;
     }
-    
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
     nav ul {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.8rem;
     }
-    
+
+    nav ul li a {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    main {
+        padding: 0 1rem;
+    }
+
     section {
-        margin: 2rem 1rem;
+        margin: 2rem auto;
         padding: 1.5rem;
     }
-    
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    .knowledge-container {
+        grid-template-columns: 1fr;
+    }
+
+    .interests-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-placeholder {
+        width: 180px;
+        height: 180px;
+        font-size: 4rem;
+    }
+
+    .contact-methods {
+        flex-direction: column;
+    }
+
+    .contact-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 1.5rem 0 1rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
     section h2 {
         font-size: 1.5rem;
+    }
+
+    section h3 {
+        font-size: 1.2rem;
+    }
+
+    nav ul {
+        gap: 0.5rem;
+    }
+
+    nav ul li a {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .about-text p {
+        font-size: 1rem;
+    }
+
+    .contact-section {
+        padding: 2rem 1.5rem;
     }
 }

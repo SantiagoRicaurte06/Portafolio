@@ -3,66 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Personal</title>
+    <title>Portafolio Personal - Santiago Alexis Ricaurte</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Portafolio</h1>
+        <div class="header-content">
+            <div class="logo">SA</div>
+            <h1>Santiago Alexis Ricaurte</h1>
+            <p class="subtitle">Técnico en Sistemas | Desarrollador en Formación</p>
+        </div>
         <nav>
             <ul>
-                <li><a href="#sobre-mi">Sobre Mí</a></li>
-                <li><a href="#conocimientos">Conocimientos y Estudios</a></li>
-                <li><a href="#hobbies">Hobbies y Sueños</a></li>
+                <li><a href="#sobre-mi"><i class="fas fa-user"></i> Sobre Mí</a></li>
+                <li><a href="#conocimientos"><i class="fas fa-graduation-cap"></i> Conocimientos</a></li>
+                <li><a href="#hobbies"><i class="fas fa-heart"></i> Intereses</a></li>
+                <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
             </ul>
         </nav>
     </header>
-    <section id="sobre-mi">
-        <h2>Sobre Mí</h2>
-        <img src="foto-perfil.jpg" alt="Mi foto de perfil" width="200">
-        <p>
-            Hola, mi nombre es Santiago Alexis Ricaurte. Soy una persona apasionada por el aprendizaje
-            y el desarrollo personal. Me gusta enfrentar nuevos desafíos y crecer cada día.
-        </p>
-        <p>
-            En esta página encontrarás información sobre mis conocimientos, estudios,
-            hobbies y sueños que quiero cumplir.
-        </p>
-    </section>
-    <section id="conocimientos">
-        <h2>Conocimientos y Estudios</h2>
-        
-        <h3>Estudios</h3>
-        <ul>
-            <li>Tecnico en sistemas - SENA</li>
-            <li>Educación Secundaria - Colegio Luis Hernandez Vargas</li>
-        </ul>
-        <h3>Conocimientos</h3>
-        <ul>
-            <li>Ofimatica basica</li>
-            <li>Python</li>
-            <li>HTML y CSS</li>
-            <li>Idiomas: Español-nativo</li>
-        </ul>
-    </section>
-    <section id="hobbies">
-        <h2>Hobbies y Sueños</h2>
-        
-        <h3>Mis Hobbies</h3>
-        <ul>
-            <li>Leer libros</li>
-            <li>Escuchar música</li>
-        </ul>
-        <h3>Mis Sueños</h3>
-        <ul>
-            <li>Viajar por el mundo</li>
-            <li>Aprender nuevos idiomas</li>
-            <li>Crecer profesional y personalmente</li>
-        </ul>
-    </section>
+
+    <main>
+        <section id="sobre-mi" class="fade-in">
+            <div class="section-header">
+                <h2>Sobre Mí</h2>
+                <div class="accent-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="profile-placeholder">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>
+                        Hola, mi nombre es Santiago Alexis Ricaurte. Soy una persona apasionada por el aprendizaje
+                        y el desarrollo personal. Me gusta enfrentar nuevos desafíos y crecer cada día.
+                    </p>
+                    <p>
+                        En esta página encontrarás información sobre mis conocimientos, estudios,
+                        hobbies y sueños que quiero cumplir. Soy un técnico en sistemas con ganas de superarme
+                        y convertirme en un desarrollador full-stack competente.
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conocimientos" class="fade-in">
+            <div class="section-header">
+                <h2>Conocimientos y Estudios</h2>
+                <div class="accent-line"></div>
+            </div>
+            
+            <div class="knowledge-container">
+                <div class="knowledge-box education">
+                    <h3><i class="fas fa-book"></i> Educación</h3>
+                    <ul>
+                        <li>
+                            <span class="bullet">●</span>
+                            <strong>Técnico en Sistemas</strong> - SENA
+                        </li>
+                        <li>
+                            <span class="bullet">●</span>
+                            <strong>Educación Secundaria</strong> - Colegio Luis Hernández Vargas
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="knowledge-box skills">
+                    <h3><i class="fas fa-code"></i> Habilidades Técnicas</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">HTML & CSS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Ofimática</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="knowledge-box languages">
+                    <h3><i class="fas fa-globe"></i> Idiomas</h3>
+                    <ul>
+                        <li>
+                            <span class="bullet">●</span>
+                            <strong>Español</strong> - Nativo
+                        </li>
+                        <li>
+                            <span class="bullet">●</span>
+                            <strong>Inglés</strong> - En aprendizaje
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="hobbies" class="fade-in">
+            <div class="section-header">
+                <h2>Hobbies y Sueños</h2>
+                <div class="accent-line"></div>
+            </div>
+            
+            <div class="interests-container">
+                <div class="interest-box hobbies">
+                    <h3> Mis Hobbies</h3>
+                    <ul>
+                        <li>
+                            <span class="icon-circle"></span>
+                            Leer libros de desarrollo personal y tecnología
+                        </li>
+                        <li>
+                            <span class="icon-circle"></span>
+                            Escuchar música y descubrir nuevos géneros
+                        </li>
+                        <li>
+                            <span class="icon-circle"></span>
+                            Explorar nuevas tecnologías y frameworks
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="interest-box dreams">
+                    <h3> Mis Sueños</h3>
+                    <ul>
+                        <li>
+                            <span class="icon-circle"></span>
+                            Viajar por el mundo y conocer nuevas culturas
+                        </li>
+                        <li>
+                            <span class="icon-circle"></span>
+                            Aprender nuevos idiomas con fluidez
+                        </li>
+                        <li>
+                            <span class="icon-circle"></span>
+                            Crecer profesional como desarrollador full-stack
+                        </li>
+                        <li>
+                            <span class="icon-circle"></span>
+                            Crear proyectos que impacten en la sociedad
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="fade-in contact-section">
+            <div class="section-header">
+                <h2>Contacto</h2>
+                <div class="accent-line"></div>
+            </div>
+            <div class="contact-content">
+                <p>¿Tienes alguna pregunta o propuesta? ¡No dudes en contactarme!</p>
+                <div class="contact-methods">
+                    <a href="mailto:santiagoricuarte@gmail.com" class="contact-btn">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="https://github.com" class="contact-btn" target="_blank">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="https://linkedin.com" class="contact-btn" target="_blank">
+                        <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer>
-        <p>Gracias por visitar mi página</p>
-        <p>Contacto: santiagoricuarte@gmail.com</p>
+        <div class="footer-content">
+            <p>© 2026 Santiago Alexis Ricaurte. Todos los derechos reservados.</p>
+            <p>Gracias por visitar mi portafolio</p>
+        </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

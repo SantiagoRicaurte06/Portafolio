@@ -71,8 +71,6 @@ header {
     text-align: center;
     border-bottom: 2px solid var(--accent-cyan);
     box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
-    position: sticky;
-    top: 0;
     z-index: 1000;
 }
 
@@ -229,32 +227,6 @@ section h3 {
     font-size: 1.1rem;
     color: var(--text-secondary);
     line-height: 1.8;
-}
-
-.about-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.stat {
-    text-align: center;
-    padding: 1.5rem;
-    background: rgba(0, 212, 255, 0.1);
-    border-radius: 10px;
-    border: 1px solid var(--accent-cyan);
-}
-
-.stat h4 {
-    color: var(--accent-cyan);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.stat p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
 }
 
 /* ==================== SECCIÓN CONOCIMIENTOS ==================== */
@@ -470,10 +442,6 @@ footer p:first-child {
     section h2 {
         font-size: 2rem;
     }
-
-    .about-stats {
-        grid-template-columns: repeat(3, 1fr);
-    }
 }
 
 @media (max-width: 768px) {
@@ -518,11 +486,6 @@ footer p:first-child {
 
     .interests-container {
         grid-template-columns: 1fr;
-    }
-
-    .about-stats {
-        grid-template-columns: 1fr;
-        gap: 1rem;
     }
 
     .profile-placeholder {

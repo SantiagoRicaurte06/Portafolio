@@ -30,7 +30,7 @@
     (function () {
       var lectura = false;
       try { lectura = localStorage.getItem('modo') === 'lectura'; } catch (e) {}
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) lectura = true;
+      // Menos movimiento NO quita la casa (Windows lo activa al apagar sus animaciones): solo la calma.
       try { if (!document.createElement('canvas').getContext('webgl2')) lectura = true; } catch (e) { lectura = true; }
       document.documentElement.classList.add(lectura ? 'modo-lectura' : 'modo-recorrido');
     })();

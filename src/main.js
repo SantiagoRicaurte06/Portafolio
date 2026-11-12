@@ -104,7 +104,7 @@ async function iniciarRecorrido() {
   try {
     await new Promise((r) => cuandoLibre(r, 900));
     const { crearEscena } = await import('./escena/escena.js');
-    escena = crearEscena(lienzo, { salas, calidad });
+    escena = crearEscena(lienzo, { salas, calidad, menosMovimiento });
     escena.redimensionar(innerWidth, innerHeight);
     addEventListener('resize', () => escena.redimensionar(innerWidth, innerHeight));
   } catch (error) {

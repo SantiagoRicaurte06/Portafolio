@@ -9,7 +9,7 @@ import { mostrarOcupantes } from './ocupantes.js';
 const suave = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const llama = (t) => 0.86 + 0.07 * Math.sin(t * 7.3) + 0.04 * Math.sin(t * 17.9 + 1.3) + 0.03 * Math.sin(t * 3.1 + 0.4);
 
-export function crearEscena(canvas, { salas, calidad }) {
+export function crearEscena(canvas, { salas, calidad, menosMovimiento = false }) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: calidad.antialias, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, calidad.dpr));
   renderer.toneMapping = THREE.AgXToneMapping;
@@ -77,7 +77,7 @@ export function crearEscena(canvas, { salas, calidad }) {
     const empuje = suave(0.05, 0.6, estado.local) * (Math.abs(estado.posicion - Math.round(estado.posicion)) < 0.02 ? 1 : 0);
     camara.position.set(
       salaX + desfase + estado.cursorSuave.x * 0.08,
-      ALTURA_OJOS + (vertical ? 0.35 : 0) + Math.sin(salaX * 1.3) * 0.012 - estado.cursorSuave.y * 0.04,
+      ALTURA_OJOS + (vertical ? 0.35 : 0) + (menosMovimiento ? 0 : Math.sin(salaX * 1.3) * 0.012) - estado.cursorSuave.y * 0.04,
       (vertical ? 8.6 : DISTANCIA_CAMARA) - empuje * 0.9,
     );
     // En celular la casa sube a la mitad superior: el panel ocupa la de abajo
@@ -104,7 +104,8 @@ export function crearEscena(canvas, { salas, calidad }) {
         m.uniforms.uPotencia.value = r.potencia;
         m.uniforms.uSombra.value = sombra;
       }
-      if (r.ocupantes?.animar && distancia < 1.2) r.ocupantes.animar(t, dt);
+      // Con menos movimiento las cosas de la sala quedan quietas (la linterna la sigue moviendo el visitante)
+      if (r.ocupantes?.animar && distancia < 1.2 && !menosMovimiento) r.ocupantes.animar(t, dt);
       r.ocupantes && (r.ocupantes.grupo.visible = distancia < 1.5);
     });
 
@@ -125,7 +126,7 @@ export function crearEscena(canvas, { salas, calidad }) {
       relleno.intensity = 0;
     }
 
-    estanque.actualizar(t, dt, andon.position);
+    estanque.actualizar(t, dt, andon.position, menosMovimiento);
     renderer.render(escena, camara);
   }
 

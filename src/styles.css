@@ -276,6 +276,27 @@ h3 { font-size: 1.15rem; }
 
 .enlaces-contacto { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; margin: 0 0 1rem; padding: 0; list-style: none; font-size: 1.05rem; }
 
+.formulario { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .9rem 1.25rem; width: 100%; max-width: 760px !important; margin: 0 0 1.5rem; }
+.campo { display: flex; flex-direction: column; gap: .3rem; }
+.campo-ancho { grid-column: 1 / -1; }
+.campo label { font-size: .85rem; font-weight: 500; }
+.campo input, .campo select, .campo textarea {
+  font: inherit; font-size: .95rem; color: var(--tinta);
+  background: rgb(255 255 255 / .55); border: 1px solid var(--tinta); border-radius: 0;
+  padding: .55rem .7rem;
+}
+.campo textarea { resize: vertical; min-height: 6rem; }
+.campo-check { flex-direction: row; align-items: flex-start; gap: .6rem; }
+.campo-check input { margin-top: .3rem; accent-color: var(--sello); }
+.campo-check label { font-weight: 400; }
+.campo-trampa { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.acciones { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.acciones .boton { border: 0; cursor: pointer; font: inherit; }
+.acciones .boton:disabled { opacity: .6; cursor: wait; }
+.formulario-estado { margin: 0; font-size: .9rem; }
+.formulario-estado[data-tipo="ok"] { color: #1f5d2e; }
+.formulario-estado[data-tipo="error"] { color: var(--sello); }
+
 /* ── Caligrafía ─────────────────────────────────────────────────────────── */
 .kanji-pintado path {
   fill: none;

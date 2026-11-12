@@ -3,6 +3,7 @@ import { iniciarLinterna } from './linterna.js';
 import { crearKanji, pintar } from './caligrafia.js';
 import { reproducirEntrada } from './entrada.js';
 import { crearSilueta } from './siluetas.js';
+import { iniciarFormulario } from './formulario.js';
 
 const pasillo = document.getElementById('pasillo');
 const habitaciones = [...document.querySelectorAll('.habitacion')];
@@ -111,6 +112,7 @@ habitaciones.forEach((h) => vigia.observe(h));
 botonLamparas.addEventListener('click', () => encenderLamparas(!document.body.classList.contains('lamparas')));
 
 iniciarLinterna();
+iniciarFormulario();
 if (menosMovimiento) encenderLamparas(true);
 
 // Primera visita: 玄関 trazo a trazo y el sello; después la entrada se abre sola.

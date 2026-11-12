@@ -29,3 +29,6 @@ body.pagina {
 .volver { font-size: .9rem; }
 .aviso-borrador { display: inline-block; font-size: .8rem; padding: .2rem .6rem; border: 1px solid var(--sello); color: var(--sello); }
 :focus-visible { outline: 2px solid var(--sello); outline-offset: 3px; }
+.pagina-vacia { display: grid; place-items: center; }
+.vacia { text-align: center; }
+.kanji-vacio { font-family: 'Shippori Mincho', serif; font-size: clamp(6rem, 22vw, 11rem); line-height: 1; margin: 0; opacity: .12; }

@@ -7,6 +7,7 @@ export default defineConfig({
       input: {
         inicio: resolve(import.meta.dirname, 'index.html'),
         privacidad: resolve(import.meta.dirname, 'privacidad.html'),
+        noEncontrada: resolve(import.meta.dirname, '404.html'),
       },
     },
   },

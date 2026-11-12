@@ -15,9 +15,18 @@ const TEXTOS = {
     rol: 'Desarrollador de Software · Backend y análisis de datos',
     insignia: 'Disponible para empleo y etapa productiva · Remoto o Yopal',
     verObras: 'Ver mis obras',
-    enConstruccion: 'Habitación en construcción.',
     cambiarIdioma: 'Change language to English',
     creditoKanji: 'Trazos de los kanji:',
+    capturasPronto: 'Capturas con datos de prueba, próximamente.',
+    usoDiario: 'Uso a diario',
+    heConstruido: 'He construido con',
+    aprendiendo: 'Estoy aprendiendo',
+    comoTrabajo: 'Cómo trabajo',
+    estudios: 'Estudios',
+    idiomas: 'Idiomas',
+    cotizar: 'Cotizar un proyecto',
+    metas: 'Hacia dónde voy',
+    intereses: 'Lo que me gusta',
   },
   en: {
     saltar: 'Skip to content',
@@ -35,9 +44,18 @@ const TEXTOS = {
     rol: 'Software Developer · Backend and data analysis',
     insignia: 'Open to jobs and internships · Remote or Yopal, Colombia',
     verObras: 'See my work',
-    enConstruccion: 'Room under construction.',
     cambiarIdioma: 'Cambiar idioma a español',
     creditoKanji: 'Kanji strokes:',
+    capturasPronto: 'Screenshots with test data, coming soon.',
+    usoDiario: 'Daily tools',
+    heConstruido: "I've built with",
+    aprendiendo: 'Currently learning',
+    comoTrabajo: 'How I work',
+    estudios: 'Education',
+    idiomas: 'Languages',
+    cotizar: 'Request a quote',
+    metas: "Where I'm headed",
+    intereses: 'What I enjoy',
   },
 };
 
@@ -64,6 +82,7 @@ export function aplicarIdioma(idioma) {
   actual = TEXTOS[idioma] ? idioma : 'es';
   document.documentElement.lang = actual;
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-idioma]').forEach((el) => { el.hidden = el.dataset.idioma !== actual; });
   document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
   document.dispatchEvent(new CustomEvent('idioma', { detail: actual }));
 }

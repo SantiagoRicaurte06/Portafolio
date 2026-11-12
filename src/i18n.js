@@ -17,6 +17,7 @@ const TEXTOS = {
     verObras: 'Ver mis obras',
     enConstruccion: 'Habitación en construcción.',
     cambiarIdioma: 'Change language to English',
+    creditoKanji: 'Trazos de los kanji:',
   },
   en: {
     saltar: 'Skip to content',
@@ -36,6 +37,7 @@ const TEXTOS = {
     verObras: 'See my work',
     enConstruccion: 'Room under construction.',
     cambiarIdioma: 'Cambiar idioma a español',
+    creditoKanji: 'Kanji strokes:',
   },
 };
 

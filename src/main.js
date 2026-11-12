@@ -1,5 +1,7 @@
 import { iniciarIdioma, t } from './i18n.js';
 import { iniciarLinterna } from './linterna.js';
+import { crearKanji, pintar } from './caligrafia.js';
+import { reproducirEntrada } from './entrada.js';
 
 const pasillo = document.getElementById('pasillo');
 const habitaciones = [...document.querySelectorAll('.habitacion')];
@@ -14,6 +16,10 @@ function armarShoji(habitacion) {
   const contenido = habitacion.querySelector('.contenido');
   contenido.id = `contenido-${habitacion.id}`;
   contenido.inert = true;
+
+  // El kanji de la habitación, que se pinta al abrir la puerta.
+  const firma = crearKanji(habitacion.dataset.kanji, { clase: 'kanji-sala' });
+  contenido.prepend(firma);
 
   const sombra = document.createElement('div');
   sombra.className = 'sombra';
@@ -47,6 +53,8 @@ function abrir(habitacion, { enfocar = true } = {}) {
   const shoji = habitacion.querySelector('.shoji');
   shoji.setAttribute('aria-expanded', 'true');
   shoji.tabIndex = -1;
+  const firma = contenido.querySelector('.kanji-sala');
+  if (firma) setTimeout(() => pintar(firma, { duracion: 1200 }), 450);
   if (enfocar) contenido.querySelector('h1, h2')?.setAttribute('tabindex', '-1');
   if (enfocar) contenido.querySelector('h1, h2')?.focus({ preventScroll: true });
 }
@@ -99,5 +107,5 @@ botonLamparas.addEventListener('click', () => encenderLamparas(!document.body.cl
 iniciarLinterna();
 if (menosMovimiento) encenderLamparas(true);
 
-// La entrada se abre sola (la animación de caligrafía llega después).
-setTimeout(() => abrir(habitaciones[0], { enfocar: false }), menosMovimiento ? 0 : 1200);
+// Primera visita: 玄関 trazo a trazo y el sello; después la entrada se abre sola.
+reproducirEntrada().then(() => abrir(habitaciones[0], { enfocar: false }));

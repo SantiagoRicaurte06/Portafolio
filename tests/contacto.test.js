@@ -62,6 +62,8 @@ test('envía el correo como texto con reply_to y responde ok', async () => {
   assert.equal(enviado.reply_to, 'ana@empresa.co');
   assert.equal(enviado.html, undefined);
   assert.match(enviado.subject, /Oferta de trabajo/);
+  assert.match(enviado.text, /Autorización de tratamiento de datos: aceptada por ana@empresa\.co el \d{4}-\d{2}-\d{2}T/);
+  assert.match(enviado.text, /versión 2026-11-12-borrador/);
 });
 
 test('no llama a Resend con datos inválidos, bots ni sin configuración', async () => {

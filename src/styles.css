@@ -276,12 +276,13 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 .modo-lectura #casa { padding: calc(var(--barra-alto) + 1rem) 16px 3rem; display: grid; gap: 1.5rem; justify-items: center; }
 .modo-lectura .barra { background: #1a1815; }
 .modo-lectura .sala { width: min(820px, 100%); }
-.modo-lectura .panel, .modo-lectura .panel.panel-ancho {
+/* Más específicas que las reglas del recorrido (.sala.visible .panel), que si no las pisan */
+.modo-lectura .sala .panel, .modo-lectura .sala.visible .panel, .modo-lectura .sala .panel.panel-ancho {
   position: relative; inset: auto; transform: none; opacity: 1;
   width: 100%; max-height: none; overflow: visible;
 }
-.modo-lectura .panel-cuerpo > * { opacity: 1; transform: none; }
-.modo-lectura .sala-genkan .panel { padding: 3rem 0 2rem; }
+.modo-lectura .sala .panel-cuerpo > * { opacity: 1; transform: none; }
+.modo-lectura .sala.sala-genkan .panel { padding: 3rem 0 2rem; }
 
 @media (prefers-reduced-motion: reduce) {
   /* Sin desplazamientos ni bucles; los fundidos se acortan pero se mantienen */

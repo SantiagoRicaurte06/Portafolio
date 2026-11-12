@@ -43,6 +43,8 @@
         <div class="contenido">
           <h1 id="t-genkan">Santiago Alexis Ricaurte</h1>
           <p class="rol" data-i18n="rol">Desarrollador de Software · Backend y análisis de datos</p>
+          <p class="bajada" data-idioma="es">Construyo sistemas para negocios que ya los usan: turnos, caja, inventario y producción. Me interesa el backend y lo que dicen los datos.</p>
+          <p class="bajada" data-idioma="en" hidden>I build systems for businesses that already run on them: shifts, cash closing, inventory and production. I care about the backend and about what the data says.</p>
           <p class="insignia" data-i18n="insignia">Disponible para empleo y etapa productiva · Remoto o Yopal</p>
           <a class="boton" href="#obras" data-i18n="verObras">Ver mis obras</a>
         </div>
@@ -53,7 +55,59 @@
       <div class="marco">
         <div class="contenido">
           <h2 id="t-obras" data-i18n="obras">Obras</h2>
-          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+          <p class="bajada" data-idioma="es">Dos sistemas hechos para clientes y el sitio que estás recorriendo. Por confidencialidad, los clientes son anónimos y las capturas usan datos de prueba.</p>
+          <p class="bajada" data-idioma="en" hidden>Two systems built for clients and the site you are walking through. Clients stay anonymous and screenshots use test data.</p>
+
+          <div class="pergaminos">
+            <article class="pergamino destacado">
+              <p class="pergamino-estado"><span data-idioma="es">En producción · 12 versiones</span><span data-idioma="en" hidden>In production · 12 releases</span></p>
+              <h3><span data-idioma="es">Gestión para una papelería con varias sedes</span><span data-idioma="en" hidden>Management system for a multi-branch stationery store</span></h3>
+              <div data-idioma="es">
+                <p>La papelería necesitaba llevar turnos, caja, bodega, deudas y nómina de todas sus sedes en un solo lugar. Hice el sistema completo y hoy lo usan a diario.</p>
+                <ul class="lista-corta">
+                  <li>Hojas de turno y cuadre de caja en vivo por sede.</li>
+                  <li>Bodega, deudas de clientes y nómina.</li>
+                  <li>Base de datos con 25 migraciones versionadas, pruebas automáticas e integración continua.</li>
+                </ul>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>The store needed shifts, cash, stock, customer debts and payroll for every branch in one place. I built the whole system and it is used every day.</p>
+                <ul class="lista-corta">
+                  <li>Shift sheets and live cash closing per branch.</li>
+                  <li>Stock, customer debts and payroll.</li>
+                  <li>Database with 25 versioned migrations, automated tests and CI.</li>
+                </ul>
+              </div>
+              <ul class="etiquetas" aria-label="Stack"><li>React 19</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li><li>Supabase</li></ul>
+              <div class="capturas" data-capturas="papeleria"><p data-i18n="capturasPronto">Capturas con datos de prueba, próximamente.</p></div>
+            </article>
+
+            <article class="pergamino">
+              <p class="pergamino-estado"><span data-idioma="es">En desarrollo</span><span data-idioma="en" hidden>In development</span></p>
+              <h3><span data-idioma="es">Inventario y producción para una empresa de agua</span><span data-idioma="en" hidden>Inventory and production for a water company</span></h3>
+              <div data-idioma="es">
+                <p>Inventario, listas de materiales, órdenes de producción y facturación interna. API en Express con Prisma, interfaz en React y 57 pruebas automáticas.</p>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>Inventory, bills of materials, production orders and internal invoicing. Express API with Prisma, React interface and 57 automated tests.</p>
+              </div>
+              <ul class="etiquetas" aria-label="Stack"><li>TypeScript</li><li>Node.js</li><li>Express</li><li>Prisma</li><li>React</li></ul>
+              <div class="capturas" data-capturas="aguas"><p data-i18n="capturasPronto">Capturas con datos de prueba, próximamente.</p></div>
+            </article>
+
+            <article class="pergamino">
+              <p class="pergamino-estado"><span data-idioma="es">Código abierto</span><span data-idioma="en" hidden>Open source</span></p>
+              <h3><span data-idioma="es">Esta casa</span><span data-idioma="en" hidden>This house</span></h3>
+              <div data-idioma="es">
+                <p>Un portafolio que se recorre con una linterna. Vite y JavaScript sin frameworks, caligrafía con los trazos reales de KanjiVG, siluetas en SVG y un formulario que corre en una función de Vercel.</p>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>A portfolio you explore with a lantern. Vite and plain JavaScript, calligraphy drawn with real KanjiVG stroke data, SVG silhouettes and a contact form running on a Vercel function.</p>
+              </div>
+              <ul class="etiquetas" aria-label="Stack"><li>JavaScript</li><li>Vite</li><li>SVG</li><li>Vercel</li></ul>
+              <a class="enlace" href="https://github.com/SantiagoRicaurte06/Portafolio" rel="noopener"><span data-idioma="es">Ver el código</span><span data-idioma="en" hidden>See the code</span> →</a>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -62,16 +116,59 @@
       <div class="marco">
         <div class="contenido">
           <h2 id="t-taller" data-i18n="taller">Taller</h2>
-          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+          <div class="grupos">
+            <div class="grupo">
+              <h3 data-i18n="usoDiario">Uso a diario</h3>
+              <ul class="etiquetas"><li>Python</li><li>SQL · PostgreSQL</li><li>Supabase</li><li>TypeScript</li><li>Node.js · Express</li><li>Git · GitHub Actions</li></ul>
+            </div>
+            <div class="grupo">
+              <h3 data-i18n="heConstruido">He construido con</h3>
+              <ul class="etiquetas"><li>Prisma</li><li>React</li><li>Docker</li><li>Go</li><li>pandas</li><li>scikit-learn · XGBoost</li><li>MQTT</li></ul>
+            </div>
+            <div class="grupo">
+              <h3 data-i18n="aprendiendo">Estoy aprendiendo</h3>
+              <ul class="etiquetas suave" data-idioma="es"><li>Estadística y visualización de datos</li><li>Código limpio y arquitectura</li><li>Pruebas</li><li>Finanzas</li><li>Inglés</li></ul>
+              <ul class="etiquetas suave" data-idioma="en" hidden><li>Statistics and data visualization</li><li>Clean code and architecture</li><li>Testing</li><li>Finance</li><li>English</li></ul>
+            </div>
+          </div>
+          <div class="como-trabajo">
+            <h3 data-i18n="comoTrabajo">Cómo trabajo</h3>
+            <p data-idioma="es">Diseño la solución, reviso cada cambio y decido qué entra. Uso Claude Code como herramienta, con reglas que escribí yo: skills propias, un hook que bloquea comandos destructivos, revisiones de seguridad y rendimiento antes de publicar, commits convencionales e integración continua. Lo que está en mi código lo sé explicar.</p>
+            <p data-idioma="en" hidden>I design the solution, review every change and decide what gets merged. I use Claude Code as a tool, under rules I wrote: my own skills, a hook that blocks destructive commands, security and performance reviews before shipping, conventional commits and CI. I can explain everything in my code.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="habitacion" id="camino" data-kanji="道" aria-labelledby="t-camino">
       <div class="marco">
-        <div class="contenido">
+        <div class="contenido contenido-con-foto">
           <h2 id="t-camino" data-i18n="camino">Camino</h2>
-          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+          <div class="camino">
+            <figure class="foto">
+              <img src="/foto-perfil.jpeg" alt="Santiago Alexis Ricaurte" width="1248" height="832" loading="lazy" decoding="async">
+            </figure>
+            <div>
+              <div data-idioma="es">
+                <p>Soy de Yopal, Casanare. Me gradué como técnico en sistemas en el SENA y ahora estudio Análisis y Desarrollo de Software (ADSO), también en el SENA. Empecé arreglando computadores y me quedé con la pregunta de cómo funcionaba lo que corría adentro; esa pregunta me llevó a programar.</p>
+                <p>Hoy combino el estudio con <a href="https://www.zyvolabs.website/" rel="noopener">Zyvo</a>, la empresa que fundé con mis socios, donde tenemos proyectos en marcha con empresas.</p>
+                <p>Busco empleo o etapa productiva en backend o datos. Prefiero remoto, puedo trabajar presencial en Yopal y me interesan equipos de fuera de Colombia.</p>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>I'm from Yopal, Casanare, Colombia. I graduated as a systems technician at SENA and I'm now studying Software Analysis and Development (ADSO), also at SENA. I started out fixing computers and kept wondering how the software inside them worked; that question got me into programming.</p>
+                <p>Alongside my studies I run <a href="https://www.zyvolabs.website/" rel="noopener">Zyvo</a>, the company I co-founded with my partners, where we have ongoing projects with businesses.</p>
+                <p>I'm looking for a job or internship in backend or data. I prefer remote work, can work on-site in Yopal, and I'm open to teams outside Colombia.</p>
+              </div>
+              <dl class="datos">
+                <dt data-i18n="estudios">Estudios</dt>
+                <dd data-idioma="es">Tecnólogo en ADSO · SENA (en curso)<br>Técnico en Sistemas · SENA<br>Bachiller · Colegio Luis Hernández Vargas</dd>
+                <dd data-idioma="en" hidden>Software Analysis and Development (ADSO) · SENA (in progress)<br>Systems Technician · SENA<br>High school · Colegio Luis Hernández Vargas</dd>
+                <dt data-i18n="idiomas">Idiomas</dt>
+                <dd data-idioma="es">Español nativo · Inglés en aprendizaje</dd>
+                <dd data-idioma="en" hidden>Spanish (native) · English (learning)</dd>
+              </dl>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -80,7 +177,25 @@
       <div class="marco">
         <div class="contenido">
           <h2 id="t-servicios" data-i18n="servicios">Servicios</h2>
-          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+          <p class="bajada" data-idioma="es">También trabajo por proyecto con negocios y emprendedores.</p>
+          <p class="bajada" data-idioma="en" hidden>I also take on projects for businesses and entrepreneurs.</p>
+          <ul class="servicios" data-idioma="es">
+            <li><h3>Sitios web y landing pages</h3><p>Rápidos, bilingües y listos para Google, con un CMS para que edites el contenido sin tocar código.</p></li>
+            <li><h3>Tiendas en línea</h3><p>Catálogo, carrito y pagos con Wompi, administrables desde un CMS.</p></li>
+            <li><h3>Software a la medida</h3><p>Sistemas para la operación de tu negocio, como los de <a href="#obras">mis obras</a>.</p></li>
+            <li><h3>Bots y automatizaciones</h3><p>Discord, WhatsApp y flujos con IA que te ahorran tareas repetidas.</p></li>
+            <li><h3>Presencia en Google</h3><p>Ficha de Google Business Profile y SEO local para que te encuentren en tu ciudad.</p></li>
+            <li><h3>Mantenimiento</h3><p>Después de entregar sigo contigo: actualizaciones, copias de seguridad y cambios.</p></li>
+          </ul>
+          <ul class="servicios" data-idioma="en" hidden>
+            <li><h3>Websites and landing pages</h3><p>Fast, bilingual and ready for Google, with a CMS so you can edit content without code.</p></li>
+            <li><h3>Online stores</h3><p>Catalog, cart and payments with Wompi, managed from a CMS.</p></li>
+            <li><h3>Custom software</h3><p>Systems that run your business operations, like the ones in <a href="#obras">my work</a>.</p></li>
+            <li><h3>Bots and automations</h3><p>Discord, WhatsApp and AI workflows that take repetitive tasks off your plate.</p></li>
+            <li><h3>Google presence</h3><p>Google Business Profile and local SEO so people in your city can find you.</p></li>
+            <li><h3>Maintenance</h3><p>I stay with you after launch: updates, backups and changes.</p></li>
+          </ul>
+          <a class="boton" href="#contacto" data-motivo="proyecto" data-i18n="cotizar">Cotizar un proyecto</a>
         </div>
       </div>
     </section>
@@ -89,7 +204,40 @@
       <div class="marco">
         <div class="contenido">
           <h2 id="t-suenos" data-i18n="suenos">Sueños</h2>
-          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+          <div class="grupos">
+            <div class="grupo">
+              <h3 data-i18n="metas">Hacia dónde voy</h3>
+              <ul class="lista-tinta" data-idioma="es">
+                <li>Llegar a ser desarrollador senior.</li>
+                <li>Hacer crecer Zyvo y lograr estabilidad financiera.</li>
+                <li>Crear un proyecto que genere ingresos estables cada mes.</li>
+                <li>Hablar al menos tres idiomas además del español.</li>
+                <li>Viajar a Suiza.</li>
+              </ul>
+              <ul class="lista-tinta" data-idioma="en" hidden>
+                <li>Become a senior developer.</li>
+                <li>Grow Zyvo and reach financial stability.</li>
+                <li>Build a project with steady monthly income.</li>
+                <li>Speak at least three languages besides Spanish.</li>
+                <li>Travel to Switzerland.</li>
+              </ul>
+            </div>
+            <div class="grupo">
+              <h3 data-i18n="intereses">Lo que me gusta</h3>
+              <ul class="lista-tinta" data-idioma="es">
+                <li>Estudiar finanzas por mi cuenta.</li>
+                <li>Inventar ideas locas e intentar sacarlas adelante.</li>
+                <li>Los planes con amigos el fin de semana.</li>
+                <li>Caminar por la naturaleza y la libertad de un cielo despejado.</li>
+              </ul>
+              <ul class="lista-tinta" data-idioma="en" hidden>
+                <li>Studying finance on my own.</li>
+                <li>Coming up with wild ideas and trying to make them real.</li>
+                <li>Weekend plans with friends.</li>
+                <li>Hiking, and the freedom of a clear sky.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -98,7 +246,13 @@
       <div class="marco">
         <div class="contenido">
           <h2 id="t-contacto" data-i18n="contacto">Contacto</h2>
-          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+          <p class="bajada" data-idioma="es">¿Una oferta, una práctica o un proyecto? Escríbeme.</p>
+          <p class="bajada" data-idioma="en" hidden>A job offer, an internship or a project? Write to me.</p>
+          <ul class="enlaces-contacto">
+            <li><a href="mailto:santiagoricuarte@gmail.com">santiagoricuarte@gmail.com</a></li>
+            <li><a href="https://github.com/SantiagoRicaurte06" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.zyvolabs.website/" rel="noopener">Zyvo</a></li>
+          </ul>
           <p class="creditos"><span data-i18n="creditoKanji">Trazos de los kanji:</span> <a href="https://kanjivg.tagaini.net" rel="noopener">KanjiVG</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a></p>
         </div>
       </div>

@@ -1,137 +1,187 @@
 import { iniciarIdioma, t } from './i18n.js';
-import { iniciarLinterna } from './linterna.js';
-import { crearKanji, pintar } from './caligrafia.js';
-import { reproducirEntrada } from './entrada.js';
-import { crearSilueta } from './siluetas.js';
 import { iniciarFormulario } from './formulario.js';
 import { activarSonido, sonar, sonidoActivo } from './sonido.js';
+import { prepararTinta } from './tinta.js';
+import { texturaWashi } from './papel-dom.js';
+import { transicionTinta } from './transicion.js';
 
-const pasillo = document.getElementById('pasillo');
-const habitaciones = [...document.querySelectorAll('.habitacion')];
-const enlacesMapa = [...document.querySelectorAll('.mapa a')];
-const botonLamparas = document.getElementById('lamparas');
-const botonSonido = document.getElementById('sonido');
 const menosMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const esCelular = () => matchMedia('(max-width: 760px)').matches;
+const tactil = matchMedia('(pointer: coarse)').matches;
+const salasDom = [...document.querySelectorAll('.sala')];
+const enlacesMapa = [...document.querySelectorAll('.mapa a')];
+const botonSonido = document.getElementById('sonido');
+const botonLectura = document.getElementById('lectura');
 
-// ── Puertas shōji ──────────────────────────────────────────────────────────
-function armarShoji(habitacion) {
-  const marco = habitacion.querySelector('.marco');
-  const contenido = habitacion.querySelector('.contenido');
-  contenido.id = `contenido-${habitacion.id}`;
-  contenido.inert = true;
+// Cuánto scroll dura la pausa de cada sala (en pantallas)
+const PAUSAS = { genkan: 1.1, obras: 3.3, taller: 1.5, camino: 1.5, ma: 0.7, servicios: 1.6, suenos: 1.3, contacto: 1.7 };
 
-  // El kanji de la habitación, que se pinta al abrir la puerta.
-  const firma = crearKanji(habitacion.dataset.kanji, { clase: 'kanji-sala' });
-  contenido.prepend(firma);
+function leer(clave) { try { return localStorage.getItem(clave); } catch { return null; } }
+function guardar(clave, valor) { try { localStorage.setItem(clave, valor); } catch { /* sin almacenamiento */ } }
 
-  const sombra = document.createElement('div');
-  sombra.className = 'sombra';
-  sombra.setAttribute('aria-hidden', 'true');
-  const sombraKanji = document.createElement('span');
-  sombraKanji.className = 'sombra-kanji';
-  sombraKanji.textContent = habitacion.dataset.kanji;
-  sombra.append(sombraKanji);
-  const silueta = crearSilueta(habitacion.id);
-  if (silueta) sombra.append(silueta);
+// El modo ya lo decidió el script del <head> (antes del primer pintado)
+const modo = document.documentElement.classList.contains('modo-lectura') ? 'lectura' : 'recorrido';
 
-  const shoji = document.createElement('button');
-  shoji.type = 'button';
-  shoji.className = 'shoji';
-  shoji.setAttribute('aria-expanded', 'false');
-  shoji.setAttribute('aria-controls', contenido.id);
-  shoji.innerHTML = '<span class="hoja hoja-izq"></span><span class="hoja hoja-der"></span><span class="shoji-etiqueta"></span>';
-  shoji.addEventListener('click', () => abrir(habitacion));
+// ── Comunes a los dos modos ────────────────────────────────────────────────
+iniciarIdioma(document.getElementById('idioma'));
+iniciarFormulario();
+// Lo que no hace falta para el primer pintado espera a que el navegador esté libre
+const cuandoLibre = (fn, limite = 1200) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: limite }) : setTimeout(fn, 200));
+cuandoLibre(() => texturaWashi().then((url) => { if (url) document.documentElement.style.setProperty('--washi', `url(${url})`); }));
 
-  marco.append(sombra, shoji);
-}
-
-function pintarEtiquetas() {
-  habitaciones.forEach((h) => {
-    const nombre = h.querySelector('h1, h2')?.textContent ?? '';
-    h.querySelector('.shoji-etiqueta').textContent = `${t('abrir')} · ${h.dataset.kanji}`;
-    h.querySelector('.shoji').setAttribute('aria-label', `${t('abrir')} · ${h.dataset.kanji} · ${nombre}`);
-  });
-}
-
-function abrir(habitacion, { enfocar = true } = {}) {
-  if (habitacion.classList.contains('abierta')) return;
-  habitacion.classList.add('abierta');
-  const contenido = habitacion.querySelector('.contenido');
-  contenido.inert = false;
-  const shoji = habitacion.querySelector('.shoji');
-  shoji.setAttribute('aria-expanded', 'true');
-  shoji.tabIndex = -1;
-  const firma = contenido.querySelector('.kanji-sala');
-  if (firma) setTimeout(() => pintar(firma, { duracion: 1200 }), 450);
-  if (enfocar) sonar('shoji');
-  if (enfocar) contenido.querySelector('h1, h2')?.setAttribute('tabindex', '-1');
-  if (enfocar) contenido.querySelector('h1, h2')?.focus({ preventScroll: true });
-}
-
-// ── Lámparas: todo iluminado y todas las puertas abiertas ─────────────────
-function pintarBotonSonido() {
+function pintarBotones() {
   botonSonido.setAttribute('aria-pressed', String(sonidoActivo()));
   botonSonido.querySelector('.texto').textContent = t(sonidoActivo() ? 'silenciar' : 'activarSonido');
+  botonLectura.setAttribute('aria-pressed', String(modo === 'lectura'));
+  botonLectura.querySelector('.texto').textContent = t(modo === 'lectura' ? 'modoCasa' : 'modoLectura');
+}
+botonSonido.addEventListener('click', () => { activarSonido(!sonidoActivo()); pintarBotones(); sonar('furin'); });
+botonLectura.addEventListener('click', () => { guardar('modo', modo === 'lectura' ? 'recorrido' : 'lectura'); location.reload(); });
+document.addEventListener('idioma', pintarBotones);
+pintarBotones();
+
+// Kanji de pincel de cada sala: se pintan la primera vez que la sala se muestra
+const tintas = new Map();
+salasDom.forEach((s) => {
+  const lienzo = s.querySelector('.kanji-tinta');
+  if (!lienzo || getComputedStyle(lienzo.parentElement).display === 'none') return;
+  const tamano = innerWidth < 760 ? 46 : 62;
+  tintas.set(s, prepararTinta(lienzo, s.dataset.kanji, { tamano, vertical: innerWidth >= 760, grosor: 8.5, duracion: 1500, pausa: 50 }));
+});
+const pintarSala = (s) => tintas.get(s)?.pintar();
+
+const pergaminos = [...document.querySelectorAll('.pergamino')];
+const listaObras = document.querySelector('.pergaminos');
+
+if (modo === 'lectura') {
+  const vigia = new IntersectionObserver((entradas) => entradas.forEach((e) => {
+    if (e.isIntersecting) { pintarSala(e.target); e.target.classList.add('visible'); }
+  }), { threshold: 0.2 });
+  salasDom.forEach((s) => vigia.observe(s));
+} else {
+  iniciarRecorrido();
 }
 
-function encenderLamparas(encendidas) {
-  document.body.classList.toggle('lamparas', encendidas);
-  botonLamparas.setAttribute('aria-pressed', String(encendidas));
-  botonLamparas.querySelector('.texto').textContent = t(encendidas ? 'apagar' : 'encender');
-  if (encendidas) habitaciones.forEach((h) => abrir(h, { enfocar: false }));
-}
+async function iniciarRecorrido() {
+  const lienzo = document.getElementById('escena');
+  const trayecto = document.getElementById('trayecto');
+  const salas = salasDom.map((s) => ({ id: s.id, tipo: s.dataset.tipo === 'ma' ? 'ma' : 'sala', pausa: PAUSAS[s.id] ?? 1.3 }));
+  const iObras = salas.findIndex((s) => s.id === 'obras');
+  let recorrido = null;
 
-// ── Pasillo: la rueda del mouse camina de lado en escritorio ──────────────
-pasillo.addEventListener('wheel', (e) => {
-  if (esCelular() || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-  // Si la habitación abierta tiene scroll propio, se respeta.
-  const interno = e.target.closest('.contenido');
-  if (interno && interno.scrollHeight > interno.clientHeight) return;
-  e.preventDefault();
-  pasillo.scrollBy({ left: e.deltaY * 1.2, behavior: 'auto' });
-}, { passive: false });
-
-// ── Mapa: marca la habitación en la que estás ─────────────────────────────
-let salaActual = null;
-const vigia = new IntersectionObserver((entradas) => {
-  entradas.forEach((entrada) => {
-    if (!entrada.isIntersecting) return;
-    if (salaActual && salaActual !== entrada.target.id) sonar('furin');
-    salaActual = entrada.target.id;
-    enlacesMapa.forEach((a) => a.setAttribute('aria-current', String(a.hash === `#${entrada.target.id}`)));
+  // Índice de proyectos para saltar entre pergaminos
+  const indice = document.createElement('ul');
+  indice.className = 'indice-obras';
+  pergaminos.forEach((_, k) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = String(k + 1).padStart(2, '0');
+    b.addEventListener('click', () => recorrido?.irA(iObras, { local: (k + 0.55) / pergaminos.length }));
+    li.append(b); indice.append(li);
   });
-}, { threshold: 0.6 });
+  listaObras?.before(indice);
 
-enlacesMapa.forEach((a) => a.addEventListener('click', (e) => {
-  const destino = document.querySelector(a.hash);
-  if (!destino) return;
-  e.preventDefault();
-  destino.scrollIntoView({ behavior: menosMovimiento ? 'auto' : 'smooth', inline: 'start', block: 'start' });
-  history.replaceState(null, '', a.hash);
-}));
+  // Preludio: 玄関 en tinta y el sello mientras carga la casa
+  const vista = leer('preludio-visto') === 'si';
+  const preludio = document.createElement('div');
+  preludio.className = 'preludio';
+  preludio.setAttribute('aria-hidden', 'true');
+  preludio.innerHTML = '<div class="preludio-centro"><canvas></canvas><img class="preludio-sello" src="/sello.svg" alt=""></div><p class="preludio-carga"></p>';
+  document.body.append(preludio);
+  preludio.querySelector('.preludio-carga').textContent = t('cargando');
+  const tintaPreludio = prepararTinta(preludio.querySelector('canvas'), '玄関', { tamano: Math.min(150, innerWidth * 0.3), vertical: false, grosor: 7.5, tinta: '243,239,230', duracion: vista ? 900 : 2300, pausa: vista ? 15 : 60 });
+  // Nunca más de 3,5 s, aunque el dispositivo vaya lento
+  const limite = new Promise((r) => setTimeout(r, vista ? 1500 : 3500)).then(() => tintaPreludio.completar());
+  const pintado = Promise.race([tintaPreludio.pintar(), limite]).then(() => { preludio.classList.add('sellado'); return new Promise((r) => setTimeout(r, 450)); });
+  const saltar = () => tintaPreludio.completar();
+  addEventListener('pointerdown', saltar, { once: true });
+  addEventListener('keydown', saltar, { once: true });
 
-// ── Arranque ───────────────────────────────────────────────────────────────
-habitaciones.forEach(armarShoji);
-iniciarIdioma(document.getElementById('idioma'));
-pintarEtiquetas();
-document.addEventListener('idioma', () => {
-  pintarEtiquetas();
-  pintarBotonSonido();
-  encenderLamparas(document.body.classList.contains('lamparas'));
-});
-habitaciones.forEach((h) => vigia.observe(h));
-botonSonido.addEventListener('click', () => {
-  activarSonido(!sonidoActivo());
-  pintarBotonSonido();
-  sonar('furin');
-});
-pintarBotonSonido();
-botonLamparas.addEventListener('click', () => encenderLamparas(!document.body.classList.contains('lamparas')));
+  const calidad = tactil || (navigator.hardwareConcurrency ?? 8) <= 4
+    ? { dpr: 1.25, sombra: 512, washi: 512, antialias: false }
+    : { dpr: 1.75, sombra: 1024, washi: 1024, antialias: true };
 
-iniciarLinterna();
-iniciarFormulario();
-if (menosMovimiento) encenderLamparas(true);
+  let escena;
+  try {
+    await new Promise((r) => cuandoLibre(r, 900));
+    const { crearEscena } = await import('./escena/escena.js');
+    escena = crearEscena(lienzo, { salas, calidad });
+    escena.redimensionar(innerWidth, innerHeight);
+    addEventListener('resize', () => escena.redimensionar(innerWidth, innerHeight));
+  } catch (error) {
+    console.error('No se pudo crear la escena 3D', error);
+    guardar('modo', 'lectura');
+    location.reload();
+    return;
+  }
 
-// Primera visita: 玄関 trazo a trazo y el sello; después la entrada se abre sola.
-reproducirEntrada().then(() => abrir(habitaciones[0], { enfocar: false }));
+  let salaActual = -1;
+  let ultimaApertura = 0;
+  const { crearRecorrido } = await import('./recorrido.js');
+  recorrido = crearRecorrido({
+    salas, trayecto, menosMovimiento,
+    alActualizar({ posicion, local, sala }) {
+      escena.avanzar(posicion, local);
+      const cerca = Math.abs(posicion - sala) < 0.32;
+      salasDom.forEach((s, i) => {
+        const visible = i === sala && cerca;
+        if (visible && !s.classList.contains('visible')) pintarSala(s);
+        s.classList.toggle('visible', visible);
+        s.inert = !visible;
+      });
+      if (sala !== salaActual) {
+        if (salaActual !== -1) sonar('furin');
+        salaActual = sala;
+        enlacesMapa.forEach((a) => a.setAttribute('aria-current', String(a.hash === `#${salas[sala].id}`)));
+      }
+      // Sonido de la puerta al empezar a abrirse
+      const apertura = cerca && posicion === sala ? local : 0;
+      if (ultimaApertura < 0.15 && apertura >= 0.15 && salas[sala].tipo === 'sala') sonar('shoji');
+      ultimaApertura = apertura;
+      // Obras: cada pergamino se desenrolla en su tercio de la pausa
+      if (sala === iObras && pergaminos.length) {
+        const n = pergaminos.length;
+        const k = Math.min(n - 1, Math.floor(local * n));
+        pergaminos.forEach((p, j) => {
+          const d = j < k ? 1 : j > k ? 0 : Math.min(1, Math.max(0, (local * n - k) / 0.45));
+          p.style.setProperty('--d', d.toFixed(3));
+          p.classList.toggle('actual', j === k);
+        });
+        indice.querySelectorAll('button').forEach((b, j) => b.setAttribute('aria-current', String(j === k)));
+      }
+    },
+  });
+
+  // Mapa y enlaces internos: la tinta cubre la pantalla y la cámara salta a la sala
+  document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+    const i = salas.findIndex((s) => `#${s.id}` === a.hash);
+    if (i < 0) return;
+    e.preventDefault();
+    const r = a.getBoundingClientRect();
+    transicionTinta(() => recorrido.irA(i, { inmediato: true }), { origen: [(r.left + r.width / 2) / innerWidth, (r.top + r.height / 2) / innerHeight] });
+    history.replaceState(null, '', a.hash);
+  }));
+
+  // Teclado: ← → (o J/K) para ir de sala en sala
+  addEventListener('keydown', (e) => {
+    if (e.target.closest?.('input, textarea, select')) return;
+    const { sala } = recorrido.estadoActual();
+    if (e.key === 'ArrowRight' || e.key === 'k') recorrido.irA(Math.min(salas.length - 1, sala + 1));
+    if (e.key === 'ArrowLeft' || e.key === 'j') recorrido.irA(Math.max(0, sala - 1));
+  });
+
+  // Linterna y agua: el puntero mueve la luz; tocar el agua hace ondas
+  addEventListener('pointermove', (e) => escena.apuntar((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), { passive: true });
+  lienzo.addEventListener('pointerdown', (e) => escena.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1));
+  document.addEventListener('visibilitychange', () => escena.pausar(document.hidden));
+
+  // Enlace directo (#obras) al cargar
+  const inicial = salas.findIndex((s) => `#${s.id}` === location.hash);
+  if (inicial > 0) recorrido.irA(inicial, { inmediato: true });
+
+  await pintado;
+  guardar('preludio-visto', 'si');
+  removeEventListener('pointerdown', saltar);
+  removeEventListener('keydown', saltar);
+  preludio.classList.add('fuera');
+  setTimeout(() => preludio.remove(), 1200);
+}

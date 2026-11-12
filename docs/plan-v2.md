@@ -99,3 +99,16 @@ Viajar a Suiza · crecer como empresa con Zyvo y lograr estabilidad financiera �
 2. 4–6 capturas con datos ficticios de cada sistema (puedo preparar un guion de qué capturar).
 3. Links de LinkedIn y GitHub.
 4. Dominio, y llevar el borrador de privacidad al abogado.
+
+## Dirección v3 (2026-11-12): la casa en 3D
+
+Tras ver la primera versión ("va de página en página, sin dinamismo"), se decidió con el dueño y una investigación de 6 agentes (referencias japonesas, técnicas de papel y luz en Three.js, tinta, agua, recursos y dirección de arte):
+
+- **3D real con Three.js.** Muro de shōji con papel washi procedural (shader propio con `getShadowMask()`), kumiko pintado en el mismo shader, un solo SpotLight con sombra (la linterna andon, que sigue al cursor dentro de la sala activa) y objetos procedurales que solo proyectan sombra hasta que la puerta se abre.
+- **Caminar con el scroll.** Lenis; cada sala tiene una pausa (sombras → la puerta se abre → aparece el panel) y un tramo de caminata. Pausa 間 entre Camino y Servicios, frente al estanque. Mapa numerado 01–07 con transición de tinta al saltar. Teclado: ← →.
+- **Tinta viva.** Kanji de cada sala pintados con pincel de cerdas (kasure, tome/harai/hane según KanjiVG) y preludio 玄関 + sello mientras carga el 3D (máx. 3,5 s).
+- **Estanque.** Ondas analíticas con anillos de tinta clara y reflejo de la luz de las salas; las hojas de momiji (único rojo además del sello) caen al agua y hacen ondas.
+- **Pergaminos.** En Obras cada proyecto es un kakejiku que se desenrolla en su tercio de la pausa; índice 01 02 03.
+- **Paneles de washi** con el texto real en HTML; en celular, la casa arriba y el panel abajo.
+- **Modo lectura** (botón 読 o automático): página vertical sin 3D para reclutadores con prisa.
+- **Rendimiento:** Three.js en un chunk diferido (~150 KB gzip) que se carga cuando el navegador está libre; el modo se decide en el `<head>` para no mover el layout. Lighthouse móvil local: rendimiento 90, accesibilidad 100, SEO 100.

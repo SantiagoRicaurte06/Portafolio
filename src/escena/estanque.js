@@ -107,10 +107,11 @@ export function crearEstanque({ inicio, fin, uniformesBrillo, xCamino }) {
     agregarOnda(punto.x, punto.z, fuerte ? 1.2 : 0.5);
   }
 
-  function actualizar(t, dt, linterna) {
+  function actualizar(t, dt, linterna, quieto = false) {
     reloj.t = t;
     u.uT.value = t;
     u.uLinterna.value.copy(linterna);
+    if (quieto) { hojas.visible = false; return; }
     estado.forEach((h, i) => {
       if (h.flota > 0) {
         h.flota += dt;

@@ -284,5 +284,8 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 .modo-lectura .sala-genkan .panel { padding: 3rem 0 2rem; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  /* Sin desplazamientos ni bucles; los fundidos se acortan pero se mantienen */
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  .panel { transition-duration: .25s !important; }
+  .panel-cuerpo > * { transition-duration: .25s !important; transform: none !important; }
 }

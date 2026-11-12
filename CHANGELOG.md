@@ -2,6 +2,12 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [SemVer](https://semver.org/lang/es/).
 
+## [1.0.1] - 2026-11-12
+
+### Corregido
+
+- Con "reducir movimiento" activado (Windows lo activa al apagar sus efectos de animación) el sitio mostraba solo el modo lectura, sin la casa en 3D. Ahora la casa se muestra igual y solo se calma lo que se mueve solo: scroll suavizado, balanceo de cámara, hojas, noren, grulla y la animación del pincel. El modo lectura queda para cuando no hay WebGL2 o cuando el visitante lo elige con 読.
+
 ## [1.0.0] - 2026-11-12
 
 Primera versión pública del portafolio rediseñado.
@@ -18,4 +24,5 @@ Primera versión pública del portafolio rediseñado.
 - Formulario de contacto con función de Vercel y Resend: validación, honeypot, límite de envíos y constancia del consentimiento.
 - Aviso de privacidad preliminar (Ley 1581), página 404, Open Graph, datos estructurados y Vercel Web Analytics.
 
+[1.0.1]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.1
 [1.0.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.0

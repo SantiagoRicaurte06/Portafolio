@@ -1,0 +1,229 @@
+/* ── Tokens ─────────────────────────────────────────────────────────────── */
+:root {
+  --tinta: #141311;
+  --tinta-suave: #3a3833;
+  --papel: #f6f2ea;
+  --papel-sombra: #e7e1d4;
+  --madera: #1d1b18;
+  --sello: #b3262c;
+  --luz-radio: 220px;
+  --x: 50vw;
+  --y: 50vh;
+  --lx: 0;
+  --ly: 0;
+  --fuente-titulo: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --fuente-texto: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  --barra-alto: 64px;
+  --t-puerta: 900ms cubic-bezier(.65, 0, .25, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; height: 100%; }
+
+body {
+  background: var(--madera);
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  overflow: hidden;
+}
+
+h1, h2, h3 { font-family: var(--fuente-titulo); font-weight: 700; line-height: 1.2; margin: 0 0 .5em; }
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); }
+
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--sello); outline-offset: 3px; }
+
+.saltar {
+  position: fixed; left: 1rem; top: -4rem; z-index: 100;
+  background: var(--papel); padding: .5rem 1rem;
+}
+.saltar:focus { top: 1rem; }
+
+/* ── Barra superior ─────────────────────────────────────────────────────── */
+.barra {
+  position: fixed; inset: 0 0 auto; z-index: 30;
+  height: var(--barra-alto);
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0 1rem;
+  background: linear-gradient(var(--madera), rgb(29 27 24 / .85));
+  color: var(--papel);
+}
+.marca img { display: block; }
+
+.mapa { flex: 1; overflow-x: auto; scrollbar-width: none; }
+.mapa ol { display: flex; gap: .25rem; justify-content: center; margin: 0; padding: 0; list-style: none; }
+.mapa a {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 3.25rem; padding: .25rem .5rem;
+  text-decoration: none; font-size: .7rem; letter-spacing: .04em;
+  color: rgb(246 242 234 / .6);
+  border-bottom: 2px solid transparent;
+  transition: color .3s, border-color .3s;
+}
+.mapa .kanji { font-family: var(--fuente-titulo); font-size: 1.1rem; line-height: 1.2; }
+.mapa a:hover, .mapa a[aria-current="true"] { color: var(--papel); }
+.mapa a[aria-current="true"] { border-bottom-color: var(--sello); }
+
+.controles { display: flex; gap: .5rem; }
+.control {
+  font: inherit; font-size: .8rem;
+  color: var(--papel); background: transparent;
+  border: 1px solid rgb(246 242 234 / .4);
+  padding: .35rem .75rem; cursor: pointer;
+}
+.control:hover { border-color: var(--papel); }
+.control[aria-pressed="true"] { background: var(--papel); color: var(--tinta); }
+.control .icono { display: none; font-family: var(--fuente-titulo); }
+
+/* ── Pasillo (engawa) ───────────────────────────────────────────────────── */
+.pasillo {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  /* Tablas del piso del pasillo */
+  background:
+    repeating-linear-gradient(90deg, transparent 0 119px, rgb(0 0 0 / .35) 119px 120px),
+    linear-gradient(#24211d, #191714);
+}
+.pasillo::-webkit-scrollbar { display: none; }
+
+.habitacion {
+  flex: 0 0 100vw;
+  height: 100%;
+  scroll-snap-align: start;
+  display: flex; align-items: center; justify-content: center;
+  min-width: 0;
+  padding: calc(var(--barra-alto) + 1.5rem) 1.5rem 2rem;
+}
+
+/* El marco de madera que sostiene las dos hojas del shōji */
+.marco {
+  position: relative;
+  width: min(1100px, 100%);
+  height: min(680px, 100%);
+  background: var(--papel);
+  border: 10px solid var(--madera);
+  box-shadow: 0 0 0 1px #000, 0 30px 60px rgb(0 0 0 / .5);
+  overflow: hidden;
+}
+
+.contenido {
+  position: relative; z-index: 1;
+  height: 100%; overflow-y: auto;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  opacity: 0;
+  transition: opacity .6s .35s;
+}
+.habitacion.abierta .contenido { opacity: 1; }
+
+/* La sombra del kanji detrás del papel: se mueve al revés de la luz */
+.sombra {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; place-items: center;
+  pointer-events: none;
+  font-family: var(--fuente-titulo); font-weight: 700;
+  font-size: clamp(9rem, 28vw, 22rem);
+  color: rgb(20 19 17 / .55);
+  filter: blur(6px);
+  transform: translate(calc(var(--lx) * -40px), calc(var(--ly) * -25px)) scale(1.04);
+  transition: opacity .5s;
+}
+
+/* Las dos hojas del shōji: papel con la cuadrícula kumiko */
+.shoji {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; color: inherit;
+}
+.hoja {
+  flex: 1;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(25% - 3px), var(--madera) calc(25% - 3px) 25%),
+    repeating-linear-gradient(0deg, transparent 0 calc(16.66% - 3px), var(--madera) calc(16.66% - 3px) 16.66%),
+    rgb(246 242 234 / .9);
+  border: 6px solid var(--madera);
+  transition: transform var(--t-puerta);
+}
+.hoja-izq { border-right-width: 3px; }
+.hoja-der { border-left-width: 3px; }
+
+.shoji-etiqueta {
+  position: absolute; left: 50%; bottom: 1.25rem; transform: translateX(-50%);
+  background: var(--papel); border: 1px solid var(--tinta);
+  padding: .3rem .9rem; font-size: .8rem; letter-spacing: .08em;
+  transition: opacity .3s;
+}
+.shoji:hover .shoji-etiqueta, .shoji:focus-visible .shoji-etiqueta { background: var(--tinta); color: var(--papel); }
+
+.habitacion.abierta .hoja-izq { transform: translateX(-100%); }
+.habitacion.abierta .hoja-der { transform: translateX(100%); }
+.habitacion.abierta .shoji { pointer-events: none; }
+.habitacion.abierta .shoji-etiqueta,
+.habitacion.abierta .sombra { opacity: 0; }
+
+/* ── Contenido de las habitaciones ──────────────────────────────────────── */
+.rol { font-size: clamp(1.05rem, 2vw, 1.35rem); margin: 0 0 1rem; color: var(--tinta-suave); }
+.insignia {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .9rem; margin: 0 0 2rem;
+  padding: .3rem .8rem; border: 1px solid var(--tinta);
+}
+.insignia::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: var(--sello); }
+
+.boton {
+  display: inline-block; text-decoration: none;
+  background: var(--tinta); color: var(--papel);
+  padding: .7rem 1.4rem; letter-spacing: .05em;
+  transition: background .3s;
+}
+.boton:hover { background: var(--sello); }
+
+/* ── Linterna andon: todo en penumbra menos el círculo de luz ───────────── */
+.penumbra {
+  position: fixed; inset: 0; z-index: 20;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--x) var(--y),
+    rgb(255 236 200 / .06) 0,
+    rgb(10 9 8 / 0) calc(var(--luz-radio) * .55),
+    rgb(10 9 8 / .55) var(--luz-radio),
+    rgb(10 9 8 / .9) calc(var(--luz-radio) * 2.2)
+  );
+  transition: opacity .8s;
+}
+body.lamparas .penumbra { opacity: 0; }
+
+/* ── Celular: el pasillo baja en vertical ───────────────────────────────── */
+@media (max-width: 760px) {
+  :root { --luz-radio: 170px; --barra-alto: 104px; }
+  body { overflow: auto; }
+  .barra { flex-wrap: wrap; height: auto; padding: .5rem 1rem; gap: .25rem .75rem; }
+  .mapa { order: 3; flex-basis: 100%; }
+  .mapa ol { justify-content: space-between; }
+  .mapa a { min-width: 0; padding: .2rem .25rem; }
+  .mapa a span:not(.kanji) { display: none; }
+  .controles { margin-left: auto; }
+  .control .icono { display: inline; }
+  .control .texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .pasillo { flex-direction: column; height: auto; overflow: visible; scroll-snap-type: none; }
+  .habitacion { flex: none; width: 100%; min-height: 100dvh; padding: calc(var(--barra-alto) + 1rem) 16px 1.5rem; }
+  .marco { height: auto; min-height: 70dvh; border-width: 6px; }
+  .contenido { height: auto; min-height: 70dvh; }
+}
+
+/* ── Menos movimiento ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .sombra { transform: none; }
+}

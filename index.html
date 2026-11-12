@@ -248,6 +248,40 @@
           <h2 id="t-contacto" data-i18n="contacto">Contacto</h2>
           <p class="bajada" data-idioma="es">¿Una oferta, una práctica o un proyecto? Escríbeme.</p>
           <p class="bajada" data-idioma="en" hidden>A job offer, an internship or a project? Write to me.</p>
+          <form class="formulario" id="formulario-contacto" novalidate>
+            <div class="campo">
+              <label for="f-nombre" data-i18n="fNombre">Nombre</label>
+              <input id="f-nombre" name="nombre" autocomplete="name" required minlength="2" maxlength="80">
+            </div>
+            <div class="campo">
+              <label for="f-email" data-i18n="fEmail">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254">
+            </div>
+            <div class="campo">
+              <label for="f-motivo" data-i18n="fMotivo">Motivo</label>
+              <select id="f-motivo" name="motivo" required>
+                <option value="trabajo" data-i18n="mTrabajo">Oferta de trabajo o práctica</option>
+                <option value="proyecto" data-i18n="mProyecto">Proyecto</option>
+                <option value="otro" data-i18n="mOtro">Otro</option>
+              </select>
+            </div>
+            <div class="campo campo-ancho">
+              <label for="f-mensaje" data-i18n="fMensaje">Mensaje</label>
+              <textarea id="f-mensaje" name="mensaje" rows="4" required minlength="10" maxlength="3000"></textarea>
+            </div>
+            <div class="campo-trampa" aria-hidden="true">
+              <label for="f-sitio">Sitio web</label>
+              <input id="f-sitio" name="sitio" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="campo campo-ancho campo-check">
+              <input id="f-consentimiento" name="consentimiento" type="checkbox" required>
+              <label for="f-consentimiento"><span data-i18n="fConsentimiento">Acepto el tratamiento de mis datos según el</span> <a href="/privacidad.html" data-i18n="avisoPrivacidad">aviso de privacidad</a>.</label>
+            </div>
+            <div class="campo-ancho acciones">
+              <button class="boton" type="submit" data-i18n="fEnviar">Enviar</button>
+              <p class="formulario-estado" role="status" aria-live="polite"></p>
+            </div>
+          </form>
           <ul class="enlaces-contacto">
             <li><a href="mailto:santiagoricuarte@gmail.com">santiagoricuarte@gmail.com</a></li>
             <li><a href="https://github.com/SantiagoRicaurte06" rel="noopener">GitHub</a></li>

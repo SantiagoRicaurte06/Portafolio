@@ -126,17 +126,43 @@ a { color: inherit; }
 }
 .habitacion.abierta .contenido { opacity: 1; }
 
-/* La sombra del kanji detrás del papel: se mueve al revés de la luz */
+/* Lo que hay detrás del papel: la silueta del objeto y, muy tenue, el kanji.
+   Se mueven al revés de la luz, como una sombra proyectada. */
 .sombra {
-  position: absolute; inset: 0; z-index: 2;
+  position: absolute; inset: 0; z-index: 4;
+  mix-blend-mode: multiply;
+  opacity: .62;
   display: grid; place-items: center;
   pointer-events: none;
+  color: var(--tinta);
+  filter: blur(3px);
+  transform: translate(calc(var(--lx) * -36px), calc(var(--ly) * -22px)) scale(1.03);
+  transition: opacity .6s, filter .6s;
+}
+.sombra > * { grid-area: 1 / 1; }
+.sombra-kanji {
   font-family: var(--fuente-titulo); font-weight: 700;
-  font-size: clamp(9rem, 28vw, 22rem);
-  color: rgb(20 19 17 / .55);
-  filter: blur(6px);
-  transform: translate(calc(var(--lx) * -40px), calc(var(--ly) * -25px)) scale(1.04);
-  transition: opacity .5s;
+  font-size: clamp(9rem, 28vw, 22rem); line-height: 1;
+  opacity: .14;
+  filter: blur(4px);
+}
+.silueta { width: auto; height: 74%; max-width: 92%; opacity: .78; transition: transform .8s; }
+
+/* Hojas del momiji que caen y se mecen */
+.hoja-cae { transform-box: fill-box; transform-origin: center; animation: caer 9s linear infinite; }
+.hoja-cae.h2 { animation-duration: 11s; animation-delay: -3s; }
+.hoja-cae.h3 { animation-duration: 8s; animation-delay: -5s; }
+.hoja-cae.h4 { animation-duration: 12s; animation-delay: -1.5s; }
+.hoja-cae.h5 { animation-duration: 10s; animation-delay: -7s; }
+.hoja-cae.h6 { animation-duration: 13s; animation-delay: -9s; }
+@keyframes caer {
+  0%   { translate: 0 0; rotate: 0deg; opacity: 0; }
+  8%   { opacity: 1; }
+  25%  { translate: 10px 24px; rotate: 70deg; }
+  50%  { translate: -8px 50px; rotate: 160deg; }
+  75%  { translate: 12px 74px; rotate: 250deg; }
+  92%  { opacity: 1; }
+  100% { translate: -4px 96px; rotate: 340deg; opacity: 0; }
 }
 
 /* Las dos hojas del shōji: papel con la cuadrícula kumiko */
@@ -169,8 +195,14 @@ a { color: inherit; }
 .habitacion.abierta .hoja-izq { transform: translateX(-100%); }
 .habitacion.abierta .hoja-der { transform: translateX(100%); }
 .habitacion.abierta .shoji { pointer-events: none; }
-.habitacion.abierta .shoji-etiqueta,
-.habitacion.abierta .sombra { opacity: 0; }
+.habitacion.abierta .shoji-etiqueta { opacity: 0; }
+/* Con la puerta abierta, la silueta queda como una ilustración tenue al fondo */
+.habitacion.abierta .sombra { z-index: 0; opacity: .1; filter: none; transform: none; mix-blend-mode: normal; }
+.habitacion.abierta .sombra-kanji { opacity: 0; }
+@media (min-width: 761px) {
+  .habitacion.abierta .silueta { transform: translateX(26%); }
+  .contenido > * { max-width: 62ch; }
+}
 
 /* ── Contenido de las habitaciones ──────────────────────────────────────── */
 .rol { font-size: clamp(1.05rem, 2vw, 1.35rem); margin: 0 0 1rem; color: var(--tinta-suave); }
@@ -260,4 +292,5 @@ body.lamparas .penumbra { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .sombra { transform: none; }
+  .hoja-cae { animation: none; }
 }

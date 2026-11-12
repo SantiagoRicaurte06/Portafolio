@@ -2,6 +2,12 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [SemVer](https://semver.org/lang/es/).
 
+## [1.0.3] - 2026-11-12
+
+### Corregido
+
+- Modo lectura: los paneles visibles quedaban desplazados media altura hacia arriba (la regla del recorrido `.sala.visible .panel` era más específica), lo que dejaba Obras fuera de vista y huecos negros entre salas.
+
 ## [1.0.2] - 2026-11-12
 
 ### Corregido
@@ -30,6 +36,7 @@ Primera versión pública del portafolio rediseñado.
 - Formulario de contacto con función de Vercel y Resend: validación, honeypot, límite de envíos y constancia del consentimiento.
 - Aviso de privacidad preliminar (Ley 1581), página 404, Open Graph, datos estructurados y Vercel Web Analytics.
 
+[1.0.3]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.3
 [1.0.2]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.2
 [1.0.1]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.1
 [1.0.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.0

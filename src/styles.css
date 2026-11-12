@@ -372,3 +372,7 @@ body.lamparas .penumbra { opacity: 0; }
   .sombra { transform: none; }
   .hoja-cae { animation: none; }
 }
+
+/* El botón de sonido es solo el kanji 音 en todas las pantallas */
+#sonido .icono { display: inline; }
+#sonido .texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

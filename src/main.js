@@ -4,11 +4,13 @@ import { crearKanji, pintar } from './caligrafia.js';
 import { reproducirEntrada } from './entrada.js';
 import { crearSilueta } from './siluetas.js';
 import { iniciarFormulario } from './formulario.js';
+import { activarSonido, sonar, sonidoActivo } from './sonido.js';
 
 const pasillo = document.getElementById('pasillo');
 const habitaciones = [...document.querySelectorAll('.habitacion')];
 const enlacesMapa = [...document.querySelectorAll('.mapa a')];
 const botonLamparas = document.getElementById('lamparas');
+const botonSonido = document.getElementById('sonido');
 const menosMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esCelular = () => matchMedia('(max-width: 760px)').matches;
 
@@ -62,11 +64,17 @@ function abrir(habitacion, { enfocar = true } = {}) {
   shoji.tabIndex = -1;
   const firma = contenido.querySelector('.kanji-sala');
   if (firma) setTimeout(() => pintar(firma, { duracion: 1200 }), 450);
+  if (enfocar) sonar('shoji');
   if (enfocar) contenido.querySelector('h1, h2')?.setAttribute('tabindex', '-1');
   if (enfocar) contenido.querySelector('h1, h2')?.focus({ preventScroll: true });
 }
 
 // ── Lámparas: todo iluminado y todas las puertas abiertas ─────────────────
+function pintarBotonSonido() {
+  botonSonido.setAttribute('aria-pressed', String(sonidoActivo()));
+  botonSonido.querySelector('.texto').textContent = t(sonidoActivo() ? 'silenciar' : 'activarSonido');
+}
+
 function encenderLamparas(encendidas) {
   document.body.classList.toggle('lamparas', encendidas);
   botonLamparas.setAttribute('aria-pressed', String(encendidas));
@@ -85,9 +93,12 @@ pasillo.addEventListener('wheel', (e) => {
 }, { passive: false });
 
 // ── Mapa: marca la habitación en la que estás ─────────────────────────────
+let salaActual = null;
 const vigia = new IntersectionObserver((entradas) => {
   entradas.forEach((entrada) => {
     if (!entrada.isIntersecting) return;
+    if (salaActual && salaActual !== entrada.target.id) sonar('furin');
+    salaActual = entrada.target.id;
     enlacesMapa.forEach((a) => a.setAttribute('aria-current', String(a.hash === `#${entrada.target.id}`)));
   });
 }, { threshold: 0.6 });
@@ -106,9 +117,16 @@ iniciarIdioma(document.getElementById('idioma'));
 pintarEtiquetas();
 document.addEventListener('idioma', () => {
   pintarEtiquetas();
+  pintarBotonSonido();
   encenderLamparas(document.body.classList.contains('lamparas'));
 });
 habitaciones.forEach((h) => vigia.observe(h));
+botonSonido.addEventListener('click', () => {
+  activarSonido(!sonidoActivo());
+  pintarBotonSonido();
+  sonar('furin');
+});
+pintarBotonSonido();
 botonLamparas.addEventListener('click', () => encenderLamparas(!document.body.classList.contains('lamparas')));
 
 iniciarLinterna();

@@ -134,8 +134,10 @@ export function aplicarIdioma(idioma) {
 export function iniciarIdioma(boton) {
   const inicial = guardado() ?? (navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en');
   const pintarBoton = () => {
-    boton.textContent = actual === 'es' ? 'EN' : 'ES';
-    boton.setAttribute('aria-label', t('cambiarIdioma'));
+    const visible = actual === 'es' ? 'EN' : 'ES';
+    boton.textContent = visible;
+    // El nombre accesible empieza por el texto visible (WCAG 2.5.3).
+    boton.setAttribute('aria-label', `${visible} · ${t('cambiarIdioma')}`);
   };
   aplicarIdioma(inicial);
   pintarBoton();

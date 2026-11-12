@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santiago Ricaurte · Desarrollador de Software</title>
+  <meta name="description" content="Portafolio de Santiago Alexis Ricaurte, desarrollador de software enfocado en backend y análisis de datos. Yopal, Colombia.">
+  <link rel="icon" href="/sello.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+  <a class="saltar" href="#genkan" data-i18n="saltar">Saltar al contenido</a>
+
+  <header class="barra">
+    <a class="marca" href="#genkan" aria-label="Inicio">
+      <img src="/sello.svg" alt="" width="36" height="36">
+    </a>
+
+    <nav class="mapa" aria-label="Mapa de la casa" data-i18n-aria="mapa">
+      <ol>
+        <li><a href="#genkan"><span class="kanji" aria-hidden="true">玄関</span><span data-i18n="genkan">Entrada</span></a></li>
+        <li><a href="#obras"><span class="kanji" aria-hidden="true">作</span><span data-i18n="obras">Obras</span></a></li>
+        <li><a href="#taller"><span class="kanji" aria-hidden="true">技</span><span data-i18n="taller">Taller</span></a></li>
+        <li><a href="#camino"><span class="kanji" aria-hidden="true">道</span><span data-i18n="camino">Camino</span></a></li>
+        <li><a href="#servicios"><span class="kanji" aria-hidden="true">商</span><span data-i18n="servicios">Servicios</span></a></li>
+        <li><a href="#suenos"><span class="kanji" aria-hidden="true">夢</span><span data-i18n="suenos">Sueños</span></a></li>
+        <li><a href="#contacto"><span class="kanji" aria-hidden="true">縁</span><span data-i18n="contacto">Contacto</span></a></li>
+      </ol>
+    </nav>
+
+    <div class="controles">
+      <button type="button" class="control" id="idioma" aria-label="Change language to English">EN</button>
+      <button type="button" class="control" id="lamparas" aria-pressed="false"><span class="icono" aria-hidden="true">灯</span><span class="texto" data-i18n="encender">Encender las lámparas</span></button>
+    </div>
+  </header>
+
+  <main class="pasillo" id="pasillo">
+    <section class="habitacion" id="genkan" data-kanji="玄関" aria-labelledby="t-genkan">
+      <div class="marco">
+        <div class="contenido">
+          <h1 id="t-genkan">Santiago Alexis Ricaurte</h1>
+          <p class="rol" data-i18n="rol">Desarrollador de Software · Backend y análisis de datos</p>
+          <p class="insignia" data-i18n="insignia">Disponible para empleo y etapa productiva · Remoto o Yopal</p>
+          <a class="boton" href="#obras" data-i18n="verObras">Ver mis obras</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="habitacion" id="obras" data-kanji="作" aria-labelledby="t-obras">
+      <div class="marco">
+        <div class="contenido">
+          <h2 id="t-obras" data-i18n="obras">Obras</h2>
+          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="habitacion" id="taller" data-kanji="技" aria-labelledby="t-taller">
+      <div class="marco">
+        <div class="contenido">
+          <h2 id="t-taller" data-i18n="taller">Taller</h2>
+          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="habitacion" id="camino" data-kanji="道" aria-labelledby="t-camino">
+      <div class="marco">
+        <div class="contenido">
+          <h2 id="t-camino" data-i18n="camino">Camino</h2>
+          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="habitacion" id="servicios" data-kanji="商" aria-labelledby="t-servicios">
+      <div class="marco">
+        <div class="contenido">
+          <h2 id="t-servicios" data-i18n="servicios">Servicios</h2>
+          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="habitacion" id="suenos" data-kanji="夢" aria-labelledby="t-suenos">
+      <div class="marco">
+        <div class="contenido">
+          <h2 id="t-suenos" data-i18n="suenos">Sueños</h2>
+          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="habitacion" id="contacto" data-kanji="縁" aria-labelledby="t-contacto">
+      <div class="marco">
+        <div class="contenido">
+          <h2 id="t-contacto" data-i18n="contacto">Contacto</h2>
+          <p data-i18n="enConstruccion">Habitación en construcción.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="penumbra" aria-hidden="true"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

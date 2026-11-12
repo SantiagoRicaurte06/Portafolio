@@ -20,6 +20,7 @@ function guardar(clave, valor) { try { localStorage.setItem(clave, valor); } cat
 
 // El modo ya lo decidió el script del <head> (antes del primer pintado)
 const modo = document.documentElement.classList.contains('modo-lectura') ? 'lectura' : 'recorrido';
+if (modo === 'recorrido' && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 // ── Comunes a los dos modos ────────────────────────────────────────────────
 iniciarIdioma(document.getElementById('idioma'));
@@ -174,11 +175,12 @@ async function iniciarRecorrido() {
   lienzo.addEventListener('pointerdown', (e) => escena.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1));
   document.addEventListener('visibilitychange', () => escena.pausar(document.hidden));
 
-  // Enlace directo (#obras) al cargar
-  const inicial = salas.findIndex((s) => `#${s.id}` === location.hash);
-  if (inicial > 0) recorrido.irA(inicial, { inmediato: true });
-
   await pintado;
+
+  // Enlace directo (#obras): se salta cuando el preludio termina, para que el ancla del
+  // navegador (que apunta a un panel fijo) no devuelva el scroll a 0 después.
+  const inicial = salas.findIndex((s) => `#${s.id}` === location.hash);
+  if (inicial > 0) requestAnimationFrame(() => recorrido.irA(inicial, { inmediato: true }));
   guardar('preludio-visto', 'si');
   removeEventListener('pointerdown', saltar);
   removeEventListener('keydown', saltar);

@@ -2,6 +2,7 @@ import { iniciarIdioma, t } from './i18n.js';
 import { iniciarLinterna } from './linterna.js';
 import { crearKanji, pintar } from './caligrafia.js';
 import { reproducirEntrada } from './entrada.js';
+import { crearSilueta } from './siluetas.js';
 
 const pasillo = document.getElementById('pasillo');
 const habitaciones = [...document.querySelectorAll('.habitacion')];
@@ -24,7 +25,12 @@ function armarShoji(habitacion) {
   const sombra = document.createElement('div');
   sombra.className = 'sombra';
   sombra.setAttribute('aria-hidden', 'true');
-  sombra.textContent = habitacion.dataset.kanji;
+  const sombraKanji = document.createElement('span');
+  sombraKanji.className = 'sombra-kanji';
+  sombraKanji.textContent = habitacion.dataset.kanji;
+  sombra.append(sombraKanji);
+  const silueta = crearSilueta(habitacion.id);
+  if (silueta) sombra.append(silueta);
 
   const shoji = document.createElement('button');
   shoji.type = 'button';

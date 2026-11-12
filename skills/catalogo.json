@@ -1,0 +1,216 @@
+[
+  {
+    "nombre": "grill-me",
+    "hilo": "grill-me",
+    "repo": "mattpocock/skills",
+    "archivos": [
+      "skills/productivity/grill-me/SKILL.md",
+      "skills/productivity/grilling/SKILL.md"
+    ],
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "caveman",
+    "hilo": "caveman",
+    "repo": "JuliusBrussee/caveman",
+    "archivos": [
+      "skills/caveman/SKILL.md",
+      "skills/ultracave/SKILL.md",
+      "skills/megacave/SKILL.md"
+    ],
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "RTK",
+    "hilo": "RTK",
+    "repo": "rtk-ai/rtk",
+    "brew": "rtk",
+    "actualizar": "brew upgrade rtk   (o vuelve a correr el script de instalación)"
+  },
+  {
+    "nombre": "anti-slop",
+    "hilo": "anti-slop",
+    "repo": "rand/cc-polymath",
+    "archivos": [
+      "skills/anti-slop/SKILL.md"
+    ],
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "thermos",
+    "hilo": "thermos",
+    "repo": "cursor/plugins",
+    "archivos": [
+      "thermos/skills/thermos/SKILL.md",
+      "thermos/skills/thermo-nuclear-review/SKILL.md",
+      "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "thermos/agents/thermo-nuclear-review-subagent.md",
+      "thermos/agents/thermo-nuclear-code-quality-review-subagent.md"
+    ],
+    "actualizar": "npx skills@latest update  (y vuelve a copiar los 2 subagentes con el comando de la publicación)"
+  },
+  {
+    "nombre": "revision-seguridad-backend",
+    "hilo": "revision-seguridad-backend",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/revision-seguridad-backend/SKILL.md",
+      "skills/revision-seguridad-backend/referencias/puntos.md",
+      "skills/revision-seguridad-backend/scripts/revisar.mjs"
+    ],
+    "adjuntar": true,
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "security-audit",
+    "hilo": "security-audit",
+    "repo": "cloudflare/security-audit-skill",
+    "archivos": [
+      "skills/security-audit/SKILL.md",
+      "skills/security-audit/VALIDATION-AND-REPORTING.md"
+    ],
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "revision-rendimiento",
+    "hilo": "revision-rendimiento",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/revision-rendimiento/SKILL.md",
+      "skills/revision-rendimiento/referencias/puntos.md",
+      "skills/revision-rendimiento/scripts/revisar.mjs",
+      "skills/revision-rendimiento/scripts/carga-k6.js"
+    ],
+    "adjuntar": true,
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "entrega-al-cliente",
+    "hilo": "entrega-al-cliente",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/entrega-al-cliente/SKILL.md",
+      "skills/entrega-al-cliente/referencias/legal.md",
+      "skills/entrega-al-cliente/plantillas/acta-de-entrega.md",
+      "skills/entrega-al-cliente/plantillas/inventario-accesos.md",
+      "skills/entrega-al-cliente/plantillas/manual-dueno.md",
+      "skills/entrega-al-cliente/plantillas/manual-empleados.md"
+    ],
+    "adjuntar": true,
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "checklist-lanzamiento",
+    "hilo": "checklist-lanzamiento",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/checklist-lanzamiento/SKILL.md",
+      "skills/checklist-lanzamiento/scripts/revisar.mjs"
+    ],
+    "adjuntar": true,
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "git-workflow",
+    "hilo": "git-workflow",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/git-workflow/SKILL.md",
+      "skills/git-workflow/referencia/GIT_WORKFLOW.md",
+      "skills/git-workflow/scripts/configurar.sh",
+      "skills/git-workflow/plantillas/githooks/commit-msg",
+      "skills/git-workflow/plantillas/githooks/pre-commit",
+      "skills/git-workflow/plantillas/github/workflows/commits.yml",
+      "skills/git-workflow/plantillas/github/workflows/pruebas.yml"
+    ],
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "proteccion",
+    "hilo": "proteccion",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/proteccion/SKILL.md",
+      "skills/proteccion/scripts/proteccion.sh",
+      "skills/proteccion/scripts/activar.sh",
+      "skills/proteccion/scripts/probar.sh"
+    ],
+    "adjuntar": true,
+    "actualizar": "npx skills@latest update  (y vuelve a correr scripts/activar.sh para copiar el hook nuevo)",
+    "publicar": {
+      "titulo": "🛡️ proteccion",
+      "etiquetas": [
+        "IA",
+        "Bases de datos",
+        "DevOps"
+      ],
+      "texto": [
+        "**Hook de seguridad para Claude Code.** Revisa cada comando y archivo **antes** de que se ejecute y frena lo que puede romper el proyecto.",
+        "",
+        "**🚫 Bloquea**",
+        "• Borrar la base de datos: `DROP`, `TRUNCATE`, `DELETE`/`UPDATE` sin `WHERE`, `FLUSHALL`, `dropdb`, `prisma migrate reset`, `db push --accept-data-loss`, `supabase db reset`, `docker compose down -v`, borrar `*.db`, `data/` o `migrations/`",
+        "• `rm -rf` sobre `/`, `~`, `.`, `*` o `.git`",
+        "• Force push o borrar `main`/`develop`, `--no-verify`, `filter-branch`, `gh repo delete`, `terraform destroy`",
+        "",
+        "**❓ Pide permiso**",
+        "`git reset --hard`, `git clean -f`, `git branch -D`, force push a tu rama, `find -delete`, `npm publish`, editar `.env` o los hooks",
+        "",
+        "**Instalar en un repo** (los repos que crea Zy ya la traen):",
+        "```bash",
+        "npx skills@latest add santiagoricaurte06/discord --skill proteccion",
+        "bash .claude/skills/proteccion/scripts/activar.sh",
+        "```",
+        "Commitea `.claude/settings.json` y `.claude/hooks/` para que todo el equipo quede protegido. Para todos tus proyectos: `activar.sh --global`. Probarla: `scripts/probar.sh`.",
+        "",
+        "-# Si te bloquea algo que sí querías hacer, córrelo tú con `!comando` en Claude Code. Es una red de seguridad, no reemplaza los respaldos."
+      ]
+    }
+  },
+  {
+    "nombre": "guia-skills",
+    "hilo": "guia-skills",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/guia-skills/SKILL.md",
+      "skills/guia-skills/scripts/instalar.sh"
+    ],
+    "adjuntar": true,
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "skill-creator",
+    "hilo": "skill-creator",
+    "repo": "anthropics/skills",
+    "archivos": [
+      "skills/skill-creator/SKILL.md"
+    ],
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "obsidian",
+    "hilo": "obsidian",
+    "repo": "kepano/obsidian-skills",
+    "archivos": [
+      "skills/obsidian-markdown/SKILL.md",
+      "skills/obsidian-bases/SKILL.md",
+      "skills/json-canvas/SKILL.md",
+      "skills/obsidian-cli/SKILL.md",
+      "skills/defuddle/SKILL.md"
+    ],
+    "actualizar": "npx skills@latest update"
+  },
+  {
+    "nombre": "cerebro",
+    "hilo": "cerebro",
+    "repo": "SantiagoRicaurte06/Discord",
+    "archivos": [
+      "skills/cerebro/SKILL.md",
+      "skills/cerebro/referencias/lote.md",
+      "skills/cerebro/referencias/notas.md",
+      "skills/cerebro/scripts/transcripcion.py",
+      "skills/cerebro/scripts/lote.py"
+    ],
+    "adjuntar": true,
+    "actualizar": "npx skills@latest update"
+  }
+]

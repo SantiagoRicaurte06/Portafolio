@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santiago Ricaurte · Desarrollador de Software</title>
+  <meta name="description" content="Portafolio de Santiago Alexis Ricaurte, desarrollador de software enfocado en backend y análisis de datos. Yopal, Colombia.">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/sello.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "name": "Santiago Alexis Ricaurte", "jobTitle": "Desarrollador de Software", "description": "Desarrollador de software enfocado en backend y análisis de datos.", "address": {"@type": "PostalAddress", "addressLocality": "Yopal", "addressRegion": "Casanare", "addressCountry": "CO"}, "alumniOf": {"@type": "EducationalOrganization", "name": "SENA"}, "knowsLanguage": ["es", "en"], "worksFor": {"@type": "Organization", "name": "Zyvo", "url": "https://www.zyvolabs.website/"}, "sameAs": ["https://github.com/SantiagoRicaurte06", "https://www.zyvolabs.website/"]}, {"@type": "WebSite", "name": "Santiago Ricaurte · Portafolio", "inLanguage": ["es", "en"]}]}</script>
+  <meta name="theme-color" content="#1d1b18">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Santiago Alexis Ricaurte · Desarrollador de Software">
+  <meta property="og:description" content="Backend y análisis de datos. Un portafolio que se recorre como una casa japonesa, con una linterna.">
+  <meta property="og:image" content="/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Solo los caracteres que usa el sitio (text=): unos pocos KB en vez de cientos de subconjuntos japoneses. Sin bloquear el render. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=M+PLUS+1+Code:wght@400&display=swap&text=%20%21%22%23%24%25%26%27%28%29%2A%2B%2C-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%C3%A1%C3%A9%C3%AD%C3%B3%C3%BA%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%B1%C3%91%C3%BC%C3%9C%C2%BF%C2%A1%C2%B7%E2%80%94%E2%80%93%E2%80%A6%E2%86%90%E2%86%92%E2%86%93%E2%80%9C%E2%80%9D%E2%80%98%E2%80%99%C2%AB%C2%BB%C2%B0%E7%8E%84%E9%96%A2%E4%BD%9C%E6%8A%80%E9%81%93%E5%95%86%E5%A4%A2%E7%B8%81%E7%81%AF%E9%9F%B3%E7%A9%BA%E8%AA%AD%E9%96%93" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=M+PLUS+1+Code:wght@400&display=swap&text=%20%21%22%23%24%25%26%27%28%29%2A%2B%2C-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%C3%A1%C3%A9%C3%AD%C3%B3%C3%BA%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%B1%C3%91%C3%BC%C3%9C%C2%BF%C2%A1%C2%B7%E2%80%94%E2%80%93%E2%80%A6%E2%86%90%E2%86%92%E2%86%93%E2%80%9C%E2%80%9D%E2%80%98%E2%80%99%C2%AB%C2%BB%C2%B0%E7%8E%84%E9%96%A2%E4%BD%9C%E6%8A%80%E9%81%93%E5%95%86%E5%A4%A2%E7%B8%81%E7%81%AF%E9%9F%B3%E7%A9%BA%E8%AA%AD%E9%96%93"></noscript>
+  <link rel="stylesheet" href="/src/styles.css">
+  <script>
+    // El modo se decide antes del primer pintado para que nada salte de lugar.
+    (function () {
+      var lectura = false;
+      try { lectura = localStorage.getItem('modo') === 'lectura'; } catch (e) {}
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) lectura = true;
+      try { if (!document.createElement('canvas').getContext('webgl2')) lectura = true; } catch (e) { lectura = true; }
+      document.documentElement.classList.add(lectura ? 'modo-lectura' : 'modo-recorrido');
+    })();
+  </script>
+</head>
+<body>
+  <a class="saltar" href="#genkan" data-i18n="saltar">Saltar al contenido</a>
+
+  <header class="barra">
+    <a class="marca" href="#genkan" aria-label="Inicio">
+      <img src="/sello.svg" alt="" width="36" height="36">
+    </a>
+
+    <nav class="mapa" aria-label="Mapa de la casa" data-i18n-aria="mapa">
+      <ol>
+        <li><a href="#genkan"><span class="num" aria-hidden="true">01</span><span class="kanji" aria-hidden="true">玄関</span><span data-i18n="genkan">Entrada</span></a></li>
+        <li><a href="#obras"><span class="num" aria-hidden="true">02</span><span class="kanji" aria-hidden="true">作</span><span data-i18n="obras">Obras</span></a></li>
+        <li><a href="#taller"><span class="num" aria-hidden="true">03</span><span class="kanji" aria-hidden="true">技</span><span data-i18n="taller">Taller</span></a></li>
+        <li><a href="#camino"><span class="num" aria-hidden="true">04</span><span class="kanji" aria-hidden="true">道</span><span data-i18n="camino">Camino</span></a></li>
+        <li><a href="#servicios"><span class="num" aria-hidden="true">05</span><span class="kanji" aria-hidden="true">商</span><span data-i18n="servicios">Servicios</span></a></li>
+        <li><a href="#suenos"><span class="num" aria-hidden="true">06</span><span class="kanji" aria-hidden="true">夢</span><span data-i18n="suenos">Sueños</span></a></li>
+        <li><a href="#contacto"><span class="num" aria-hidden="true">07</span><span class="kanji" aria-hidden="true">縁</span><span data-i18n="contacto">Contacto</span></a></li>
+      </ol>
+    </nav>
+
+    <div class="controles">
+      <button type="button" class="control" id="sonido" aria-pressed="false"><span class="icono" aria-hidden="true">音</span><span class="texto">Activar sonido</span></button>
+      <button type="button" class="control" id="idioma" aria-label="EN · Change language to English">EN</button>
+      <button type="button" class="control" id="lectura" aria-pressed="false"><span class="icono" aria-hidden="true">読</span><span class="texto" data-i18n="modoLectura">Modo lectura</span></button>
+    </div>
+  </header>
+
+  <canvas id="escena" aria-hidden="true"></canvas>
+
+  <main id="casa">
+    <section class="sala sala-genkan" id="genkan" data-kanji="玄関" aria-labelledby="t-genkan">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">01<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
+          <h1 id="t-genkan">Santiago Alexis Ricaurte</h1>
+          <p class="rol" data-i18n="rol">Desarrollador de Software · Backend y análisis de datos</p>
+          <p class="bajada" data-idioma="es">Construyo sistemas para negocios que ya los usan: turnos, caja, inventario y producción. Me interesa el backend y lo que dicen los datos.</p>
+          <p class="bajada" data-idioma="en" hidden>I build systems for businesses that already run on them: shifts, cash closing, inventory and production. I care about the backend and about what the data says.</p>
+          <p class="insignia" data-i18n="insignia">Disponible para empleo y etapa productiva · Remoto o Yopal</p>
+          <a class="boton" href="#obras" data-i18n="verObras">Ver mis obras</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sala sala-obras" id="obras" data-kanji="作" aria-labelledby="t-obras">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">02<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
+          <h2 id="t-obras" data-i18n="obras">Obras</h2>
+          <p class="bajada" data-idioma="es">Dos sistemas hechos para clientes y el sitio que estás recorriendo. Por confidencialidad, los clientes son anónimos y las capturas usan datos de prueba.</p>
+          <p class="bajada" data-idioma="en" hidden>Two systems built for clients and the site you are walking through. Clients stay anonymous and screenshots use test data.</p>
+
+          <div class="pergaminos">
+            <article class="pergamino destacado">
+              <span class="vara vara-arriba" aria-hidden="true"></span>
+              <div class="kakejiku-papel">
+              <p class="pergamino-estado"><span data-idioma="es">En producción · 12 versiones</span><span data-idioma="en" hidden>In production · 12 releases</span></p>
+              <h3><span data-idioma="es">Gestión para una papelería con varias sedes</span><span data-idioma="en" hidden>Management system for a multi-branch stationery store</span></h3>
+              <div data-idioma="es">
+                <p>La papelería necesitaba llevar turnos, caja, bodega, deudas y nómina de todas sus sedes en un solo lugar. Hice el sistema completo y hoy lo usan a diario.</p>
+                <ul class="lista-corta">
+                  <li>Hojas de turno y cuadre de caja en vivo por sede.</li>
+                  <li>Bodega, deudas de clientes y nómina.</li>
+                  <li>Base de datos con 25 migraciones versionadas, pruebas automáticas e integración continua.</li>
+                </ul>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>The store needed shifts, cash, stock, customer debts and payroll for every branch in one place. I built the whole system and it is used every day.</p>
+                <ul class="lista-corta">
+                  <li>Shift sheets and live cash closing per branch.</li>
+                  <li>Stock, customer debts and payroll.</li>
+                  <li>Database with 25 versioned migrations, automated tests and CI.</li>
+                </ul>
+              </div>
+              <ul class="etiquetas" aria-label="Stack"><li>React 19</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li><li>Supabase</li></ul>
+              <div class="capturas" data-capturas="papeleria"><p data-i18n="capturasPronto">Capturas con datos de prueba, próximamente.</p></div>
+              </div>
+              <span class="vara vara-abajo" aria-hidden="true"></span>
+            </article>
+
+            <article class="pergamino">
+              <span class="vara vara-arriba" aria-hidden="true"></span>
+              <div class="kakejiku-papel">
+              <p class="pergamino-estado"><span data-idioma="es">En desarrollo</span><span data-idioma="en" hidden>In development</span></p>
+              <h3><span data-idioma="es">Inventario y producción para una empresa de agua</span><span data-idioma="en" hidden>Inventory and production for a water company</span></h3>
+              <div data-idioma="es">
+                <p>Inventario, listas de materiales, órdenes de producción y facturación interna. API en Express con Prisma, interfaz en React y 57 pruebas automáticas.</p>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>Inventory, bills of materials, production orders and internal invoicing. Express API with Prisma, React interface and 57 automated tests.</p>
+              </div>
+              <ul class="etiquetas" aria-label="Stack"><li>TypeScript</li><li>Node.js</li><li>Express</li><li>Prisma</li><li>React</li></ul>
+              <div class="capturas" data-capturas="aguas"><p data-i18n="capturasPronto">Capturas con datos de prueba, próximamente.</p></div>
+              </div>
+              <span class="vara vara-abajo" aria-hidden="true"></span>
+            </article>
+
+            <article class="pergamino">
+              <span class="vara vara-arriba" aria-hidden="true"></span>
+              <div class="kakejiku-papel">
+              <p class="pergamino-estado"><span data-idioma="es">Código abierto</span><span data-idioma="en" hidden>Open source</span></p>
+              <h3><span data-idioma="es">Esta casa</span><span data-idioma="en" hidden>This house</span></h3>
+              <div data-idioma="es">
+                <p>Una casa en 3D que se recorre con el scroll. La linterna proyecta sombras reales sobre papel washi hecho con shaders, la caligrafía se pinta con un pincel simulado sobre los trazos de KanjiVG y el formulario corre en una función de Vercel. Three.js y JavaScript, sin frameworks.</p>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>A 3D house you walk through by scrolling. The lantern casts real shadows on shader-made washi paper, the calligraphy is painted by a simulated brush over KanjiVG stroke data, and the contact form runs on a Vercel function. Three.js and plain JavaScript, no frameworks.</p>
+              </div>
+              <ul class="etiquetas" aria-label="Stack"><li>Three.js</li><li>GLSL</li><li>JavaScript</li><li>Vite</li><li>Vercel</li></ul>
+              <a class="enlace" href="https://github.com/SantiagoRicaurte06/Portafolio" rel="noopener"><span data-idioma="es">Ver el código</span><span data-idioma="en" hidden>See the code</span> →</a>
+              </div>
+              <span class="vara vara-abajo" aria-hidden="true"></span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sala sala-taller" id="taller" data-kanji="技" aria-labelledby="t-taller">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">03<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
+          <h2 id="t-taller" data-i18n="taller">Taller</h2>
+          <div class="grupos">
+            <div class="grupo">
+              <h3 data-i18n="usoDiario">Uso a diario</h3>
+              <ul class="etiquetas"><li>Python</li><li>SQL · PostgreSQL</li><li>Supabase</li><li>TypeScript</li><li>Node.js · Express</li><li>Git · GitHub Actions</li></ul>
+            </div>
+            <div class="grupo">
+              <h3 data-i18n="heConstruido">He construido con</h3>
+              <ul class="etiquetas"><li>Prisma</li><li>React</li><li>Docker</li><li>Go</li><li>pandas</li><li>scikit-learn · XGBoost</li><li>MQTT</li></ul>
+            </div>
+            <div class="grupo">
+              <h3 data-i18n="aprendiendo">Estoy aprendiendo</h3>
+              <ul class="etiquetas suave" data-idioma="es"><li>Estadística y visualización de datos</li><li>Código limpio y arquitectura</li><li>Pruebas</li><li>Finanzas</li><li>Inglés</li></ul>
+              <ul class="etiquetas suave" data-idioma="en" hidden><li>Statistics and data visualization</li><li>Clean code and architecture</li><li>Testing</li><li>Finance</li><li>English</li></ul>
+            </div>
+          </div>
+          <div class="como-trabajo">
+            <h3 data-i18n="comoTrabajo">Cómo trabajo</h3>
+            <p data-idioma="es">Diseño la solución, reviso cada cambio y decido qué entra. Uso Claude Code como herramienta, con reglas que escribí yo: skills propias, un hook que bloquea comandos destructivos, revisiones de seguridad y rendimiento antes de publicar, commits convencionales e integración continua. Lo que está en mi código lo sé explicar.</p>
+            <p data-idioma="en" hidden>I design the solution, review every change and decide what gets merged. I use Claude Code as a tool, under rules I wrote: my own skills, a hook that blocks destructive commands, security and performance reviews before shipping, conventional commits and CI. I can explain everything in my code.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sala sala-camino" id="camino" data-kanji="道" aria-labelledby="t-camino">
+      <div class="panel  panel-ancho" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">04<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
+          <h2 id="t-camino" data-i18n="camino">Camino</h2>
+          <div class="camino">
+            <figure class="foto">
+              <img src="/foto-perfil.webp" alt="Santiago Alexis Ricaurte" width="400" height="500" loading="lazy" decoding="async">
+            </figure>
+            <div>
+              <div data-idioma="es">
+                <p>Soy de Yopal, Casanare. Me gradué como técnico en sistemas en el SENA y ahora estudio Análisis y Desarrollo de Software (ADSO), también en el SENA. Empecé arreglando computadores y me quedé con la pregunta de cómo funcionaba lo que corría adentro; esa pregunta me llevó a programar.</p>
+                <p>Hoy combino el estudio con <a href="https://www.zyvolabs.website/" rel="noopener">Zyvo</a>, la empresa que fundé con mis socios, donde tenemos proyectos en marcha con empresas.</p>
+                <p>Busco empleo o etapa productiva en backend o datos. Prefiero remoto, puedo trabajar presencial en Yopal y me interesan equipos de fuera de Colombia.</p>
+              </div>
+              <div data-idioma="en" hidden>
+                <p>I'm from Yopal, Casanare, Colombia. I graduated as a systems technician at SENA and I'm now studying Software Analysis and Development (ADSO), also at SENA. I started out fixing computers and kept wondering how the software inside them worked; that question got me into programming.</p>
+                <p>Alongside my studies I run <a href="https://www.zyvolabs.website/" rel="noopener">Zyvo</a>, the company I co-founded with my partners, where we have ongoing projects with businesses.</p>
+                <p>I'm looking for a job or internship in backend or data. I prefer remote work, can work on-site in Yopal, and I'm open to teams outside Colombia.</p>
+              </div>
+              <dl class="datos">
+                <dt data-i18n="estudios">Estudios</dt>
+                <dd data-idioma="es">Tecnólogo en ADSO · SENA (en curso)<br>Técnico en Sistemas · SENA<br>Bachiller · Colegio Luis Hernández Vargas</dd>
+                <dd data-idioma="en" hidden>Software Analysis and Development (ADSO) · SENA (in progress)<br>Systems Technician · SENA<br>High school · Colegio Luis Hernández Vargas</dd>
+                <dt data-i18n="idiomas">Idiomas</dt>
+                <dd data-idioma="es">Español nativo · Inglés en aprendizaje</dd>
+                <dd data-idioma="en" hidden>Spanish (native) · English (learning)</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sala sala-ma" id="ma" data-kanji="間" data-tipo="ma" aria-label="Pausa">
+      <div class="panel panel-ma">
+        <p class="ma-kanji" aria-hidden="true">間</p>
+        <p class="ma-texto" data-idioma="es">Ma: el espacio entre las cosas. Toca el agua.</p>
+        <p class="ma-texto" data-idioma="en" hidden>Ma: the space between things. Touch the water.</p>
+      </div>
+    </section>
+
+    <section class="sala sala-servicios" id="servicios" data-kanji="商" aria-labelledby="t-servicios">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">05<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
+          <h2 id="t-servicios" data-i18n="servicios">Servicios</h2>
+          <p class="bajada" data-idioma="es">También trabajo por proyecto con negocios y emprendedores.</p>
+          <p class="bajada" data-idioma="en" hidden>I also take on projects for businesses and entrepreneurs.</p>
+          <ul class="servicios" data-idioma="es">
+            <li><h3>Sitios web y landing pages</h3><p>Rápidos, bilingües y listos para Google, con un CMS para que edites el contenido sin tocar código.</p></li>
+            <li><h3>Tiendas en línea</h3><p>Catálogo, carrito y pagos con Wompi, administrables desde un CMS.</p></li>
+            <li><h3>Software a la medida</h3><p>Sistemas para la operación de tu negocio, como los de <a href="#obras">mis obras</a>.</p></li>
+            <li><h3>Bots y automatizaciones</h3><p>Discord, WhatsApp y flujos con IA que te ahorran tareas repetidas.</p></li>
+            <li><h3>Presencia en Google</h3><p>Ficha de Google Business Profile y SEO local para que te encuentren en tu ciudad.</p></li>
+            <li><h3>Mantenimiento</h3><p>Después de entregar sigo contigo: actualizaciones, copias de seguridad y cambios.</p></li>
+          </ul>
+          <ul class="servicios" data-idioma="en" hidden>
+            <li><h3>Websites and landing pages</h3><p>Fast, bilingual and ready for Google, with a CMS so you can edit content without code.</p></li>
+            <li><h3>Online stores</h3><p>Catalog, cart and payments with Wompi, managed from a CMS.</p></li>
+            <li><h3>Custom software</h3><p>Systems that run your business operations, like the ones in <a href="#obras">my work</a>.</p></li>
+            <li><h3>Bots and automations</h3><p>Discord, WhatsApp and AI workflows that take repetitive tasks off your plate.</p></li>
+            <li><h3>Google presence</h3><p>Google Business Profile and local SEO so people in your city can find you.</p></li>
+            <li><h3>Maintenance</h3><p>I stay with you after launch: updates, backups and changes.</p></li>
+          </ul>
+          <a class="boton" href="#contacto" data-motivo="proyecto" data-i18n="cotizar">Cotizar un proyecto</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sala sala-suenos" id="suenos" data-kanji="夢" aria-labelledby="t-suenos">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">06<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
+          <h2 id="t-suenos" data-i18n="suenos">Sueños</h2>
+          <div class="grupos">
+            <div class="grupo">
+              <h3 data-i18n="metas">Hacia dónde voy</h3>
+              <ul class="lista-tinta" data-idioma="es">
+                <li>Llegar a ser desarrollador senior.</li>
+                <li>Hacer crecer Zyvo y lograr estabilidad financiera.</li>
+                <li>Crear un proyecto que genere ingresos estables cada mes.</li>
+                <li>Hablar al menos tres idiomas además del español.</li>
+                <li>Viajar a Suiza.</li>
+              </ul>
+              <ul class="lista-tinta" data-idioma="en" hidden>
+                <li>Become a senior developer.</li>
+                <li>Grow Zyvo and reach financial stability.</li>
+                <li>Build a project with steady monthly income.</li>
+                <li>Speak at least three languages besides Spanish.</li>
+                <li>Travel to Switzerland.</li>
+              </ul>
+            </div>
+            <div class="grupo">
+              <h3 data-i18n="intereses">Lo que me gusta</h3>
+              <ul class="lista-tinta" data-idioma="es">
+                <li>Estudiar finanzas por mi cuenta.</li>
+                <li>Inventar ideas locas e intentar sacarlas adelante.</li>
+                <li>Los planes con amigos el fin de semana.</li>
+                <li>Caminar por la naturaleza y la libertad de un cielo despejado.</li>
+              </ul>
+              <ul class="lista-tinta" data-idioma="en" hidden>
+                <li>Studying finance on my own.</li>
+                <li>Coming up with wild ideas and trying to make them real.</li>
+                <li>Weekend plans with friends.</li>
+                <li>Hiking, and the freedom of a clear sky.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sala sala-contacto" id="contacto" data-kanji="縁" aria-labelledby="t-contacto">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">07<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
+          <h2 id="t-contacto" data-i18n="contacto">Contacto</h2>
+          <p class="bajada" data-idioma="es">¿Una oferta, una práctica o un proyecto? Escríbeme.</p>
+          <p class="bajada" data-idioma="en" hidden>A job offer, an internship or a project? Write to me.</p>
+          <form class="formulario" id="formulario-contacto" novalidate>
+            <div class="campo">
+              <label for="f-nombre" data-i18n="fNombre">Nombre</label>
+              <input id="f-nombre" name="nombre" autocomplete="name" required minlength="2" maxlength="80">
+            </div>
+            <div class="campo">
+              <label for="f-email" data-i18n="fEmail">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254">
+            </div>
+            <div class="campo">
+              <label for="f-motivo" data-i18n="fMotivo">Motivo</label>
+              <select id="f-motivo" name="motivo" required>
+                <option value="trabajo" data-i18n="mTrabajo">Oferta de trabajo o práctica</option>
+                <option value="proyecto" data-i18n="mProyecto">Proyecto</option>
+                <option value="otro" data-i18n="mOtro">Otro</option>
+              </select>
+            </div>
+            <div class="campo campo-ancho">
+              <label for="f-mensaje" data-i18n="fMensaje">Mensaje</label>
+              <textarea id="f-mensaje" name="mensaje" rows="4" required minlength="10" maxlength="3000"></textarea>
+            </div>
+            <div class="campo-trampa" aria-hidden="true">
+              <label for="f-sitio">Sitio web</label>
+              <input id="f-sitio" name="sitio" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="campo campo-ancho campo-check">
+              <input id="f-consentimiento" name="consentimiento" type="checkbox" required>
+              <label for="f-consentimiento"><span data-i18n="fConsentimiento">Acepto el tratamiento de mis datos según el</span> <a href="/privacidad.html" data-i18n="avisoPrivacidad">aviso de privacidad</a>.</label>
+            </div>
+            <div class="campo-ancho acciones">
+              <button class="boton" type="submit" data-i18n="fEnviar">Enviar</button>
+              <p class="formulario-estado" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+          <ul class="enlaces-contacto">
+            <li><a href="mailto:santiagoricuarte@gmail.com">santiagoricuarte@gmail.com</a></li>
+            <li><a href="https://github.com/SantiagoRicaurte06" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.zyvolabs.website/" rel="noopener">Zyvo</a></li>
+          </ul>
+          <p class="creditos"><span data-i18n="creditoKanji">Trazos de los kanji:</span> <a href="https://kanjivg.tagaini.net" rel="noopener">KanjiVG</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="trayecto" aria-hidden="true"></div>
+
+
+  <script type="module" src="/src/main.js"></script>
+  <!-- Vercel Web Analytics: sin cookies; se activa en el panel de Vercel -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

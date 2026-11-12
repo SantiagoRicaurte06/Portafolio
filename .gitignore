@@ -11,3 +11,7 @@ coverage/
 __pycache__/
 .venv/
 .claude/settings.local.json
+
+# Skills instaladas localmente (se regeneran con skills/guia-skills/scripts/instalar.sh)
+.claude/skills/
+.claude/agents/

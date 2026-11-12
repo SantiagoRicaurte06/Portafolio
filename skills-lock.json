@@ -1,0 +1,116 @@
+{
+  "version": 2,
+  "skills": {
+    "anti-slop": {
+      "source": "rand/cc-polymath",
+      "sourceType": "github",
+      "skillPath": "skills/anti-slop/SKILL.md",
+      "computedHash": "717ba868561b7de845be1dc9d82601a3d0fc45165f81aede56d3fa5510e52e07"
+    },
+    "caveman": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman/SKILL.md",
+      "computedHash": "b51af74aacdadbc3c2d6bb79f05db58dc521854b87f7ffabd48faf286a81ed31"
+    },
+    "checklist-lanzamiento": {
+      "source": "santiagoricaurte06/discord",
+      "sourceType": "github",
+      "skillPath": "skills/checklist-lanzamiento/SKILL.md",
+      "computedHash": "29a6b459f416aa2250627ce5b8948a34de7794b415d10c289a6d6e6202754d04"
+    },
+    "entrega-al-cliente": {
+      "source": "santiagoricaurte06/discord",
+      "sourceType": "github",
+      "skillPath": "skills/entrega-al-cliente/SKILL.md",
+      "computedHash": "3e0818e2a11d53aa173dfa457a5e41707a4d88cf2174831f34b9bdbfaa2d5503"
+    },
+    "git-workflow": {
+      "source": "santiagoricaurte06/discord",
+      "sourceType": "github",
+      "skillPath": "skills/git-workflow/SKILL.md",
+      "computedHash": "477264c0e4bed51c5fcb54a0d933aa217efff1a0ae15873fa749f434997722c1"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "computedHash": "ab1acb9fbd9eaee03da254abb8a8de228d1e7a07475fe959da4a5eefa34ea4b9"
+    },
+    "grilling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "computedHash": "485451958784497cd4c4dbea13cb5bbb579da58fac0d0e45f3bcb310fab68ac7"
+    },
+    "guia-skills": {
+      "source": "santiagoricaurte06/discord",
+      "sourceType": "github",
+      "skillPath": "skills/guia-skills/SKILL.md",
+      "computedHash": "3d7df0eb101b79b29ebc168fc91ccf0afd5329805001769990f8a5eaa45753c9"
+    },
+    "megacave": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/megacave/SKILL.md",
+      "computedHash": "d38301dd11ffdbf9c876cb5a15ff245a31fe7806a29f7800e7fbe44fc306fd62"
+    },
+    "proteccion": {
+      "source": "santiagoricaurte06/discord",
+      "sourceType": "github",
+      "skillPath": "skills/proteccion/SKILL.md",
+      "computedHash": "151004f855cfb536d0f2f5ea870cf8e53059439da3a32f682e22a82c0e94ef89"
+    },
+    "revision-rendimiento": {
+      "source": "santiagoricaurte06/discord",
+      "sourceType": "github",
+      "skillPath": "skills/revision-rendimiento/SKILL.md",
+      "computedHash": "a3eaca925410cb3f30f2621416a4ebc09a2017c4fd749adcb26612f91b07360c"
+    },
+    "revision-seguridad-backend": {
+      "source": "santiagoricaurte06/discord",
+      "sourceType": "github",
+      "skillPath": "skills/revision-seguridad-backend/SKILL.md",
+      "computedHash": "caa655e4ce4c4a7465e51f7381c686d462098870afb19a74adec46772a46c911"
+    },
+    "security-audit": {
+      "source": "cloudflare/security-audit-skill",
+      "sourceType": "github",
+      "skillPath": "skills/security-audit/SKILL.md",
+      "computedHash": "8513eb3b2c39b8d05ef4f47b32ef4d18280b93a5efb91d8df6272f7435034af5"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "2d7f889e6ae93c6c27d699856942c336b5b8644537496987d5571043d059b1dc"
+    },
+    "thermo-nuclear-code-quality-review": {
+      "source": "cursor/plugins",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "computedHash": "705eb32106f0fec9c9e9b4afccb6156f17f6e8829368e54cd5b53f10e4374340"
+    },
+    "thermo-nuclear-review": {
+      "source": "cursor/plugins",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "thermos/skills/thermo-nuclear-review/SKILL.md",
+      "computedHash": "1a0407b118f3b6ec39e2b6f3d19bce61d83d211427166c221ddd630e580807c0"
+    },
+    "thermos": {
+      "source": "cursor/plugins",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "thermos/skills/thermos/SKILL.md",
+      "computedHash": "aad6fd22c9524ba7cb9fd5ccf3523a2caac126e849cac27af09d2335964da116"
+    },
+    "ultracave": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/ultracave/SKILL.md",
+      "computedHash": "b9814ef35fbc9f4359f682c7f2e4944b30428f8c8d79463efa070f99fffaa453"
+    }
+  }
+}

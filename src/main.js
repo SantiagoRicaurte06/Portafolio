@@ -50,7 +50,7 @@ function pintarEtiquetas() {
   habitaciones.forEach((h) => {
     const nombre = h.querySelector('h1, h2')?.textContent ?? '';
     h.querySelector('.shoji-etiqueta').textContent = `${t('abrir')} · ${h.dataset.kanji}`;
-    h.querySelector('.shoji').setAttribute('aria-label', `${t('abrir')}: ${nombre}`);
+    h.querySelector('.shoji').setAttribute('aria-label', `${t('abrir')} · ${h.dataset.kanji} · ${nombre}`);
   });
 }
 

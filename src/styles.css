@@ -354,7 +354,7 @@ body.lamparas .penumbra { opacity: 0; }
   .mapa { order: 3; flex-basis: 100%; }
   .mapa ol { justify-content: space-between; }
   .mapa a { min-width: 0; padding: .2rem .25rem; }
-  .mapa a span:not(.kanji) { display: none; }
+  .mapa a span:not(.kanji) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .controles { margin-left: auto; }
   .control .icono { display: inline; }
   .control .texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

@@ -22,9 +22,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Solo los caracteres que usa el sitio (text=): unos pocos KB en vez de cientos de subconjuntos japoneses. Sin bloquear el render. -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap&text=%20%21%22%23%24%25%26%27%28%29%2A%2B%2C-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%C3%A1%C3%A9%C3%AD%C3%B3%C3%BA%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%B1%C3%91%C3%BC%C3%9C%C2%BF%C2%A1%C2%B7%E2%80%94%E2%80%93%E2%80%A6%E2%86%90%E2%86%92%E2%80%9C%E2%80%9D%E2%80%98%E2%80%99%C2%AB%C2%BB%C2%B0%E7%8E%84%E9%96%A2%E4%BD%9C%E6%8A%80%E9%81%93%E5%95%86%E5%A4%A2%E7%B8%81%E7%81%AF%E9%9F%B3%E7%A9%BA" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap&text=%20%21%22%23%24%25%26%27%28%29%2A%2B%2C-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%C3%A1%C3%A9%C3%AD%C3%B3%C3%BA%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%B1%C3%91%C3%BC%C3%9C%C2%BF%C2%A1%C2%B7%E2%80%94%E2%80%93%E2%80%A6%E2%86%90%E2%86%92%E2%80%9C%E2%80%9D%E2%80%98%E2%80%99%C2%AB%C2%BB%C2%B0%E7%8E%84%E9%96%A2%E4%BD%9C%E6%8A%80%E9%81%93%E5%95%86%E5%A4%A2%E7%B8%81%E7%81%AF%E9%9F%B3%E7%A9%BA"></noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=M+PLUS+1+Code:wght@400&display=swap&text=%20%21%22%23%24%25%26%27%28%29%2A%2B%2C-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%C3%A1%C3%A9%C3%AD%C3%B3%C3%BA%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%B1%C3%91%C3%BC%C3%9C%C2%BF%C2%A1%C2%B7%E2%80%94%E2%80%93%E2%80%A6%E2%86%90%E2%86%92%E2%86%93%E2%80%9C%E2%80%9D%E2%80%98%E2%80%99%C2%AB%C2%BB%C2%B0%E7%8E%84%E9%96%A2%E4%BD%9C%E6%8A%80%E9%81%93%E5%95%86%E5%A4%A2%E7%B8%81%E7%81%AF%E9%9F%B3%E7%A9%BA%E8%AA%AD%E9%96%93" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=M+PLUS+1+Code:wght@400&display=swap&text=%20%21%22%23%24%25%26%27%28%29%2A%2B%2C-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%C3%A1%C3%A9%C3%AD%C3%B3%C3%BA%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%B1%C3%91%C3%BC%C3%9C%C2%BF%C2%A1%C2%B7%E2%80%94%E2%80%93%E2%80%A6%E2%86%90%E2%86%92%E2%86%93%E2%80%9C%E2%80%9D%E2%80%98%E2%80%99%C2%AB%C2%BB%C2%B0%E7%8E%84%E9%96%A2%E4%BD%9C%E6%8A%80%E9%81%93%E5%95%86%E5%A4%A2%E7%B8%81%E7%81%AF%E9%9F%B3%E7%A9%BA%E8%AA%AD%E9%96%93"></noscript>
   <link rel="stylesheet" href="/src/styles.css">
+  <script>
+    // El modo se decide antes del primer pintado para que nada salte de lugar.
+    (function () {
+      var lectura = false;
+      try { lectura = localStorage.getItem('modo') === 'lectura'; } catch (e) {}
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) lectura = true;
+      try { if (!document.createElement('canvas').getContext('webgl2')) lectura = true; } catch (e) { lectura = true; }
+      document.documentElement.classList.add(lectura ? 'modo-lectura' : 'modo-recorrido');
+    })();
+  </script>
 </head>
 <body>
   <a class="saltar" href="#genkan" data-i18n="saltar">Saltar al contenido</a>
@@ -36,27 +46,30 @@
 
     <nav class="mapa" aria-label="Mapa de la casa" data-i18n-aria="mapa">
       <ol>
-        <li><a href="#genkan"><span class="kanji" aria-hidden="true">玄関</span><span data-i18n="genkan">Entrada</span></a></li>
-        <li><a href="#obras"><span class="kanji" aria-hidden="true">作</span><span data-i18n="obras">Obras</span></a></li>
-        <li><a href="#taller"><span class="kanji" aria-hidden="true">技</span><span data-i18n="taller">Taller</span></a></li>
-        <li><a href="#camino"><span class="kanji" aria-hidden="true">道</span><span data-i18n="camino">Camino</span></a></li>
-        <li><a href="#servicios"><span class="kanji" aria-hidden="true">商</span><span data-i18n="servicios">Servicios</span></a></li>
-        <li><a href="#suenos"><span class="kanji" aria-hidden="true">夢</span><span data-i18n="suenos">Sueños</span></a></li>
-        <li><a href="#contacto"><span class="kanji" aria-hidden="true">縁</span><span data-i18n="contacto">Contacto</span></a></li>
+        <li><a href="#genkan"><span class="num" aria-hidden="true">01</span><span class="kanji" aria-hidden="true">玄関</span><span data-i18n="genkan">Entrada</span></a></li>
+        <li><a href="#obras"><span class="num" aria-hidden="true">02</span><span class="kanji" aria-hidden="true">作</span><span data-i18n="obras">Obras</span></a></li>
+        <li><a href="#taller"><span class="num" aria-hidden="true">03</span><span class="kanji" aria-hidden="true">技</span><span data-i18n="taller">Taller</span></a></li>
+        <li><a href="#camino"><span class="num" aria-hidden="true">04</span><span class="kanji" aria-hidden="true">道</span><span data-i18n="camino">Camino</span></a></li>
+        <li><a href="#servicios"><span class="num" aria-hidden="true">05</span><span class="kanji" aria-hidden="true">商</span><span data-i18n="servicios">Servicios</span></a></li>
+        <li><a href="#suenos"><span class="num" aria-hidden="true">06</span><span class="kanji" aria-hidden="true">夢</span><span data-i18n="suenos">Sueños</span></a></li>
+        <li><a href="#contacto"><span class="num" aria-hidden="true">07</span><span class="kanji" aria-hidden="true">縁</span><span data-i18n="contacto">Contacto</span></a></li>
       </ol>
     </nav>
 
     <div class="controles">
       <button type="button" class="control" id="sonido" aria-pressed="false"><span class="icono" aria-hidden="true">音</span><span class="texto">Activar sonido</span></button>
       <button type="button" class="control" id="idioma" aria-label="EN · Change language to English">EN</button>
-      <button type="button" class="control" id="lamparas" aria-pressed="false"><span class="icono" aria-hidden="true">灯</span><span class="texto" data-i18n="encender">Encender las lámparas</span></button>
+      <button type="button" class="control" id="lectura" aria-pressed="false"><span class="icono" aria-hidden="true">読</span><span class="texto" data-i18n="modoLectura">Modo lectura</span></button>
     </div>
   </header>
 
-  <main class="pasillo" id="pasillo">
-    <section class="habitacion" id="genkan" data-kanji="玄関" aria-labelledby="t-genkan">
-      <div class="marco">
-        <div class="contenido">
+  <canvas id="escena" aria-hidden="true"></canvas>
+
+  <main id="casa">
+    <section class="sala sala-genkan" id="genkan" data-kanji="玄関" aria-labelledby="t-genkan">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">01<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
           <h1 id="t-genkan">Santiago Alexis Ricaurte</h1>
           <p class="rol" data-i18n="rol">Desarrollador de Software · Backend y análisis de datos</p>
           <p class="bajada" data-idioma="es">Construyo sistemas para negocios que ya los usan: turnos, caja, inventario y producción. Me interesa el backend y lo que dicen los datos.</p>
@@ -67,15 +80,18 @@
       </div>
     </section>
 
-    <section class="habitacion" id="obras" data-kanji="作" aria-labelledby="t-obras">
-      <div class="marco">
-        <div class="contenido">
+    <section class="sala sala-obras" id="obras" data-kanji="作" aria-labelledby="t-obras">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">02<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
           <h2 id="t-obras" data-i18n="obras">Obras</h2>
           <p class="bajada" data-idioma="es">Dos sistemas hechos para clientes y el sitio que estás recorriendo. Por confidencialidad, los clientes son anónimos y las capturas usan datos de prueba.</p>
           <p class="bajada" data-idioma="en" hidden>Two systems built for clients and the site you are walking through. Clients stay anonymous and screenshots use test data.</p>
 
           <div class="pergaminos">
             <article class="pergamino destacado">
+              <span class="vara vara-arriba" aria-hidden="true"></span>
+              <div class="kakejiku-papel">
               <p class="pergamino-estado"><span data-idioma="es">En producción · 12 versiones</span><span data-idioma="en" hidden>In production · 12 releases</span></p>
               <h3><span data-idioma="es">Gestión para una papelería con varias sedes</span><span data-idioma="en" hidden>Management system for a multi-branch stationery store</span></h3>
               <div data-idioma="es">
@@ -96,9 +112,13 @@
               </div>
               <ul class="etiquetas" aria-label="Stack"><li>React 19</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li><li>Supabase</li></ul>
               <div class="capturas" data-capturas="papeleria"><p data-i18n="capturasPronto">Capturas con datos de prueba, próximamente.</p></div>
+              </div>
+              <span class="vara vara-abajo" aria-hidden="true"></span>
             </article>
 
             <article class="pergamino">
+              <span class="vara vara-arriba" aria-hidden="true"></span>
+              <div class="kakejiku-papel">
               <p class="pergamino-estado"><span data-idioma="es">En desarrollo</span><span data-idioma="en" hidden>In development</span></p>
               <h3><span data-idioma="es">Inventario y producción para una empresa de agua</span><span data-idioma="en" hidden>Inventory and production for a water company</span></h3>
               <div data-idioma="es">
@@ -109,28 +129,35 @@
               </div>
               <ul class="etiquetas" aria-label="Stack"><li>TypeScript</li><li>Node.js</li><li>Express</li><li>Prisma</li><li>React</li></ul>
               <div class="capturas" data-capturas="aguas"><p data-i18n="capturasPronto">Capturas con datos de prueba, próximamente.</p></div>
+              </div>
+              <span class="vara vara-abajo" aria-hidden="true"></span>
             </article>
 
             <article class="pergamino">
+              <span class="vara vara-arriba" aria-hidden="true"></span>
+              <div class="kakejiku-papel">
               <p class="pergamino-estado"><span data-idioma="es">Código abierto</span><span data-idioma="en" hidden>Open source</span></p>
               <h3><span data-idioma="es">Esta casa</span><span data-idioma="en" hidden>This house</span></h3>
               <div data-idioma="es">
-                <p>Un portafolio que se recorre con una linterna. Vite y JavaScript sin frameworks, caligrafía con los trazos reales de KanjiVG, siluetas en SVG y un formulario que corre en una función de Vercel.</p>
+                <p>Una casa en 3D que se recorre con el scroll. La linterna proyecta sombras reales sobre papel washi hecho con shaders, la caligrafía se pinta con un pincel simulado sobre los trazos de KanjiVG y el formulario corre en una función de Vercel. Three.js y JavaScript, sin frameworks.</p>
               </div>
               <div data-idioma="en" hidden>
-                <p>A portfolio you explore with a lantern. Vite and plain JavaScript, calligraphy drawn with real KanjiVG stroke data, SVG silhouettes and a contact form running on a Vercel function.</p>
+                <p>A 3D house you walk through by scrolling. The lantern casts real shadows on shader-made washi paper, the calligraphy is painted by a simulated brush over KanjiVG stroke data, and the contact form runs on a Vercel function. Three.js and plain JavaScript, no frameworks.</p>
               </div>
-              <ul class="etiquetas" aria-label="Stack"><li>JavaScript</li><li>Vite</li><li>SVG</li><li>Vercel</li></ul>
+              <ul class="etiquetas" aria-label="Stack"><li>Three.js</li><li>GLSL</li><li>JavaScript</li><li>Vite</li><li>Vercel</li></ul>
               <a class="enlace" href="https://github.com/SantiagoRicaurte06/Portafolio" rel="noopener"><span data-idioma="es">Ver el código</span><span data-idioma="en" hidden>See the code</span> →</a>
+              </div>
+              <span class="vara vara-abajo" aria-hidden="true"></span>
             </article>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="habitacion" id="taller" data-kanji="技" aria-labelledby="t-taller">
-      <div class="marco">
-        <div class="contenido">
+    <section class="sala sala-taller" id="taller" data-kanji="技" aria-labelledby="t-taller">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">03<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
           <h2 id="t-taller" data-i18n="taller">Taller</h2>
           <div class="grupos">
             <div class="grupo">
@@ -156,13 +183,14 @@
       </div>
     </section>
 
-    <section class="habitacion" id="camino" data-kanji="道" aria-labelledby="t-camino">
-      <div class="marco">
-        <div class="contenido contenido-con-foto">
+    <section class="sala sala-camino" id="camino" data-kanji="道" aria-labelledby="t-camino">
+      <div class="panel  panel-ancho" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">04<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
           <h2 id="t-camino" data-i18n="camino">Camino</h2>
           <div class="camino">
             <figure class="foto">
-              <img src="/foto-perfil.jpeg" alt="Santiago Alexis Ricaurte" width="1248" height="832" loading="lazy" decoding="async">
+              <img src="/foto-perfil.webp" alt="Santiago Alexis Ricaurte" width="400" height="500" loading="lazy" decoding="async">
             </figure>
             <div>
               <div data-idioma="es">
@@ -189,9 +217,18 @@
       </div>
     </section>
 
-    <section class="habitacion" id="servicios" data-kanji="商" aria-labelledby="t-servicios">
-      <div class="marco">
-        <div class="contenido">
+    <section class="sala sala-ma" id="ma" data-kanji="間" data-tipo="ma" aria-label="Pausa">
+      <div class="panel panel-ma">
+        <p class="ma-kanji" aria-hidden="true">間</p>
+        <p class="ma-texto" data-idioma="es">Ma: el espacio entre las cosas. Toca el agua.</p>
+        <p class="ma-texto" data-idioma="en" hidden>Ma: the space between things. Touch the water.</p>
+      </div>
+    </section>
+
+    <section class="sala sala-servicios" id="servicios" data-kanji="商" aria-labelledby="t-servicios">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">05<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
           <h2 id="t-servicios" data-i18n="servicios">Servicios</h2>
           <p class="bajada" data-idioma="es">También trabajo por proyecto con negocios y emprendedores.</p>
           <p class="bajada" data-idioma="en" hidden>I also take on projects for businesses and entrepreneurs.</p>
@@ -216,9 +253,10 @@
       </div>
     </section>
 
-    <section class="habitacion" id="suenos" data-kanji="夢" aria-labelledby="t-suenos">
-      <div class="marco">
-        <div class="contenido">
+    <section class="sala sala-suenos" id="suenos" data-kanji="夢" aria-labelledby="t-suenos">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">06<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
           <h2 id="t-suenos" data-i18n="suenos">Sueños</h2>
           <div class="grupos">
             <div class="grupo">
@@ -258,9 +296,10 @@
       </div>
     </section>
 
-    <section class="habitacion" id="contacto" data-kanji="縁" aria-labelledby="t-contacto">
-      <div class="marco">
-        <div class="contenido">
+    <section class="sala sala-contacto" id="contacto" data-kanji="縁" aria-labelledby="t-contacto">
+      <div class="panel" data-lenis-prevent>
+        <div class="panel-cabeza" aria-hidden="true"><span class="numero">07<span> / 07</span></span><canvas class="kanji-tinta"></canvas></div>
+        <div class="panel-cuerpo">
           <h2 id="t-contacto" data-i18n="contacto">Contacto</h2>
           <p class="bajada" data-idioma="es">¿Una oferta, una práctica o un proyecto? Escríbeme.</p>
           <p class="bajada" data-idioma="en" hidden>A job offer, an internship or a project? Write to me.</p>
@@ -309,7 +348,8 @@
     </section>
   </main>
 
-  <div class="penumbra" aria-hidden="true"></div>
+  <div id="trayecto" aria-hidden="true"></div>
+
 
   <script type="module" src="/src/main.js"></script>
   <!-- Vercel Web Analytics: sin cookies; se activa en el panel de Vercel -->

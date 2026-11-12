@@ -1,6 +1,11 @@
 # Portafolio
 
-Portafolio personal estático: `index.html`, `Styles.css`, `visual.js` y `assets/`. Sin backend ni build; se abre directo en el navegador.
+Portafolio personal: una casa japonesa en 3D que se recorre con el scroll. Plan y decisiones en `docs/plan-v2.md`.
+
+- **Stack:** Vite + JavaScript (sin frameworks), Three.js (escena en `src/escena/`, carga diferida), Lenis (scroll), una función de Vercel en `api/contacto.js` (Resend). Deploy en Vercel.
+- **Comandos:** `npm run dev`, `npm run build`, `npm test` (pruebas de la función de contacto).
+- **Contenido:** todo el texto vive en el HTML (ES/EN con `data-idioma`), nunca dentro del canvas. Hay "modo lectura" sin 3D (y se activa solo con `prefers-reduced-motion` o sin WebGL2).
+- **Capturas con Chrome headless:** de a una, con `--gpu`, cerrando el árbol de procesos y el perfil temporal; al terminar, 0 procesos `chrome.exe --headless` vivos.
 
 ## Git workflow
 
@@ -21,6 +26,6 @@ Copiadas del repo inicial (SantiagoRicaurte06/Discord): las skills viven en `ski
 - Al empezar cualquier tarea, consulta `skills/guia-skills/SKILL.md` para decidir qué skill aplicar: grill-me antes de construir, git-workflow en cada commit, revision-seguridad-backend y thermos antes de mergear lo sensible, checklist-lanzamiento antes de deployar un sitio.
 - Para crear o mejorar una skill usa **skill-creator** y regístrala en `skills/catalogo.json`, la tabla de `guia-skills` y `skills/guia-skills/scripts/instalar.sh`.
 - Links de videos o ideas → van al vault `cerebro/` del repo inicial (SantiagoRicaurte06/Discord), no a este repo.
-- Es un sitio estático: `checklist-lanzamiento` antes de publicar; `revision-seguridad-backend` no aplica mientras no haya backend.
+- `checklist-lanzamiento` antes de publicar y `revision-seguridad-backend` si cambia `api/`.
 - Si el hook `🛡️ proteccion` bloquea un comando, no lo rodees: explica y propón una alternativa segura.
 - Todo en español.

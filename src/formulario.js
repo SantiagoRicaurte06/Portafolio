@@ -43,6 +43,11 @@ export function iniciarFormulario() {
       if (respuesta.ok && cuerpo.ok) {
         formulario.reset();
         mostrar('enviado', 'ok');
+        // El sello rojo cae como confirmación
+        const sello = document.createElement('img');
+        sello.src = '/sello.svg'; sello.alt = ''; sello.className = 'sello-confirmado';
+        document.body.append(sello);
+        setTimeout(() => sello.remove(), 1700);
       } else {
         mostrar(`error_${cuerpo.error ?? 'servicio'}`, 'error');
       }

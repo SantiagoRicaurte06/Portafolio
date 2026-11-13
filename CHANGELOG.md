@@ -2,6 +2,20 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [SemVer](https://semver.org/lang/es/).
 
+## [1.3.0] - 2026-11-13
+
+### Añadido
+
+- Términos de uso (ES/EN) en `/terminos.html`, enlazados en el pie junto a la política de privacidad.
+- `sitemap.xml` y la línea `Sitemap:` en `robots.txt`.
+- Open Graph y URL canónica en la política de privacidad y en los términos.
+
+### Cambiado
+
+- Página 404 rediseñada: hoja de shōji con bordes rasgados iluminada por la linterna, 空 en tinta con el sello, selector ES/EN.
+- `og:image` y `og:url` con URL absoluta (`https://santiagoricaurte.dev`).
+- El idioma de las páginas de texto vive en un solo módulo (`src/idioma-pagina.js`) y, sin elección guardada, sigue al navegador como la casa.
+
 ## [1.2.0] - 2026-11-13
 
 ### Añadido
@@ -81,6 +95,7 @@ Primera versión pública del portafolio rediseñado.
 - Formulario de contacto con función de Vercel y Resend: validación, honeypot, límite de envíos y constancia del consentimiento.
 - Aviso de privacidad preliminar (Ley 1581), página 404, Open Graph, datos estructurados y Vercel Web Analytics.
 
+[1.3.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.3.0
 [1.2.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.2.0
 [1.1.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.1.0
 [1.0.3]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.3

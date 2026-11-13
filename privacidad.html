@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-titulo-es="Política de privacidad · Santiago Ricaurte" data-titulo-en="Privacy policy · Santiago Ricaurte">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,20 @@
   <meta name="robots" content="noindex">
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/sello.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#1d1b18">
+  <link rel="canonical" href="https://santiagoricaurte.dev/privacidad.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Santiago Ricaurte · Portafolio">
+  <meta property="og:title" content="Política de tratamiento de datos · Santiago Ricaurte">
+  <meta property="og:description" content="Qué datos trato cuando me escribes desde el portafolio, para qué y cómo ejercer tus derechos (Ley 1581 de 2012).">
+  <meta property="og:url" content="https://santiagoricaurte.dev/privacidad.html">
+  <meta property="og:image" content="https://santiagoricaurte.dev/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Santiago Alexis Ricaurte, desarrollador de software, junto al kanji 玄関 y su sello rojo">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Solo los caracteres que usa el sitio (text=): unos pocos KB en vez de cientos de subconjuntos japoneses. Sin bloquear el render. -->
@@ -210,24 +224,6 @@
     </article>
   </main>
 
-  <script type="module">
-    // Mismo idioma que eligió el visitante en la casa (clave 'idioma' en localStorage).
-    const articulos = document.querySelectorAll('[data-idioma]');
-    const botones = document.querySelectorAll('[data-cambiar]');
-    function aplicar(idioma) {
-      const actual = idioma === 'en' ? 'en' : 'es';
-      document.documentElement.lang = actual;
-      document.title = actual === 'en' ? 'Privacy policy · Santiago Ricaurte' : 'Política de privacidad · Santiago Ricaurte';
-      articulos.forEach((el) => { el.hidden = el.dataset.idioma !== actual; });
-      botones.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cambiar === actual)));
-    }
-    let guardado = null;
-    try { guardado = localStorage.getItem('idioma'); } catch { /* sin almacenamiento */ }
-    aplicar(guardado);
-    botones.forEach((b) => b.addEventListener('click', () => {
-      aplicar(b.dataset.cambiar);
-      try { localStorage.setItem('idioma', b.dataset.cambiar); } catch { /* sin almacenamiento */ }
-    }));
-  </script>
+  <script type="module" src="/src/idioma-pagina.js"></script>
 </body>
 </html>

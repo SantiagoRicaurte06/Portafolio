@@ -1,4 +1,4 @@
-/* Páginas de texto (privacidad, 404): papel claro, tinta y nada más. */
+/* Páginas de texto (privacidad, términos, 404): papel claro, tinta y nada más. */
 :root {
   --tinta: #141311;
   --tinta-suave: #3a3833;
@@ -28,9 +28,6 @@ body.pagina {
 .hoja-texto a:hover { color: var(--sello); }
 .volver { font-size: .9rem; }
 :focus-visible { outline: 2px solid var(--sello); outline-offset: 3px; }
-.pagina-vacia { display: grid; place-items: center; }
-.vacia { text-align: center; }
-.kanji-vacio { font-family: 'Shippori Mincho', serif; font-size: clamp(6rem, 22vw, 11rem); line-height: 1; margin: 0; opacity: .12; }
 .barra-pagina { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .cambio-idioma { display: flex; gap: .25rem; }
 .cambio-idioma button {
@@ -45,3 +42,127 @@ body.pagina {
 .hoja-texto th, .hoja-texto td { text-align: left; vertical-align: top; padding: .45rem .6rem; border-bottom: 1px solid #d8d1c4; }
 .hoja-texto thead th, .hoja-texto tbody th { font-weight: 500; color: var(--tinta-suave); }
 .hoja-texto a { overflow-wrap: anywhere; }
+
+/* ── 404: una hoja de shōji de noche, iluminada por la linterna ─────────── */
+body.pagina-vacia {
+  --noche: #070605;
+  --papel-luz: #f8f4ec;
+  --wa: cubic-bezier(.16, 1, .3, 1);
+  /* Bordes de papel rasgado (los mismos de las salas de la casa) */
+  --borde-arriba: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M0 5L4.7 4.9L14.2 1.4L19.7 3.9L29.5 3.3L36.3 3.6L44.8 2.9L53.8 2.6L57.4 4.2L62.9 1.9L66.8 3L70.5 1.7L78.9 1.5L88.4 2.3L93.9 2.5L101.9 2.4L111 3.7L121 3.1L125.7 4.9L132.2 1.9L136.4 1.2L144.8 1.8L152.9 4.7L158.8 3.8L165.3 3.1L175 2.5L179.5 2.3L187.5 2.8L196.3 4.2L202.8 4.2L208.1 2.6L217.2 2L225.1 3L231.8 3.5L240 5L240 12L0 12Z'/%3E%3C/svg%3E");
+  --borde-abajo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M0 7L4.7 7.1L14.2 10.6L19.7 8.1L29.5 8.7L36.3 8.4L44.8 9.1L53.8 9.4L57.4 7.8L62.9 10.1L66.8 9L70.5 10.3L78.9 10.5L88.4 9.7L93.9 9.5L101.9 9.6L111 8.3L121 8.9L125.7 7.1L132.2 10.1L136.4 10.8L144.8 10.2L152.9 7.3L158.8 8.2L165.3 8.9L175 9.5L179.5 9.7L187.5 9.2L196.3 7.8L202.8 7.8L208.1 9.4L217.2 10L225.1 9L231.8 8.5L240 7L240 0L0 0Z'/%3E%3C/svg%3E");
+  --borde-izq: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 240' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M5 0L4.2 6.3L2.1 14.7L1.5 21.8L3.5 30.5L4.2 33.9L4.8 43.9L4.6 48.9L7.2 58.8L5.1 63.4L4.5 72.9L2.7 79.8L3.2 83L2.7 86.6L2 96.6L2.8 103.1L3.9 106.5L1.9 112.6L5.2 120.9L3.5 124.5L2.7 133.4L2.3 139.6L4.4 147.4L3.6 154.3L2.4 161.1L5.2 170.7L1.4 177.4L2.9 186.7L5.2 189.8L4.9 195.8L5.8 199.8L3.4 203L4.9 210.8L4.7 214.2L3.3 217.3L2.8 222.3L5.1 231.3L5 240L12 240L12 0Z'/%3E%3C/svg%3E");
+  --borde-der: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 240' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M7 0L7.8 6.3L9.9 14.7L10.5 21.8L8.5 30.5L7.8 33.9L7.2 43.9L7.4 48.9L4.8 58.8L6.9 63.4L7.5 72.9L9.3 79.8L8.8 83L9.3 86.6L10 96.6L9.2 103.1L8.1 106.5L10.1 112.6L6.8 120.9L8.5 124.5L9.3 133.4L9.7 139.6L7.6 147.4L8.4 154.3L9.6 161.1L6.8 170.7L10.6 177.4L9.1 186.7L6.8 189.8L7.1 195.8L6.2 199.8L8.6 203L7.1 210.8L7.3 214.2L8.7 217.3L9.2 222.3L6.9 231.3L7 240L0 240L0 0Z'/%3E%3C/svg%3E");
+  --pincel-sello: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath fill='%23b3262c' d='M2 9.2L11.8 7.6L21.6 6.5L31.4 5.9L41.2 6.1L51 6L60.8 5.3L70.6 5.9L80.4 5.6L90.2 6.7L100 6.2L109.8 6.6L119.6 6.8L129.4 7.2L139.2 7.9L149 8.3L158.8 8.4L168.6 8.9L178.4 9.2L188.2 9.4L198 9.5L198 10.7L188.2 11.3L178.4 11.8L168.6 12.2L158.8 13.1L149 13.5L139.2 14.2L129.4 14.2L119.6 14.3L109.8 15L100 16L90.2 15.6L80.4 16L70.6 16.4L60.8 15.9L51 15L41.2 15.4L31.4 14.9L21.6 14.1L11.8 13L2 10.7Z'/%3E%3C/svg%3E");
+  /* Fibras de washi: ruido muy tenue */
+  --washi: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9 .06' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .32 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+
+  display: grid; place-items: center;
+  min-height: 100vh; min-height: 100dvh;
+  padding: 2rem 16px;
+  background: radial-gradient(circle at 50% 42%, #1c1813, var(--noche) 68%);
+  overflow-x: hidden;
+}
+
+/* Resplandor cálido de la linterna detrás del papel: respira despacio */
+.andon {
+  position: fixed; left: 50%; top: 42%; width: min(110vw, 900px); aspect-ratio: 1;
+  translate: -50% -50%; pointer-events: none;
+  background: radial-gradient(circle, rgb(255 196 128 / .2), rgb(255 170 90 / .06) 40%, transparent 68%);
+  animation: respira 6s ease-in-out infinite;
+}
+@keyframes respira { 50% { opacity: .72; scale: .96; } }
+
+/* Bordes rasgados en dos máscaras anidadas: el marco recorta los lados y la hoja
+   arriba y abajo. Así se intersecan y las esquinas no sobresalen. */
+.marco-shoji {
+  position: relative;
+  width: min(100%, 540px);
+  -webkit-mask-image: var(--borde-izq), var(--borde-der), linear-gradient(#000 0 0);
+  mask-image: var(--borde-izq), var(--borde-der), linear-gradient(#000 0 0);
+  -webkit-mask-position: left top, right top, center;
+  mask-position: left top, right top, center;
+  -webkit-mask-size: 12px 240px, 12px 240px, calc(100% - 22px) 100%;
+  mask-size: 12px 240px, 12px 240px, calc(100% - 22px) 100%;
+  -webkit-mask-repeat: repeat-y, repeat-y, no-repeat;
+  mask-repeat: repeat-y, repeat-y, no-repeat;
+  animation: aparece 1.2s var(--wa) both;
+}
+.shoji {
+  position: relative;
+  padding: clamp(2rem, 6vw, 3.25rem) clamp(1.5rem, 6vw, 3rem) clamp(2.25rem, 6vw, 3rem);
+  text-align: center;
+  background:
+    var(--washi),
+    radial-gradient(ellipse 80% 70% at 50% 38%, var(--papel-luz), var(--papel) 60%, #e9e1d1);
+  -webkit-mask-image: var(--borde-arriba), var(--borde-abajo), linear-gradient(#000 0 0);
+  mask-image: var(--borde-arriba), var(--borde-abajo), linear-gradient(#000 0 0);
+  -webkit-mask-position: left top, left bottom, center;
+  mask-position: left top, left bottom, center;
+  -webkit-mask-size: 240px 12px, 240px 12px, 100% calc(100% - 22px);
+  mask-size: 240px 12px, 240px 12px, 100% calc(100% - 22px);
+  -webkit-mask-repeat: repeat-x, repeat-x, no-repeat;
+  mask-repeat: repeat-x, repeat-x, no-repeat;
+}
+/* Sombra del kumiko (la retícula del shōji) sobre el papel, muy tenue */
+.shoji::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgb(20 19 17 / .045) calc(25% - 1px) 25%),
+    repeating-linear-gradient(0deg, transparent 0 calc(16.66% - 1px), rgb(20 19 17 / .045) calc(16.66% - 1px) 16.66%);
+}
+.shoji > * { position: relative; }
+@keyframes aparece { from { opacity: 0; translate: 0 14px; } }
+
+.shoji .cambio-idioma { position: absolute; top: 1.4rem; right: 1.4rem; }
+
+.caligrafia { position: relative; display: inline-block; margin: .5rem 0 0; }
+.kanji-vacio {
+  display: block;
+  font-family: 'Shippori Mincho', serif; font-weight: 700;
+  font-size: clamp(7rem, 34vw, 11.5rem); line-height: 1;
+  color: var(--tinta);
+  text-shadow: 0 0 1px rgb(20 19 17 / .6), 0 0 .08em rgb(20 19 17 / .15);
+  animation: tinta 1.8s var(--wa) .25s both;
+}
+/* La tinta se asienta en el papel: de difusa a nítida */
+@keyframes tinta { from { opacity: 0; filter: blur(10px); letter-spacing: .1em; } }
+.sello-firma {
+  position: absolute; right: -1.6rem; bottom: .2rem;
+  width: clamp(44px, 12vw, 60px); height: auto;
+  rotate: -6deg;
+  animation: estampa .7s cubic-bezier(.2, 1.5, .4, 1) 1.5s both;
+}
+@keyframes estampa { from { opacity: 0; scale: 1.9; rotate: -18deg; } }
+
+.codigo {
+  margin: 1.1rem 0 0;
+  font-size: .75rem; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.shoji h1 {
+  font-family: 'Shippori Mincho', serif; font-weight: 700;
+  font-size: clamp(1.55rem, 6vw, 2.1rem); line-height: 1.25;
+  margin: .9rem 0 .4rem;
+  text-wrap: balance;
+}
+.shoji p { margin: 0; text-wrap: pretty; }
+.shoji [data-idioma] > p { color: var(--tinta-suave); }
+
+.volver-casa {
+  display: inline-block; margin-top: 1.9rem; padding: .35rem .2rem .55rem;
+  color: var(--tinta); text-decoration: none; font-weight: 500;
+  background: var(--pincel-sello) no-repeat left bottom / 0% .55rem;
+  transition: background-size .6s var(--wa), color .3s;
+}
+.volver-casa:hover, .volver-casa:focus-visible { background-size: 100% .55rem; color: var(--sello); }
+
+@media (max-width: 420px) {
+  .shoji .cambio-idioma { position: static; justify-content: flex-end; }
+  .sello-firma { right: -1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .andon, .marco-shoji, .kanji-vacio, .sello-firma { animation: none; }
+  .volver-casa { transition: none; }
+}

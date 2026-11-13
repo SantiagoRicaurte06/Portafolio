@@ -1,9 +1,12 @@
 import { iniciarIdioma, t } from './i18n.js';
 import { iniciarFormulario } from './formulario.js';
-import { activarSonido, sonar, sonidoActivo } from './sonido.js';
+import { activarSonido, sonar, sonidoActivo, velocidad } from './sonido.js';
 import { prepararTinta } from './tinta.js';
 import { texturaWashi } from './papel-dom.js';
 import { transicionTinta } from './transicion.js';
+import { crearPreludio } from './preludio.js';
+import { iniciarCursor } from './cursor.js';
+import { iniciarInterfaz } from './interfaz.js';
 
 const menosMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const tactil = matchMedia('(pointer: coarse)').matches;
@@ -25,6 +28,9 @@ if (modo === 'recorrido' && 'scrollRestoration' in history) history.scrollRestor
 // ── Comunes a los dos modos ────────────────────────────────────────────────
 iniciarIdioma(document.getElementById('idioma'));
 iniciarFormulario();
+// Interfaz: cursor de tinta, reveals por líneas, hilo de progreso y sugerencia de scroll
+const interfaz = iniciarInterfaz({ modo, menosMovimiento });
+iniciarCursor({ menosMovimiento });
 // Lo que no hace falta para el primer pintado espera a que el navegador esté libre
 const cuandoLibre = (fn, limite = 1200) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: limite }) : setTimeout(fn, 200));
 cuandoLibre(() => texturaWashi().then((url) => { if (url) document.documentElement.style.setProperty('--washi', `url(${url})`); }));
@@ -41,14 +47,21 @@ document.addEventListener('idioma', pintarBotones);
 pintarBotones();
 
 // Kanji de pincel de cada sala: se pintan la primera vez que la sala se muestra
+// Kanji de pincel de cada sala: la tinta (tres canvas por sala) se prepara recién la primera vez
+// que la sala se muestra; prepararlas todas al inicio costaba ~0,4 s en un celular.
 const tintas = new Map();
-salasDom.forEach((s) => {
+function tintaDe(s) {
+  if (tintas.has(s)) return tintas.get(s);
   const lienzo = s.querySelector('.kanji-tinta');
-  if (!lienzo || getComputedStyle(lienzo.parentElement).display === 'none') return;
-  const tamano = innerWidth < 760 ? 46 : 62;
-  tintas.set(s, prepararTinta(lienzo, s.dataset.kanji, { tamano, vertical: innerWidth >= 760, grosor: 8.5, duracion: 1500, pausa: 50 }));
-});
-const pintarSala = (s) => tintas.get(s)?.pintar();
+  let tinta = null;
+  if (lienzo && getComputedStyle(lienzo.parentElement).display !== 'none') {
+    const tamano = innerWidth < 760 ? 46 : 62;
+    tinta = prepararTinta(lienzo, s.dataset.kanji, { tamano, vertical: innerWidth >= 760, grosor: 8.5, duracion: 1500, pausa: 50 });
+  }
+  tintas.set(s, tinta);
+  return tinta;
+}
+const pintarSala = (s) => tintaDe(s)?.pintar();
 
 const pergaminos = [...document.querySelectorAll('.pergamino')];
 const listaObras = document.querySelector('.pergaminos');
@@ -81,56 +94,67 @@ async function iniciarRecorrido() {
   });
   listaObras?.before(indice);
 
-  // Preludio: 玄関 en tinta y el sello mientras carga la casa
-  const vista = leer('preludio-visto') === 'si';
-  const preludio = document.createElement('div');
-  preludio.className = 'preludio';
-  preludio.setAttribute('aria-hidden', 'true');
-  preludio.innerHTML = '<div class="preludio-centro"><canvas></canvas><img class="preludio-sello" src="/sello.svg" alt=""></div><p class="preludio-carga"></p>';
-  document.body.append(preludio);
-  preludio.querySelector('.preludio-carga').textContent = t('cargando');
-  const tintaPreludio = prepararTinta(preludio.querySelector('canvas'), '玄関', { tamano: Math.min(150, innerWidth * 0.3), vertical: false, grosor: 7.5, tinta: '243,239,230', duracion: vista ? 900 : 2300, pausa: vista ? 15 : 60 });
-  // Nunca más de 3,5 s, aunque el dispositivo vaya lento
-  const limite = new Promise((r) => setTimeout(r, vista ? 1500 : 3500)).then(() => tintaPreludio.completar());
-  const pintado = Promise.race([tintaPreludio.pintar(), limite]).then(() => { preludio.classList.add('sellado'); return new Promise((r) => setTimeout(r, 450)); });
-  const saltar = () => tintaPreludio.completar();
-  addEventListener('pointerdown', saltar, { once: true });
-  addEventListener('keydown', saltar, { once: true });
+  // El nombre y el rol se ven desde el primer pintado, sin esperar a la casa 3D (LCP)
+  salasDom[0]?.classList.add('visible');
+
+  // Preludio: 玄関 en tinta, el sello y la línea de carga mientras llega la casa
+  const preludio = crearPreludio({ visto: leer('preludio-visto') === 'si', texto: t('cargando') });
 
   const calidad = tactil || (navigator.hardwareConcurrency ?? 8) <= 4
     ? { dpr: 1.25, sombra: 512, washi: 512, antialias: false }
     : { dpr: 1.75, sombra: 1024, washi: 1024, antialias: true };
 
-  let escena;
-  try {
-    await new Promise((r) => cuandoLibre(r, 900));
-    const { crearEscena } = await import('./escena/escena.js');
-    escena = crearEscena(lienzo, { salas, calidad, menosMovimiento });
-    escena.redimensionar(innerWidth, innerHeight);
-    addEventListener('resize', () => escena.redimensionar(innerWidth, innerHeight));
-  } catch (error) {
-    console.error('No se pudo crear la escena 3D', error);
-    guardar('modo', 'lectura');
-    location.reload();
-    return;
+  // En celular y equipos modestos la casa 3D arranca con el primer gesto del visitante (toque, rueda,
+  // scroll o tecla); mientras tanto se ve una imagen fija de la entrada (#cartel). Así la carga
+  // inicial queda liviana. En equipos potentes se carga durante el preludio, como siempre.
+  const diferida = calidad.dpr <= 1.25;
+  let escena = null;
+  const ultimoEstado = { posicion: 0, local: 0 };
+  let cargando = null;
+  const cargarEscena = () => (cargando ??= (async () => {
+    try {
+      if (!diferida) await new Promise((r) => cuandoLibre(r, 900));
+      const { crearEscena } = await import('./escena/escena.js');
+      const nueva = await crearEscena(lienzo, { salas, calidad, menosMovimiento });
+      await nueva.iniciar();
+      nueva.redimensionar(innerWidth, innerHeight);
+      nueva.avanzar(ultimoEstado.posicion, ultimoEstado.local);
+      addEventListener('resize', () => nueva.redimensionar(innerWidth, innerHeight));
+      escena = nueva;
+      document.documentElement.classList.add('escena-lista');
+    } catch (error) {
+      console.error('No se pudo crear la escena 3D', error);
+      guardar('modo', 'lectura');
+      location.reload();
+    }
+  })());
+  if (diferida) {
+    document.documentElement.classList.add('escena-diferida');
+    const gestos = ['pointerdown', 'touchstart', 'wheel', 'keydown', 'scroll'];
+    const arrancar = () => { gestos.forEach((g) => removeEventListener(g, arrancar)); cargarEscena(); };
+    gestos.forEach((g) => addEventListener(g, arrancar, { passive: true }));
+  } else {
+    await preludio.cargar(cargarEscena());
   }
 
   let salaActual = -1;
   let ultimaApertura = 0;
-  const { crearRecorrido } = await import('./recorrido.js');
+  const { crearRecorrido } = await preludio.cargar(import('./recorrido.js'));
   recorrido = crearRecorrido({
     salas, trayecto, menosMovimiento,
     alActualizar({ posicion, local, sala }) {
-      escena.avanzar(posicion, local);
+      ultimoEstado.posicion = posicion; ultimoEstado.local = local;
+      escena?.avanzar(posicion, local);
+      interfaz.progreso(posicion, salas.length - 1, local);
       const cerca = Math.abs(posicion - sala) < 0.32;
       salasDom.forEach((s, i) => {
         const visible = i === sala && cerca;
-        if (visible && !s.classList.contains('visible')) pintarSala(s);
+        if (visible && !s.classList.contains('visible')) { pintarSala(s); sonar('pincel', { duracion: 1.5 }); }
         s.classList.toggle('visible', visible);
         s.inert = !visible;
       });
       if (sala !== salaActual) {
-        if (salaActual !== -1) sonar('furin');
+        if (salaActual !== -1) { sonar('pasos'); sonar('furin', { nivel: 0.6 }); }
         salaActual = sala;
         enlacesMapa.forEach((a) => a.setAttribute('aria-current', String(a.hash === `#${salas[sala].id}`)));
       }
@@ -152,12 +176,16 @@ async function iniciarRecorrido() {
     },
   });
 
+  // El viento y los pasos responden a la velocidad del scroll
+  recorrido.lenis.on('scroll', ({ velocity }) => velocidad(velocity));
+
   // Mapa y enlaces internos: la tinta cubre la pantalla y la cámara salta a la sala
   document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
     const i = salas.findIndex((s) => `#${s.id}` === a.hash);
     if (i < 0) return;
     e.preventDefault();
     const r = a.getBoundingClientRect();
+    sonar('tinta');
     transicionTinta(() => recorrido.irA(i, { inmediato: true }), { origen: [(r.left + r.width / 2) / innerWidth, (r.top + r.height / 2) / innerHeight] });
     history.replaceState(null, '', a.hash);
   }));
@@ -171,19 +199,19 @@ async function iniciarRecorrido() {
   });
 
   // Linterna y agua: el puntero mueve la luz; tocar el agua hace ondas
-  addEventListener('pointermove', (e) => escena.apuntar((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), { passive: true });
-  lienzo.addEventListener('pointerdown', (e) => escena.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1));
-  document.addEventListener('visibilitychange', () => escena.pausar(document.hidden));
+  addEventListener('pointermove', (e) => escena?.apuntar((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), { passive: true });
+  lienzo.addEventListener('pointerdown', (e) => {
+    escena?.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    sonar('gota', { pan: (e.clientX / innerWidth) * 2 - 1 });
+  });
+  document.addEventListener('visibilitychange', () => escena?.pausar(document.hidden));
 
-  await pintado;
+  await preludio.terminado;
 
   // Enlace directo (#obras): se salta cuando el preludio termina, para que el ancla del
   // navegador (que apunta a un panel fijo) no devuelva el scroll a 0 después.
   const inicial = salas.findIndex((s) => `#${s.id}` === location.hash);
   if (inicial > 0) requestAnimationFrame(() => recorrido.irA(inicial, { inmediato: true }));
   guardar('preludio-visto', 'si');
-  removeEventListener('pointerdown', saltar);
-  removeEventListener('keydown', saltar);
-  preludio.classList.add('fuera');
-  setTimeout(() => preludio.remove(), 1200);
+  preludio.salir();
 }

@@ -5,3 +5,5 @@ export const ANCHO_HOJA = 1.35;    // cada sala tiene dos hojas shōji
 export const FONDO_SALA = 3.4;     // profundidad de la habitación detrás del papel
 export const ALTURA_OJOS = 1.05;
 export const DISTANCIA_CAMARA = 7.8;
+export const NIVEL_AGUA = -0.28;   // altura del estanque (igual que en estanque.js)
+export const ORILLA = 2.0;         // z donde empieza el agua

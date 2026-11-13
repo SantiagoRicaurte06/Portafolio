@@ -79,7 +79,7 @@ void main() {
     vec2 par = 1.0 - 2.0 * mod(floor(gl_FragCoord.xy), 2.0);
     s += (dFdx(s) * par.x + dFdy(s) * par.y) / 3.0;
     // El papel difunde la luz: el borde se ablanda y lo más oscuro nunca llega a negro.
-    s = smoothstep(0.0, 1.0, s);
+    s = mix(s, smoothstep(0.0, 1.0, s), 0.5);   // borde suave sin perder el detalle de hojas y ramas
     sombra = mix(1.0, mix(0.08, 1.0, s), uSombra);
   }
 
@@ -199,7 +199,7 @@ export function crearMaterialPapel(washi, { kumiko = [3, 6], escala = [1.2, 2], 
         uSemilla: { value: semilla ?? contador * 1.618 },
         uImperfecciones: { value: 1 },
         uTiempo: { value: 0 },
-        uPenumbra: { value: 2.2 },
+        uPenumbra: { value: 1.15 },
       },
     ]),
     vertexShader: vertex,

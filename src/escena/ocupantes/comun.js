@@ -23,3 +23,28 @@ export function formaHojaMomiji(r = 0.06) {
   forma.lineTo(0, -r * 0.2);
   return new THREE.ShapeGeometry(forma);
 }
+
+// Une varias geometrías (ya transformadas) en una sola: un draw call en vez de varios.
+// Solo conserva posiciones y normales, que es lo que usan estos materiales lisos.
+export function fusionar(geos) {
+  const partes = geos.map((g) => (g.index ? g.toNonIndexed() : g));
+  const total = partes.reduce((n, g) => n + g.attributes.position.array.length, 0);
+  const pos = new Float32Array(total);
+  let k = 0;
+  for (const g of partes) { pos.set(g.attributes.position.array, k); k += g.attributes.position.array.length; }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.computeVertexNormals();
+  return geo;
+}
+
+// Hilo (cilindro de 3 lados) entre dos puntos [x, y, z].
+export function hiloEntre(a, b, r = 0.0025) {
+  const va = new THREE.Vector3(...a);
+  const vb = new THREE.Vector3(...b);
+  const dir = vb.clone().sub(va);
+  const geo = new THREE.CylinderGeometry(r, r, dir.length(), 3, 1, true);
+  geo.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize()));
+  geo.translate((va.x + vb.x) / 2, (va.y + vb.y) / 2, (va.z + vb.z) / 2);
+  return geo;
+}

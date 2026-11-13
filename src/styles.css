@@ -332,7 +332,7 @@ html.cursor-tinta, html.cursor-tinta * { cursor: none; }
 html.cursor-tinta :is(input, textarea, select, [contenteditable="true"]) { cursor: auto; }
 .cursor { position: fixed; inset: 0; z-index: 90; pointer-events: none; transition: opacity .3s; }
 .cursor.fuera, .cursor.en-campo { opacity: 0; }
-.cursor-punto, .cursor-anillo { position: absolute; left: 0; top: 0; will-change: transform; }
+.cursor-punto, .cursor-anillo { position: absolute; left: 0; top: 0; will-change: translate, scale; }
 .cursor-punto {
   width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%;
   background: var(--papel); box-shadow: 0 0 0 1px rgb(7 6 5 / .35);
@@ -356,7 +356,7 @@ html.cursor-tinta :is(input, textarea, select, [contenteditable="true"]) { curso
   position: fixed; left: 0; top: 0; z-index: 5; pointer-events: none;
   width: 340px; height: 340px; margin: -170px 0 0 -170px; border-radius: 50%;
   background: radial-gradient(circle, rgb(255 205 150 / .09), transparent 65%);
-  mix-blend-mode: screen; opacity: 0; transition: opacity .6s; will-change: transform;
+  mix-blend-mode: screen; opacity: 0; transition: opacity .6s; will-change: translate;
 }
 .cursor-halo.visible { opacity: 1; }
 

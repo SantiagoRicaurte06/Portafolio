@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-titulo-es="Habitación vacía · Santiago Ricaurte" data-titulo-en="Empty room · Santiago Ricaurte">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Habitación vacía · Santiago Ricaurte</title>
+  <meta name="description" content="Esta habitación está vacía: la página que buscas no existe en el portafolio de Santiago Ricaurte.">
   <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#070605">
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/sello.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,12 +17,33 @@
   <link rel="stylesheet" href="/src/pagina.css">
 </head>
 <body class="pagina pagina-vacia">
-  <main class="hoja-texto vacia">
-    <p class="kanji-vacio" aria-hidden="true">空</p>
-    <h1>Esta habitación está vacía</h1>
-    <p>La puerta que buscas no existe o cambió de lugar.</p>
-    <p lang="en">This room is empty. The door you are looking for doesn't exist or has moved.</p>
-    <p><a href="/">← Volver a la casa · Back to the house</a></p>
+  <div class="andon" aria-hidden="true"></div>
+  <main class="marco-shoji">
+  <div class="shoji">
+    <div class="cambio-idioma" role="group" aria-label="Idioma / Language">
+      <button type="button" data-cambiar="es" aria-pressed="true">ES</button>
+      <button type="button" data-cambiar="en" aria-pressed="false">EN</button>
+    </div>
+
+    <div class="caligrafia" aria-hidden="true">
+      <span class="kanji-vacio">空</span>
+      <img class="sello-firma" src="/sello.svg" alt="" width="64" height="64">
+    </div>
+    <p class="codigo">404 · kara</p>
+
+    <div data-idioma="es" lang="es">
+      <h1>Esta habitación está vacía</h1>
+      <p>La puerta que buscas no existe o cambió de lugar.</p>
+    </div>
+    <div data-idioma="en" lang="en" hidden>
+      <h1>This room is empty</h1>
+      <p>The door you are looking for doesn't exist or has moved.</p>
+    </div>
+
+    <a class="volver-casa" href="/"><span data-idioma="es">← Volver a la casa</span><span data-idioma="en" lang="en" hidden>← Back to the house</span></a>
+  </div>
   </main>
+
+  <script type="module" src="/src/idioma-pagina.js"></script>
 </body>
 </html>

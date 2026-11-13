@@ -1,6 +1,6 @@
 // Formulario de contacto: valida en el navegador, envía a /api/contacto y muestra el resultado.
 import { t } from './i18n.js';
-import { sonar } from './sonido.js';
+import { estamparSello } from './sello.js';
 
 export function iniciarFormulario() {
   const formulario = document.getElementById('formulario-contacto');
@@ -44,12 +44,8 @@ export function iniciarFormulario() {
       if (respuesta.ok && cuerpo.ok) {
         formulario.reset();
         mostrar('enviado', 'ok');
-        // El sello rojo cae como confirmación
-        const sello = document.createElement('img');
-        sello.src = '/sello.svg'; sello.alt = ''; sello.className = 'sello-confirmado';
-        document.body.append(sello);
-        sonar('sello');
-        setTimeout(() => sello.remove(), 1700);
+        // El sello rojo cae como confirmación (suena al tocar el papel)
+        estamparSello(document.body, { x: innerWidth / 2, y: innerHeight / 2, tamano: 120, retirar: 1300 });
       } else {
         mostrar(`error_${cuerpo.error ?? 'servicio'}`, 'error');
       }

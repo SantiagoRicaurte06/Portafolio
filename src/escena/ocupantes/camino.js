@@ -84,7 +84,8 @@ function tubo(puntos, radios, lados) {
   for (let i = 0; i < puntos.length - 1; i++) {
     for (let k = 0; k < lados; k++) {
       const a = i * lados + k, b = i * lados + ((k + 1) % lados);
-      idx.push(a, a + lados, b, b, a + lados, b + lados);
+      // Orden antihorario visto desde fuera: la cara exterior es la visible
+      idx.push(a, b, a + lados, b, b + lados, a + lados);
     }
   }
   const g = new THREE.BufferGeometry();

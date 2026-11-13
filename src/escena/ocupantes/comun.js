@@ -23,3 +23,67 @@ export function formaHojaMomiji(r = 0.06) {
   forma.lineTo(0, -r * 0.2);
   return new THREE.ShapeGeometry(forma);
 }
+
+// ── Modelado fino con pocas llamadas de dibujo ───────────────────────────────
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+// Una caja ya colocada.
+export function cajaEn(an, al, fo, mat, x = 0, y = 0, z = 0) {
+  const m = caja(an, al, fo, mat);
+  m.position.set(x, y, z);
+  return m;
+}
+
+// Cualquier geometría colocada y girada.
+export function pieza(geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) {
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(x, y, z);
+  m.rotation.set(rx, ry, rz);
+  return m;
+}
+
+// Varilla fina entre dos puntos (costillas de paraguas, palitos, patas).
+export function varilla(a, b, r, mat, lados = 4) {
+  const dir = new THREE.Vector3().subVectors(b, a);
+  const largo = dir.length();
+  const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, largo, lados, 1, true), mat);
+  m.position.copy(a).addScaledVector(dir, 0.5);
+  m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
+  return m;
+}
+
+// Cuerda o cinta que pasa por unos puntos (lazos, tiras, colgantes).
+export function cuerda(puntos, r, mat, tramos = 20, lados = 4, cerrada = false) {
+  const curva = new THREE.CatmullRomCurve3(puntos, cerrada, 'centripetal');
+  return new THREE.Mesh(new THREE.TubeGeometry(curva, tramos, r, lados, cerrada), mat);
+}
+
+// Fusiona todo un subárbol estático en una malla por material: muchas piezas finas,
+// pocas llamadas de dibujo (también en el pase de sombra). Devuelve un grupo nuevo.
+export function fusionarPorMaterial(raiz) {
+  raiz.updateMatrixWorld(true);
+  const inversa = raiz.matrixWorld.clone().invert();
+  const cubos = new Map();
+  const usadas = new Set();
+  const matriz = new THREE.Matrix4();
+  raiz.traverse((o) => {
+    if (!o.isMesh) return;
+    usadas.add(o.geometry);
+    const geo = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone();
+    for (const nombre of Object.keys(geo.attributes)) {
+      if (nombre !== 'position' && nombre !== 'normal') geo.deleteAttribute(nombre);
+    }
+    if (!geo.attributes.normal) geo.computeVertexNormals();
+    geo.clearGroups();
+    geo.applyMatrix4(matriz.multiplyMatrices(inversa, o.matrixWorld));
+    if (!cubos.has(o.material)) cubos.set(o.material, []);
+    cubos.get(o.material).push(geo);
+  });
+  const salida = new THREE.Group();
+  for (const [mat, geos] of cubos) {
+    salida.add(new THREE.Mesh(mergeGeometries(geos, false), mat));
+    geos.forEach((geo) => geo.dispose());
+  }
+  usadas.forEach((geo) => geo.dispose());
+  return salida;
+}

@@ -104,19 +104,37 @@ async function iniciarRecorrido() {
     ? { dpr: 1.25, sombra: 512, washi: 512, antialias: false }
     : { dpr: 1.75, sombra: 1024, washi: 1024, antialias: true };
 
-  let escena;
-  try {
-    await new Promise((r) => cuandoLibre(r, 900));
-    const { crearEscena } = await preludio.cargar(import('./escena/escena.js'));
-    escena = await crearEscena(lienzo, { salas, calidad, menosMovimiento });
-    await preludio.cargar(escena.iniciar());
-    escena.redimensionar(innerWidth, innerHeight);
-    addEventListener('resize', () => escena.redimensionar(innerWidth, innerHeight));
-  } catch (error) {
-    console.error('No se pudo crear la escena 3D', error);
-    guardar('modo', 'lectura');
-    location.reload();
-    return;
+  // En celular y equipos modestos la casa 3D arranca con el primer gesto del visitante (toque, rueda,
+  // scroll o tecla); mientras tanto se ve una imagen fija de la entrada (#cartel). Así la carga
+  // inicial queda liviana. En equipos potentes se carga durante el preludio, como siempre.
+  const diferida = calidad.dpr <= 1.25;
+  let escena = null;
+  const ultimoEstado = { posicion: 0, local: 0 };
+  let cargando = null;
+  const cargarEscena = () => (cargando ??= (async () => {
+    try {
+      if (!diferida) await new Promise((r) => cuandoLibre(r, 900));
+      const { crearEscena } = await import('./escena/escena.js');
+      const nueva = await crearEscena(lienzo, { salas, calidad, menosMovimiento });
+      await nueva.iniciar();
+      nueva.redimensionar(innerWidth, innerHeight);
+      nueva.avanzar(ultimoEstado.posicion, ultimoEstado.local);
+      addEventListener('resize', () => nueva.redimensionar(innerWidth, innerHeight));
+      escena = nueva;
+      document.documentElement.classList.add('escena-lista');
+    } catch (error) {
+      console.error('No se pudo crear la escena 3D', error);
+      guardar('modo', 'lectura');
+      location.reload();
+    }
+  })());
+  if (diferida) {
+    document.documentElement.classList.add('escena-diferida');
+    const gestos = ['pointerdown', 'touchstart', 'wheel', 'keydown', 'scroll'];
+    const arrancar = () => { gestos.forEach((g) => removeEventListener(g, arrancar)); cargarEscena(); };
+    gestos.forEach((g) => addEventListener(g, arrancar, { passive: true }));
+  } else {
+    await preludio.cargar(cargarEscena());
   }
 
   let salaActual = -1;
@@ -125,7 +143,8 @@ async function iniciarRecorrido() {
   recorrido = crearRecorrido({
     salas, trayecto, menosMovimiento,
     alActualizar({ posicion, local, sala }) {
-      escena.avanzar(posicion, local);
+      ultimoEstado.posicion = posicion; ultimoEstado.local = local;
+      escena?.avanzar(posicion, local);
       interfaz.progreso(posicion, salas.length - 1, local);
       const cerca = Math.abs(posicion - sala) < 0.32;
       salasDom.forEach((s, i) => {
@@ -180,12 +199,12 @@ async function iniciarRecorrido() {
   });
 
   // Linterna y agua: el puntero mueve la luz; tocar el agua hace ondas
-  addEventListener('pointermove', (e) => escena.apuntar((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), { passive: true });
+  addEventListener('pointermove', (e) => escena?.apuntar((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), { passive: true });
   lienzo.addEventListener('pointerdown', (e) => {
-    escena.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    escena?.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
     sonar('gota', { pan: (e.clientX / innerWidth) * 2 - 1 });
   });
-  document.addEventListener('visibilitychange', () => escena.pausar(document.hidden));
+  document.addEventListener('visibilitychange', () => escena?.pausar(document.hidden));
 
   await preludio.terminado;
 

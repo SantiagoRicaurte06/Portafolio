@@ -27,8 +27,21 @@ body.pagina {
 .hoja-texto a { color: inherit; }
 .hoja-texto a:hover { color: var(--sello); }
 .volver { font-size: .9rem; }
-.aviso-borrador { display: inline-block; font-size: .8rem; padding: .2rem .6rem; border: 1px solid var(--sello); color: var(--sello); }
 :focus-visible { outline: 2px solid var(--sello); outline-offset: 3px; }
 .pagina-vacia { display: grid; place-items: center; }
 .vacia { text-align: center; }
 .kanji-vacio { font-family: 'Shippori Mincho', serif; font-size: clamp(6rem, 22vw, 11rem); line-height: 1; margin: 0; opacity: .12; }
+.barra-pagina { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.cambio-idioma { display: flex; gap: .25rem; }
+.cambio-idioma button {
+  font: inherit; font-size: .8rem; padding: .15rem .55rem; cursor: pointer;
+  background: transparent; color: var(--tinta); border: 1px solid var(--tinta-suave);
+}
+.cambio-idioma button[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
+.vigencia { font-size: .85rem; color: var(--tinta-suave); margin-top: 0; }
+.hoja-texto ul { padding-left: 1.2rem; }
+.tabla-envoltura { overflow-x: auto; margin: .5rem 0 1rem; }
+.hoja-texto table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.hoja-texto th, .hoja-texto td { text-align: left; vertical-align: top; padding: .45rem .6rem; border-bottom: 1px solid #d8d1c4; }
+.hoja-texto thead th, .hoja-texto tbody th { font-weight: 500; color: var(--tinta-suave); }
+.hoja-texto a { overflow-wrap: anywhere; }

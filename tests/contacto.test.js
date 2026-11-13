@@ -1,7 +1,7 @@
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { validar, permitido, reiniciarLimite } from '../api/_validar.js';
-import { POST } from '../api/contacto.js';
+import { POST, VERSION_AVISO } from '../api/contacto.js';
 
 const AHORA = 1_800_000_000_000;
 const valido = (cambios = {}) => ({
@@ -63,7 +63,7 @@ test('envía el correo como texto con reply_to y responde ok', async () => {
   assert.equal(enviado.html, undefined);
   assert.match(enviado.subject, /Oferta de trabajo/);
   assert.match(enviado.text, /Autorización de tratamiento de datos: aceptada por ana@empresa\.co el \d{4}-\d{2}-\d{2}T/);
-  assert.match(enviado.text, /versión 2026-11-12-borrador/);
+  assert.ok(enviado.text.includes(`política de tratamiento de datos versión ${VERSION_AVISO}`));
 });
 
 test('no llama a Resend con datos inválidos, bots ni sin configuración', async () => {

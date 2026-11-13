@@ -4,8 +4,8 @@
 import { validar, permitido } from './_validar.js';
 
 const ETIQUETAS = { trabajo: 'Oferta de trabajo', proyecto: 'Proyecto', otro: 'Otro' };
-// Versión del aviso de privacidad que acepta el visitante. Cambiarla cuando cambie privacidad.html.
-export const VERSION_AVISO = '2026-11-12-borrador';
+// Versión de la política de tratamiento de datos que acepta el visitante. Cambiarla cuando cambie privacidad.html.
+export const VERSION_AVISO = '1.0 (2026-11-13)';
 const LIMITE_BYTES = 16 * 1024;
 
 const responder = (estado, cuerpo) => new Response(JSON.stringify(cuerpo), {
@@ -58,7 +58,7 @@ export async function POST(request, { enviar = fetch, entorno = process.env } = 
       text: `Nombre: ${nombre}\nEmail: ${email}\nMotivo: ${ETIQUETAS[motivo]}\n\n${mensaje}\n\n`
         // Constancia de la autorización (Ley 1581): quién, cuándo, qué versión del aviso y desde dónde.
         + `— Autorización de tratamiento de datos: aceptada por ${email} el ${new Date().toISOString()} `
-        + `(aviso de privacidad versión ${VERSION_AVISO}, formulario de contacto del portafolio).`,
+        + `(política de tratamiento de datos versión ${VERSION_AVISO}, formulario de contacto del portafolio).`,
     }),
   }).catch(() => null);
 

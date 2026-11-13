@@ -411,3 +411,10 @@ html.caminando .sugerencia { opacity: 0; }
   .sugerencia-linea { animation: none; scale: 1 1; }
   .cifras { transition: none; }
 }
+
+/* ── Cartel: imagen fija de la entrada mientras la casa 3D espera el primer gesto (celular) ── */
+#cartel { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; background: var(--noche) center / cover no-repeat; transition: opacity 1.4s var(--wa); }
+.escena-diferida #cartel { opacity: 1; background-image: url(/casa-horizontal.webp); }
+@media (orientation: portrait) { .escena-diferida #cartel { background-image: url(/casa-vertical.webp); } }
+.escena-diferida.escena-lista #cartel { opacity: 0; }
+.modo-lectura #cartel { display: none; }

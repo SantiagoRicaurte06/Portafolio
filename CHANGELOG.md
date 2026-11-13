@@ -2,6 +2,18 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [SemVer](https://semver.org/lang/es/).
 
+## [1.2.0] - 2026-11-13
+
+### Añadido
+
+- Política de tratamiento de datos personales y aviso de privacidad completos (Ley 1581 de 2012), en español e inglés, con selector de idioma.
+- Aviso corto de tratamiento de datos debajo del formulario de contacto.
+
+### Cambiado
+
+- La casilla de autorización del formulario nombra al responsable y enlaza a la política.
+- La constancia de autorización del correo registra la versión 1.0 de la política.
+
 ## [1.1.0] - 2026-11-13
 
 ### Añadido
@@ -69,6 +81,7 @@ Primera versión pública del portafolio rediseñado.
 - Formulario de contacto con función de Vercel y Resend: validación, honeypot, límite de envíos y constancia del consentimiento.
 - Aviso de privacidad preliminar (Ley 1581), página 404, Open Graph, datos estructurados y Vercel Web Analytics.
 
+[1.2.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.2.0
 [1.1.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.1.0
 [1.0.3]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.3
 [1.0.2]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.2

@@ -2,6 +2,39 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [SemVer](https://semver.org/lang/es/).
 
+## [1.1.0] - 2026-11-13
+
+### Añadido
+
+- Objetos con mucho más detalle en las siete salas:
+  - Entrada: wagasa abierto y cerrado, andon y geta.
+  - Obras: tana con chigaidana, cajas de kiri y kakejiku con ensō.
+  - Taller: shodō completo y té con vapor.
+  - Camino: momiji con ramificación, hojas que aletean y caen en péndulo.
+  - Servicios: noren con el 商 calado y chōchin.
+  - Sueños: montañas en capas y grulla articulada.
+  - Contacto: orizuru de origami.
+- Arquitectura y jardín: taruki y kawara, cadena de lluvia, pilares sobre piedras, ranma calados, piedras de paso, tōrō con fuego, arbustos karikomi, bambú y primer plano con juncos y rama de pino.
+- Papel washi a contraluz con pulpa y fibras de kozo, temperatura de color, kumiko con volumen, parches y manchas, y llama que respira.
+- Atmósfera: cámara con inercia y acercamiento a la puerta, linterna que camina entre salas, polvo en el haz de luz, niebla sobre el agua y postproceso suave en equipos potentes.
+- Estanque con reflejo del muro, koi, luciérnagas, nenúfares y luna.
+- Tinta más viva (tono, sangrado y kasure), sello animado, preludio con línea de carga y cortina, y transición de tinta más orgánica.
+- Interfaz:
+  - Cursor de tinta con 開 / 入.
+  - Palabras que entran por línea y numeración que rueda.
+  - Paneles de papel rasgado.
+  - Hilo de progreso y sugerencia de scroll.
+- Paisaje sonoro nocturno procedural: viento, grillos, gotas, pasos, pincel, sello y tinta.
+
+### Cambiado
+
+- En celular la casa 3D se carga con el primer gesto y antes se ve una imagen fija de la entrada (Lighthouse móvil: rendimiento 93, LCP 1,8 s).
+- La escena se construye por etapas, los shaders se compilan en segundo plano y la entrada se ve sin esperar al 3D.
+
+### Corregido
+
+- El cursor ya no salta a la esquina de la pantalla al hacer clic ni al pasar por un botón.
+
 ## [1.0.3] - 2026-11-12
 
 ### Corregido
@@ -36,6 +69,7 @@ Primera versión pública del portafolio rediseñado.
 - Formulario de contacto con función de Vercel y Resend: validación, honeypot, límite de envíos y constancia del consentimiento.
 - Aviso de privacidad preliminar (Ley 1581), página 404, Open Graph, datos estructurados y Vercel Web Analytics.
 
+[1.1.0]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.1.0
 [1.0.3]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.3
 [1.0.2]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.2
 [1.0.1]: https://github.com/SantiagoRicaurte06/Portafolio/releases/tag/v1.0.1

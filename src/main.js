@@ -87,6 +87,9 @@ async function iniciarRecorrido() {
   });
   listaObras?.before(indice);
 
+  // El nombre y el rol se ven desde el primer pintado, sin esperar a la casa 3D (LCP)
+  salasDom[0]?.classList.add('visible');
+
   // Preludio: 玄関 en tinta, el sello y la línea de carga mientras llega la casa
   const preludio = crearPreludio({ visto: leer('preludio-visto') === 'si', texto: t('cargando') });
 
@@ -98,7 +101,8 @@ async function iniciarRecorrido() {
   try {
     await new Promise((r) => cuandoLibre(r, 900));
     const { crearEscena } = await preludio.cargar(import('./escena/escena.js'));
-    escena = crearEscena(lienzo, { salas, calidad, menosMovimiento });
+    escena = await crearEscena(lienzo, { salas, calidad, menosMovimiento });
+    await preludio.cargar(escena.iniciar());
     escena.redimensionar(innerWidth, innerHeight);
     addEventListener('resize', () => escena.redimensionar(innerWidth, innerHeight));
   } catch (error) {

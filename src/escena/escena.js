@@ -21,7 +21,10 @@ function resorte(r, objetivo, dt, w) {
 
 const PR_MINIMO = 0.75;
 
-export function crearEscena(canvas, { salas, calidad, menosMovimiento = false }) {
+// Cede el hilo principal entre etapas de construcción: varias tareas cortas en vez de una larga.
+const ceder = () => (globalThis.scheduler?.yield ? globalThis.scheduler.yield() : new Promise((r) => setTimeout(r, 0)));
+
+export async function crearEscena(canvas, { salas, calidad, menosMovimiento = false }) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: calidad.antialias, powerPreference: 'high-performance' });
   const prMaximo = Math.min(devicePixelRatio, calidad.dpr);
   renderer.setPixelRatio(prMaximo);
@@ -43,9 +46,12 @@ export function crearEscena(canvas, { salas, calidad, menosMovimiento = false })
 
   const camara = new THREE.PerspectiveCamera(38, 1, 0.1, 60);
 
+  await ceder();
   const washi = hornearWashi(renderer, calidad.washi);
+  await ceder();
   const { casa, registro, uniformesBrillo, inicio, fin } = crearCasa({ salas, washi, calidad });
   escena.add(casa);
+  await ceder();
 
   const iCamino = salas.findIndex((s) => s.id === 'camino');
   const iMa = salas.findIndex((s) => s.tipo === 'ma');
@@ -253,9 +259,16 @@ export function crearEscena(canvas, { salas, calidad, menosMovimiento = false })
     else renderer.render(escena, camara);
   }
 
-  renderer.setAnimationLoop(cuadro);
+  // Los shaders se compilan en segundo plano (KHR_parallel_shader_compile) antes del primer cuadro:
+  // así el primer render no congela la página varios cientos de milisegundos.
+  async function iniciar() {
+    try { if (renderer.compileAsync) await renderer.compileAsync(escena, camara); } catch { /* sin compilación asíncrona: compila en el primer cuadro */ }
+    reloj.getDelta();
+    renderer.setAnimationLoop(cuadro);
+  }
 
   return {
+    iniciar,
     redimensionar,
     // posicion: 0..n-1 por el pasillo; local: 0..1 dentro de la pausa de la sala actual
     avanzar(posicion, local) { estado.posicion = posicion; estado.local = local; },

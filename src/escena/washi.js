@@ -39,7 +39,7 @@ float washi(vec2 uv){
 }
 `;
 
-export function hornearWashi(renderer, tamano = 1024) {
+export async function hornearWashi(renderer, tamano = 1024) {
   // Con mipmaps las fibras finas no titilan cuando el muro queda lejos (tamano es potencia de 2).
   const destino = new THREE.WebGLRenderTarget(tamano, tamano, {
     depthBuffer: false,
@@ -70,6 +70,8 @@ export function hornearWashi(renderer, tamano = 1024) {
   const malla = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
   escena.add(malla);
   const camara = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  // El shader del washi es caro de compilar: se compila en segundo plano antes de hornear
+  try { if (renderer.compileAsync) await renderer.compileAsync(escena, camara); } catch { /* compila al renderizar */ }
   const anterior = renderer.getRenderTarget();
   renderer.setRenderTarget(destino);
   renderer.render(escena, camara);

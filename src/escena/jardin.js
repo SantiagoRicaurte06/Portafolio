@@ -281,12 +281,14 @@ export function poblarJardin({ lotes: l, salas, inicio, fin, calidad }) {
   // Karikomi en los extremos y al pie de algunos pilares
   karikomi(l, inicio + 0.9, ORILLA + 0.5, 0.45, rnd);
   karikomi(l, fin - 0.9, ORILLA + 0.5, 0.45, rnd);
-  for (let i = 1; i < salas.length; i += 3) {
+  for (let i = 1; i < salas.length; i += baja ? 6 : 3) {
     const x = (i + 0.5) * S;
     if (!enMa(x)) karikomi(l, x + 0.25, ORILLA + 0.4, 0.3, rnd);
   }
 
-  // Primer plano: juncos entre sala y sala y una rama de pino que cruza arriba (solo al caminar)
+  // Primer plano: juncos entre sala y sala y una rama de pino que cruza arriba (solo al caminar).
+  // En calidad baja (celulares) se omite: es lo más caro del jardín y casi no se ve en vertical.
+  if (baja) return { halos: halosToro(centrosFuego) };
   juncos(l, inicio + 3.2, 5.6, rnd, 30);
   for (let i = 0; i < salas.length - 1; i++) {
     const x = salas[i].x + S * 0.6;

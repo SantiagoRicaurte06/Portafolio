@@ -270,6 +270,8 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 .formulario-estado { margin: 0; font-size: .88rem; }
 .formulario-estado[data-tipo="ok"] { color: #1f5d2e; }
 .formulario-estado[data-tipo="error"] { color: var(--sello); }
+.aviso-datos { margin: 0; font-size: .75rem; line-height: 1.5; color: var(--tinta-suave); }
+.aviso-datos a { color: inherit; }
 
 /* Sello que cae al enviar */
 .sello-confirmado { position: fixed; left: 50%; top: 50%; z-index: 70; width: 120px; pointer-events: none; animation: estampar 1.6s var(--wa) forwards; }

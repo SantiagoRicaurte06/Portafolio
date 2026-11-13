@@ -47,9 +47,12 @@ export function iniciarCursor({ menosMovimiento = false } = {}) {
       mover(a, dt, 0.2);
       mover(h, dt, 0.08);
     }
-    punto.style.transform = `translate3d(${p.x}px, ${p.y}px, 0)`;
-    anillo.style.transform = `translate3d(${a.x}px, ${a.y}px, 0)`;
-    halo.style.transform = `translate3d(${h.x}px, ${h.y}px, 0)`;
+    // Se posiciona con la propiedad `translate`, no con `transform`: los estados del CSS usan `scale`,
+    // que se compone con `transform` y escalaría también el desplazamiento (el punto saltaba a la
+    // esquina 0,0 y volvía al hacer clic o al pasar por un botón). `translate` se aplica antes que `scale`.
+    punto.style.translate = `${p.x}px ${p.y}px`;
+    anillo.style.translate = `${a.x}px ${a.y}px`;
+    halo.style.translate = `${h.x}px ${h.y}px`;
     // Se detiene cuando todo llegó: sin bucle permanente
     const quieto = Math.abs(raton.x - h.x) + Math.abs(raton.y - h.y) < 0.3 && Math.abs(raton.x - a.x) + Math.abs(raton.y - a.y) < 0.3;
     cuadro = quieto ? 0 : requestAnimationFrame(animar);

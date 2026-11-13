@@ -5,6 +5,8 @@ import { prepararTinta } from './tinta.js';
 import { texturaWashi } from './papel-dom.js';
 import { transicionTinta } from './transicion.js';
 import { crearPreludio } from './preludio.js';
+import { iniciarCursor } from './cursor.js';
+import { iniciarInterfaz } from './interfaz.js';
 
 const menosMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const tactil = matchMedia('(pointer: coarse)').matches;
@@ -26,6 +28,9 @@ if (modo === 'recorrido' && 'scrollRestoration' in history) history.scrollRestor
 // ── Comunes a los dos modos ────────────────────────────────────────────────
 iniciarIdioma(document.getElementById('idioma'));
 iniciarFormulario();
+// Interfaz: cursor de tinta, reveals por líneas, hilo de progreso y sugerencia de scroll
+const interfaz = iniciarInterfaz({ modo, menosMovimiento });
+iniciarCursor({ menosMovimiento });
 // Lo que no hace falta para el primer pintado espera a que el navegador esté libre
 const cuandoLibre = (fn, limite = 1200) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: limite }) : setTimeout(fn, 200));
 cuandoLibre(() => texturaWashi().then((url) => { if (url) document.documentElement.style.setProperty('--washi', `url(${url})`); }));
@@ -110,6 +115,7 @@ async function iniciarRecorrido() {
     salas, trayecto, menosMovimiento,
     alActualizar({ posicion, local, sala }) {
       escena.avanzar(posicion, local);
+      interfaz.progreso(posicion, salas.length - 1, local);
       const cerca = Math.abs(posicion - sala) < 0.32;
       salasDom.forEach((s, i) => {
         const visible = i === sala && cerca;

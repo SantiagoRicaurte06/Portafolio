@@ -1,6 +1,6 @@
 import { iniciarIdioma, t } from './i18n.js';
 import { iniciarFormulario } from './formulario.js';
-import { activarSonido, sonar, sonidoActivo } from './sonido.js';
+import { activarSonido, sonar, sonidoActivo, velocidad } from './sonido.js';
 import { prepararTinta } from './tinta.js';
 import { texturaWashi } from './papel-dom.js';
 import { transicionTinta } from './transicion.js';
@@ -92,7 +92,7 @@ async function iniciarRecorrido() {
   const tintaPreludio = prepararTinta(preludio.querySelector('canvas'), '玄関', { tamano: Math.min(150, innerWidth * 0.3), vertical: false, grosor: 7.5, tinta: '243,239,230', duracion: vista ? 900 : 2300, pausa: vista ? 15 : 60 });
   // Nunca más de 3,5 s, aunque el dispositivo vaya lento
   const limite = new Promise((r) => setTimeout(r, vista ? 1500 : 3500)).then(() => tintaPreludio.completar());
-  const pintado = Promise.race([tintaPreludio.pintar(), limite]).then(() => { preludio.classList.add('sellado'); return new Promise((r) => setTimeout(r, 450)); });
+  const pintado = Promise.race([tintaPreludio.pintar(), limite]).then(() => { preludio.classList.add('sellado'); sonar('sello'); return new Promise((r) => setTimeout(r, 450)); });
   const saltar = () => tintaPreludio.completar();
   addEventListener('pointerdown', saltar, { once: true });
   addEventListener('keydown', saltar, { once: true });
@@ -125,12 +125,12 @@ async function iniciarRecorrido() {
       const cerca = Math.abs(posicion - sala) < 0.32;
       salasDom.forEach((s, i) => {
         const visible = i === sala && cerca;
-        if (visible && !s.classList.contains('visible')) pintarSala(s);
+        if (visible && !s.classList.contains('visible')) { pintarSala(s); sonar('pincel', { duracion: 1.5 }); }
         s.classList.toggle('visible', visible);
         s.inert = !visible;
       });
       if (sala !== salaActual) {
-        if (salaActual !== -1) sonar('furin');
+        if (salaActual !== -1) { sonar('pasos'); sonar('furin', { nivel: 0.6 }); }
         salaActual = sala;
         enlacesMapa.forEach((a) => a.setAttribute('aria-current', String(a.hash === `#${salas[sala].id}`)));
       }
@@ -152,12 +152,16 @@ async function iniciarRecorrido() {
     },
   });
 
+  // El viento y los pasos responden a la velocidad del scroll
+  recorrido.lenis.on('scroll', ({ velocity }) => velocidad(velocity));
+
   // Mapa y enlaces internos: la tinta cubre la pantalla y la cámara salta a la sala
   document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
     const i = salas.findIndex((s) => `#${s.id}` === a.hash);
     if (i < 0) return;
     e.preventDefault();
     const r = a.getBoundingClientRect();
+    sonar('tinta');
     transicionTinta(() => recorrido.irA(i, { inmediato: true }), { origen: [(r.left + r.width / 2) / innerWidth, (r.top + r.height / 2) / innerHeight] });
     history.replaceState(null, '', a.hash);
   }));
@@ -172,7 +176,10 @@ async function iniciarRecorrido() {
 
   // Linterna y agua: el puntero mueve la luz; tocar el agua hace ondas
   addEventListener('pointermove', (e) => escena.apuntar((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), { passive: true });
-  lienzo.addEventListener('pointerdown', (e) => escena.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1));
+  lienzo.addEventListener('pointerdown', (e) => {
+    escena.tocarAgua((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    sonar('gota', { pan: (e.clientX / innerWidth) * 2 - 1 });
+  });
   document.addEventListener('visibilitychange', () => escena.pausar(document.hidden));
 
   await pintado;

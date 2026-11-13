@@ -81,7 +81,10 @@ function hojaShoji(ancho, alto, material) {
 
 const pisoVertex = 'varying vec3 vMundo; void main(){ vec4 m = modelMatrix * vec4(position,1.0); vMundo = m.xyz; gl_Position = projectionMatrix * viewMatrix * m; }';
 
-export function crearCasa({ salas, washi, calidad }) {
+// Cede el hilo principal entre salas: varias tareas cortas en vez de una larga
+const ceder = () => (globalThis.scheduler?.yield ? globalThis.scheduler.yield() : new Promise((r) => setTimeout(r, 0)));
+
+export async function crearCasa({ salas, washi, calidad }) {
   const casa = new THREE.Group();
   const total = salas.length;
   const largo = total * S;
@@ -200,7 +203,7 @@ export function crearCasa({ salas, washi, calidad }) {
   // ── Salas ────────────────────────────────────────────────────────────────
   let k = 0;
   const lugares = [];
-  const registro = salas.map((sala, i) => {
+  const construirSala = (sala, i) => {
     const x = i * S;
     const grupo = new THREE.Group();
     grupo.position.x = x;
@@ -278,10 +281,16 @@ export function crearCasa({ salas, washi, calidad }) {
     if (ocupantes) grupo.add(ocupantes.grupo);
 
     return { sala, x, tipo: 'sala', grupo, material, materialRanma, hojas, interior, ocupantes, potencia: 0.6, apertura: 0 };
-  });
+  };
+  const registro = [];
+  for (let i = 0; i < salas.length; i++) {
+    registro.push(construirSala(salas[i], i));
+    await ceder();
+  }
 
   // El jardín y luego cada lote fundido en una malla
   const { halos } = poblarJardin({ lotes, salas: lugares, inicio, fin, calidad });
+  await ceder();
   for (const [nombre, lote] of Object.entries(lotes)) {
     const m = lote.malla(MAT[nombre]);
     if (m) { m.name = nombre; casa.add(m); }

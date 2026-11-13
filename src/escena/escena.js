@@ -47,9 +47,9 @@ export async function crearEscena(canvas, { salas, calidad, menosMovimiento = fa
   const camara = new THREE.PerspectiveCamera(38, 1, 0.1, 60);
 
   await ceder();
-  const washi = hornearWashi(renderer, calidad.washi);
+  const washi = await hornearWashi(renderer, calidad.washi);
   await ceder();
-  const { casa, registro, uniformesBrillo, inicio, fin } = crearCasa({ salas, washi, calidad });
+  const { casa, registro, uniformesBrillo, inicio, fin } = await crearCasa({ salas, washi, calidad });
   escena.add(casa);
   await ceder();
 
@@ -59,10 +59,11 @@ export async function crearEscena(canvas, { salas, calidad, menosMovimiento = fa
   escena.add(estanque.grupo);
 
   // Atmósfera: polvo en el haz de la puerta y niebla baja sobre el agua
-  const polvo = crearPolvo(alta ? 260 : 150);
+  const polvo = crearPolvo(alta ? 260 : 90);
   escena.add(polvo.objeto);
+  // En calidad baja no hay niebla: un shader menos que compilar y menos relleno de pantalla
   const niebla = crearNiebla({ inicio, fin, uniformesBrillo, capas: alta ? 2 : 1 });
-  escena.add(niebla.grupo);
+  if (alta) escena.add(niebla.grupo);
 
   // Luna: muy tenue y fría, solo para recortar pilares y vigas
   escena.add(new THREE.HemisphereLight(0x8a96b0, 0x0a0806, 0.22));

@@ -61,11 +61,17 @@ export function iniciarCursor({ menosMovimiento = false } = {}) {
     if (!(objetivo instanceof Element)) return;
     const campo = objetivo.closest(CAMPOS);
     const pulsable = !campo && objetivo.closest(INTERACTIVOS);
+    if (!campo && cursor.classList.contains('en-campo')) { Object.assign(p, raton); Object.assign(a, raton); }
     cursor.classList.toggle('en-campo', Boolean(campo));
+    // El anillo y el halo siguen al ratón con inercia aunque estén ocultos: al aparecer, nacen
+    // donde está el ratón (si no, salen desde su posición atrasada y parecen teletransportarse).
+    if (pulsable && !cursor.classList.contains('activo')) Object.assign(a, raton);
     cursor.classList.toggle('activo', Boolean(pulsable));
     if (pulsable) texto.textContent = pulsable.closest('.mapa') ? '入' : '開';
     cursor.classList.toggle('sobre-papel', Boolean(objetivo.closest(PAPEL)));
-    halo.classList.toggle('visible', objetivo.id === 'escena' && !menosMovimiento);
+    const conHalo = objetivo.id === 'escena' && !menosMovimiento;
+    if (conHalo && !halo.classList.contains('visible')) Object.assign(h, raton);
+    halo.classList.toggle('visible', conHalo);
   }
 
   addEventListener('pointermove', (e) => {
@@ -78,7 +84,12 @@ export function iniciarCursor({ menosMovimiento = false } = {}) {
     }
     despertar();
   }, { passive: true });
-  addEventListener('pointerover', (e) => leerObjetivo(e.target), { passive: true });
+  addEventListener('pointerover', (e) => {
+    // pointerover llega antes que pointermove: se toma la posición de este mismo evento
+    if (e.pointerType === 'mouse' || e.pointerType === 'pen') { raton.x = e.clientX; raton.y = e.clientY; }
+    leerObjetivo(e.target);
+    despertar();
+  }, { passive: true });
   document.addEventListener('pointerleave', () => { cursor.classList.add('fuera'); halo.classList.remove('visible'); });
   addEventListener('blur', () => cursor.classList.add('fuera'));
   addEventListener('pointerdown', () => cursor.classList.add('pulsando'), { passive: true });

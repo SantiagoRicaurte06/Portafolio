@@ -47,14 +47,21 @@ document.addEventListener('idioma', pintarBotones);
 pintarBotones();
 
 // Kanji de pincel de cada sala: se pintan la primera vez que la sala se muestra
+// Kanji de pincel de cada sala: la tinta (tres canvas por sala) se prepara recién la primera vez
+// que la sala se muestra; prepararlas todas al inicio costaba ~0,4 s en un celular.
 const tintas = new Map();
-salasDom.forEach((s) => {
+function tintaDe(s) {
+  if (tintas.has(s)) return tintas.get(s);
   const lienzo = s.querySelector('.kanji-tinta');
-  if (!lienzo || getComputedStyle(lienzo.parentElement).display === 'none') return;
-  const tamano = innerWidth < 760 ? 46 : 62;
-  tintas.set(s, prepararTinta(lienzo, s.dataset.kanji, { tamano, vertical: innerWidth >= 760, grosor: 8.5, duracion: 1500, pausa: 50 }));
-});
-const pintarSala = (s) => tintas.get(s)?.pintar();
+  let tinta = null;
+  if (lienzo && getComputedStyle(lienzo.parentElement).display !== 'none') {
+    const tamano = innerWidth < 760 ? 46 : 62;
+    tinta = prepararTinta(lienzo, s.dataset.kanji, { tamano, vertical: innerWidth >= 760, grosor: 8.5, duracion: 1500, pausa: 50 });
+  }
+  tintas.set(s, tinta);
+  return tinta;
+}
+const pintarSala = (s) => tintaDe(s)?.pintar();
 
 const pergaminos = [...document.querySelectorAll('.pergamino')];
 const listaObras = document.querySelector('.pergaminos');
